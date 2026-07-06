@@ -1,0 +1,16 @@
+PRODUCT TYPES
+
+CREDIT CARD
+Credit card accounts include revolving consumer credit issued by banks and portfolio buyers.
+Keywords: credit card, APR, minimum payment, cardmember, Visa, Mastercard, account ending.
+
+STUDENT LOAN
+Student loans include federal and private education debt.
+Keywords: student loan, Navient, MOHELA, deferment, forbearance, education loan.
+
+AUTO LOAN
+Auto loans include vehicle-secured installment credit.
+Keywords: auto loan, vehicle, VIN, motor vehicle, car loan, repossession.
+
+DATA CLASSIFICATION
+Account numbers and SSN are restricted.

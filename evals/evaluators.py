@@ -1,0 +1,95 @@
+"""Custom pydantic-evals evaluators for court document pipeline."""
+
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass, field
+
+from pydantic_evals.evaluators import Evaluator, EvaluatorContext, EvaluationReason
+
+from court.schemas import CaseExtraction
+
+
+def _compact_alnum(text: str) -> str:
+    return re.sub(r"[\s,./\-:]+", "", text.lower())
+
+
+def _phrase_present(phrase: str, text: str) -> bool:
+    """Case-insensitive match; tolerate OCR spacing/punctuation drift."""
+    lowered = phrase.lower()
+    haystack = text.lower()
+    if lowered in haystack:
+        return True
+    if sum(ch.isdigit() for ch in phrase) >= max(3, len(phrase) // 3):
+        if _compact_alnum(phrase) in _compact_alnum(text):
+            return True
+    return False
+
+
+@dataclass(repr=False)
+class RequiredPhrasesPresent(Evaluator[str, str, dict]):
+    """OCR output must contain every required phrase (case-insensitive)."""
+
+    evaluation_name: str | None = field(default="required_phrases")
+
+    def evaluate(self, ctx: EvaluatorContext[str, str, dict]) -> EvaluationReason:
+        phrases: list[str] = ctx.metadata.get("required_phrases", [])
+        if not phrases:
+            return EvaluationReason(value=True)
+        missing = [phrase for phrase in phrases if not _phrase_present(phrase, ctx.output)]
+        if missing:
+            return EvaluationReason(
+                value=False,
+                reason=f"missing phrases: {', '.join(missing)}",
+            )
+        return EvaluationReason(value=True)
+
+
+@dataclass(repr=False)
+class ExtractChecksPass(Evaluator[object, CaseExtraction, dict]):
+    """Structured extraction must satisfy per-case checks from metadata."""
+
+    evaluation_name: str | None = field(default="extract_checks")
+
+    def evaluate(self, ctx: EvaluatorContext[object, CaseExtraction, dict]) -> bool:
+        checks: dict = ctx.metadata.get("extract_checks", {})
+        if not checks:
+            return True
+        output: CaseExtraction = ctx.output
+
+        if expected_number := checks.get("case_number"):
+            if output.case_number != expected_number:
+                return False
+
+        if min_events := checks.get("min_events"):
+            if len(output.events) < int(min_events):
+                return False
+
+        if min_deadlines := checks.get("min_deadlines"):
+            if len(output.deadlines) < int(min_deadlines):
+                return False
+
+        if expected_types := checks.get("event_types"):
+            actual = {event.event_type.lower().replace(" ", "_") for event in output.events}
+            for event_type in expected_types:
+                normalized = event_type.lower().replace(" ", "_")
+                if not any(
+                    normalized in actual_type or actual_type in normalized
+                    for actual_type in actual
+                ):
+                    return False
+
+        if deadline_phrases := checks.get("deadline_phrases"):
+            blob = " ".join(d.description.lower() for d in output.deadlines)
+            for phrase in deadline_phrases:
+                if phrase.lower() not in blob:
+                    return False
+
+        if checks.get("no_hallucinated_zoom_urls"):
+            for event in output.events:
+                if event.virtual_meeting_id and event.virtual_meeting_id.startswith(
+                    ("http://", "https://")
+                ):
+                    return False
+
+        return True

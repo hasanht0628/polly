@@ -1,0 +1,17 @@
+{
+  "client_id": "acme",
+  "product_type": "credit_card",
+  "confidence": "high",
+  "evidence_quotes": [
+    "Credit Card Account ending in 4321",
+    "Minimum Payment Due"
+  ],
+  "manual_citations": [
+    {
+      "section": "CREDIT CARD",
+      "rule_text": "Keywords: credit card, APR, minimum payment"
+    }
+  ],
+  "needs_review": false,
+  "alternative_types": []
+}

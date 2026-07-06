@@ -1,0 +1,29 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Environment (use .env.example)
+.env
+
+# OS
+.DS_Store
+
+# Runtime / local data
+data/
+
+# OCR sidecar caches (regenerated on first run)
+fixtures/*.ocr.txt
+
+# Eval goldens (regenerated via evals/bootstrap_goldens.py)
+evals/ocr/goldens/*
+!evals/ocr/goldens/.gitkeep
+evals/extract/goldens/*
+!evals/extract/goldens/.gitkeep
+
+# Eval regression snapshots (local only)
+evals/runs/*
+!evals/runs/.gitignore
+!evals/runs/.gitkeep

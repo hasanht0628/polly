@@ -1,0 +1,38 @@
+{
+  "client_id": "acme",
+  "product_types": [
+    {
+      "product_type": "credit_card",
+      "definition": "Revolving consumer credit card accounts",
+      "keywords": ["credit card", "APR", "minimum payment", "cardmember"],
+      "issuer_patterns": ["Capital One", "Portfolio Recovery"],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "student_loan",
+      "definition": "Federal and private education debt",
+      "keywords": ["student loan", "Navient", "deferment"],
+      "issuer_patterns": [],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "auto_loan",
+      "definition": "Vehicle-secured installment loans",
+      "keywords": ["auto loan", "VIN", "vehicle"],
+      "issuer_patterns": [],
+      "example_descriptions": []
+    }
+  ],
+  "field_definitions": [
+    {
+      "name": "account_number",
+      "description": "Consumer account identifier",
+      "data_classification": "restricted"
+    }
+  ],
+  "rules": [
+    "Classify using issuer name and product keywords from the manual"
+  ],
+  "version": "1",
+  "source_manual_path": "fixtures/classification/manuals/acme_manual.txt"
+}

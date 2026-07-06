@@ -1,0 +1,8 @@
+ollama>=0.4.0          # official Python client; health checks + optional direct calls
+pydantic-ai>=0.2.0     # agents (uses OllamaModel under the hood)
+pydantic-evals>=0.1.0  # evaluation framework
+python-dotenv>=1.0.0   # load .env
+pytest>=8.0.0          # smoke tests for non-LLM code
+pymupdf>=1.24.0        # PDF page rendering for olmocr2 OCR pipeline
+pyyaml>=6.0.0          # eval case metadata
+httpx>=0.27.0          # PDF download for workflow intake

@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+from enum import Enum
+
+
+class WorkflowName(str, Enum):
+    court_doc_scheduling = "court_doc_scheduling"
+    product_classification = "product_classification"
+
+
+TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
+    WorkflowName.court_doc_scheduling: (
+        "parse_court_email",
+        "download_document",
+        "load_document_text",
+        "extract_document",
+        "propose_calendar_items",
+        "format_scheduling_output",
+    ),
+    WorkflowName.product_classification: (
+        "load_document_text",
+        "ingest_client_manual",
+        "retrieve_manual_passages",
+        "extract_document",
+    ),
+}
+
+
+def tools_for(workflow: WorkflowName) -> tuple[str, ...]:
+    return TOOL_SETS[workflow]
