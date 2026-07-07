@@ -1,0 +1,78 @@
+--- Page 1 ---
+SP
+Southern Portfolio Recovery
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Account Placement Notice
+Consumer
+Alex Rivera
+Reference
+SPR-9016
+Notice Date
+07/06/2026
+Product
+Unsecured Personal Installment Loan
+Amount Due
+$7,842.90
+Due Date: 08/15/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Current Creditor
+SPR Consumer Trust 2026-1
+Original Creditor
+Online Consumer Lending
+Bank
+Original Loan Amount
+$9,500.00
+Origination Date
+11/03/2024
+Last Payment Date
+12/15/2025
+Charge-Off Date
+05/31/2026
+Current Balance
+$7,842.90
+Collection Status
+Third-party collection
+Account Placement Information
+Debt Collector
+Southern Portfolio Recovery
+Current Creditor
+SPR Consumer Trust 2026-1
+Original Creditor
+Online Consumer Lending
+Bank
+Product
+Unsecured personal
+installment loan
+Original Loan Amount
+$9,500.00
+Origination Date
+11/03/2024
+Balance Itemization
+Item
+Amount
+Balance at charge-off
+$7,612.40
+Interest after charge-off
+$0.00
+Fees after charge-off
+$230.50
+Payments or credits
+-$0.00
+Current balance
+$7,842.90
+Collector Disclosure
+This communication is from a debt collector and is an attempt to collect a debt. This fictional sample is designed to test whether a classifier can identify the original
+account as a personal installment loan.
+Payment Coupon
+Account ending: 9016
+Amount Due: $7,842.90
+Due: 08/15/2026
+Make checks payable to:
+Southern Portfolio Recovery
+Write account ending on check.
+Do not send cash.
+Mail to:
+Southern Portfolio Recovery, Payment Processing Center, P.O. Box 1020, Sample City, ST 00000

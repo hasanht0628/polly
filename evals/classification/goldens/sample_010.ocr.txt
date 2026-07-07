@@ -1,0 +1,78 @@
+--- Page 1 ---
+FC
+First County Bank
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Home Equity Line of Credit Statement
+Borrower
+Sam Lee
+Account
+HELOC-8003
+Billing Cycle
+06/01/2026 - 06/30/2026
+Property Securing
+Account
+456 Fictional Ave, Tampa, FL
+Amount Due
+$241.88
+Due Date: 07/18/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Credit Limit
+$75,000.00
+Outstanding Balance
+$31,420.55
+Available Credit
+$43,579.45
+Draw Period Ends
+09/01/2030
+Variable APR
+9.25%
+Minimum Payment
+$241.88
+Current Advances
+$4,000.00
+Collateral
+Home equity lien
+Line Activity
+Date
+Description
+Advance
+Payment
+Balance
+06/03
+Online advance to checking
+$4,000.00
+$0.00
+$31,670.55
+06/18
+Payment received
+$0.00
+-$250.00
+$31,420.55
+Credit Line Terms
+Draw Period End Date
+09/01/2030
+Repayment Period
+Begins
+10/01/2030
+Minimum Payment
+Method
+Interest plus fees during draw
+period
+Secured By
+Residential property listed
+above
+Security Interest Notice
+This line of credit is secured by your home. You could lose your home if you do not meet the obligations in your agreement.
+Payment Coupon
+Account ending: 8003
+Amount Due: $241.88
+Due: 07/18/2026
+Make checks payable to:
+First County Bank
+Write account ending on check.
+Do not send cash.
+Mail to:
+First County Bank, Payment Processing Center, P.O. Box 1010, Sample City, ST 00000

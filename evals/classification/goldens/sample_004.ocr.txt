@@ -1,0 +1,86 @@
+--- Page 1 ---
+SF
+Southgate Financial
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Installment Loan Statement
+Borrower
+Casey Brooks
+Account
+LN-6620
+Statement Date
+06/15/2026
+Description
+Unsecured Consumer Installment Note
+Amount Due
+$205.44
+Due Date: 07/01/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Amount Financed
+$7,500.00
+Term
+48 months
+Payment Number
+19 of 48
+Regular Payment
+$205.44
+Principal Balance
+$4,982.21
+Interest Accrued
+$42.18
+Fees Due
+$0.00
+Collateral
+None
+Installment Contract Summary
+Original Amount
+Financed
+$7,500.00
+Annual Percentage
+Rate
+13.20%
+Scheduled Payment
+Amount
+$205.44
+Maturity Date
+12/01/2028
+Principal Balance
+Before Payment
+$4,982.21
+Total Amount Due
+$205.44
+Recent Account Activity
+Effective Date
+Transaction Type
+Principal
+Interest
+Amount
+05/01
+Scheduled Payment
+$151.36
+$54.08
+$205.44
+06/01
+Scheduled Payment
+$156.02
+$49.42
+$205.44
+06/15
+Interest Accrual
+$0.00
+$42.18
+$42.18
+Collateral and Prepayment
+Collateral: None. This is an unsecured consumer installment note. You may make additional principal payments or pay off the loan early without a prepayment fee.
+Payment Coupon
+Account ending: 6620
+Amount Due: $205.44
+Due: 07/01/2026
+Make checks payable to:
+Southgate Financial
+Write account ending on check.
+Do not send cash.
+Mail to:
+Southgate Financial, Payment Processing Center, P.O. Box 1004, Sample City, ST 00000

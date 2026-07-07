@@ -1,0 +1,78 @@
+--- Page 1 ---
+CR
+Consumer Retail Finance
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Retail Installment Contract Statement
+Customer
+Parker Adams
+Contract
+RIC-2938
+Merchant
+Northside Furniture Gallery
+Purchase Date
+01/06/2026
+Amount Due
+$178.34
+Due Date: 07/06/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Items Financed
+Sofa, dining table, bedroom
+set
+Amount Financed
+$4,280.00
+Promotional Plan
+12 months same-as-cash
+Promo Expiration
+01/06/2027
+Minimum Monthly
+Payment
+$178.34
+Remaining Balance
+$3,388.46
+Deferred Interest
+May apply
+Status
+Current
+Purchase and Financing Summary
+Merchant
+Northside Furniture Gallery
+Amount Financed
+$4,280.00
+Sales Tax Included
+Yes
+Finance Company
+Consumer Retail Finance
+Plan Description
+Retail installment contract
+Deferred Interest
+Offer
+12 months same-as-cash
+Itemized Purchase
+Item
+SKU
+Amount
+Three-seat sofa
+SOF-8821
+$1,480.00
+Dining table set
+DIN-2264
+$1,300.00
+Bedroom set
+BED-4401
+$1,500.00
+Promotional Financing Warning
+Deferred interest may be charged from the purchase date if the promotional balance is not paid in full by the expiration date. This account is tied to a specific merchant
+purchase.
+Payment Coupon
+Account ending: 2938
+Amount Due: $178.34
+Due: 07/06/2026
+Make checks payable to:
+Consumer Retail Finance
+Write account ending on check.
+Do not send cash.
+Mail to:
+Consumer Retail Finance, Payment Processing Center, P.O. Box 1012, Sample City, ST 00000

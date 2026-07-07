@@ -42,7 +42,7 @@ Registered in [`documents/profiles/registry.py`](../documents/profiles/registry.
 |---------|--------|---------|
 | `court_calendar` | `CaseExtraction` | Court scheduling workflow |
 | `client_manual_taxonomy` | `ClientTaxonomy` | Manual ingest |
-| `product_classification` | `ProductClassification` | Consumer doc classification |
+| `product_classification` | `ProductClassification` | Consumer doc classification (nine account types) |
 
 Call programmatically:
 
@@ -161,25 +161,40 @@ Not a LangGraph loop. The "supervisor" is a **deterministic async router**:
 
 ## Classification workflow
 
-Secondary workflow for consumer document classification:
+Secondary workflow for consumer account classification (nine account types + `unknown`):
 
 ```mermaid
 flowchart LR
   manual[Client manual PDF]
   ingest[ingest_client_manual.py]
   store[knowledge/client_manuals/store.py]
+  baseline[classification/taxonomy.py]
   consumer[Consumer doc PDF]
-  classify[classify_document.py]
-  result[ProductClassification]
+  workflow[run_account_classification.py]
+  result[AccountClassificationPackage]
 
   manual --> ingest --> store
-  consumer --> classify
-  store --> classify
-  classify --> result
+  baseline --> workflow
+  consumer --> workflow
+  store --> workflow
+  workflow --> result
 ```
 
-1. Ingest manual → extract taxonomy + chunk index ([`knowledge/client_manuals/store.py`](../knowledge/client_manuals/store.py))
-2. Classify consumer doc → retrieve manual passages → LLM classification via `product_classification` profile
+1. Optional: ingest manual → extract taxonomy + chunk index ([`knowledge/client_manuals/store.py`](../knowledge/client_manuals/store.py))
+2. Classify consumer PDF → OCR → merge baseline + client taxonomy → retrieve manual passages → LLM classification via `product_classification` profile → `AccountClassificationPackage`
+
+Account types: `credit_card`, `personal_loan`, `auto_loan`, `student_loan`, `mortgage`, `heloc`, `medical_bill`, `bnpl`, `telecom`, `unknown`.
+
+### `AccountClassificationPackage` ([`workflows/schemas.py`](../workflows/schemas.py))
+
+| Field | Description |
+|-------|-------------|
+| `client_id`, `consumer_id` | Client and optional consumer traceability |
+| `account_type` | Classified account type |
+| `confidence`, `needs_review`, `review_reasons` | Human-review signals |
+| `evidence_quotes`, `manual_citations`, `alternative_types` | Audit trail |
+| `classification` | Full `ProductClassification` embedded |
+| `source_pdf_path`, `ocr_cache_path` | Document provenance |
 
 ## Runtime data paths
 

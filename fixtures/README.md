@@ -1,24 +1,51 @@
-# Sample court PDFs for extraction testing
+# Sample fixtures for extraction and classification testing
 
-Add redacted sample PDFs here. Do not commit unredacted PII.
+**Git policy:** Everything under `fixtures/` is gitignored except this README and `.gitkeep` markers. Copy sample PDFs and synthetic fixtures here locally; do not commit unredacted PII.
 
-## Suggested names
+## Court PDFs
 
+Add redacted sample court PDFs at the repo root of this folder, e.g.:
+
+- `case 1.pdf`
 - `scheduling_order_01.pdf`
-- `trial_notice_virtual.pdf`
-- `docket_sounding_notice.pdf`
-
-## Run extract
-
-From the project root:
 
 ```bash
 python scripts/extract_court_doc.py "fixtures/case 1.pdf" --pretty
 ```
 
-OCR output is cached as `fixtures/case 1.ocr.txt` after the first run. Use `--refresh-ocr` to re-run olmocr2.
+OCR sidecars (`*.ocr.txt`) are created beside the PDF on first run.
 
-Requires Ollama running with models from `.env`:
+## Consumer classification PDFs
+
+Real consumer document test set:
+
+```
+fixtures/classification/consumer/pdfs/
+```
+
+Currently holds `sample_001.pdf` … `sample_021.pdf` (local only).
+
+Run classification:
+
+```bash
+python scripts/run_account_classification.py acme "fixtures/classification/consumer/pdfs/sample_001.pdf" --pretty
+```
+
+## Synthetic classification fixtures
+
+Offline tests and evals also use plain-text statement fixtures:
+
+```
+fixtures/classification/consumer/*.txt
+fixtures/classification/consumer/*_classification.json
+fixtures/classification/manuals/
+```
+
+Register labeled cases in `evals/classification/cases.yaml`.
+
+## Prerequisites
+
+Requires Ollama with models from `.env`:
 
 - `OLLAMA_MODEL_OCR` (olmocr2) — reads every page
-- `OLLAMA_MODEL` (qwen2.5) — structured extraction
+- `OLLAMA_MODEL` (qwen2.5) — structured extraction / classification

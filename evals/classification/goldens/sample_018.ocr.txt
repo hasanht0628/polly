@@ -1,0 +1,72 @@
+--- Page 1 ---
+RC
+Rapid Cash Funding
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Short-Term Loan Payment Notice
+Borrower
+Skyler James
+Loan
+ending 7122
+Notice Date
+06/24/2026
+Loan Type
+Single-Payment Cash Advance
+Amount Due
+$575.00
+Due Date: 07/03/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Advance Amount
+$500.00
+Finance Charge
+$75.00
+Total Payment Due
+$575.00
+Due Date
+07/03/2026
+Payment Method
+ACH debit
+Bank Account
+checking ending 9081
+Renewal
+Not available in all states
+Status
+Open
+Loan Terms
+Advance Amount
+$500.00
+Finance Charge
+$75.00
+Payment Schedule
+Single payment
+APR Disclosure
+Provided in loan agreement
+Payment Method
+ACH debit authorization
+Collateral
+None
+Scheduled Payment
+Due Date
+Principal
+Finance Charge
+Fees
+Total
+07/03/2026
+$500.00
+$75.00
+$0.00
+$575.00
+Notice
+This is a short-term consumer loan and not a credit card, auto loan, student loan, mortgage, or retail installment purchase.
+Payment Coupon
+Account ending: 7122
+Amount Due: $575.00
+Due: 07/03/2026
+Make checks payable to:
+Rapid Cash Funding
+Write account ending on check.
+Do not send cash.
+Mail to:
+Rapid Cash Funding, Payment Processing Center, P.O. Box 1018, Sample City, ST 00000

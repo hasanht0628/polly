@@ -1,0 +1,176 @@
+cases:
+- slug: sample_001
+  pdf_path: fixtures/classification/consumer/pdfs/sample_001.pdf
+  ocr_fixture: evals/classification/goldens/sample_001.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_001.json
+  client_id: acme
+  expected_product_type: credit_card
+  evidence_phrases:
+  - Credit Card Statement
+  - Cardmember
+- slug: sample_002
+  pdf_path: fixtures/classification/consumer/pdfs/sample_002.pdf
+  ocr_fixture: evals/classification/goldens/sample_002.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_002.json
+  client_id: acme
+  expected_product_type: credit_card
+  evidence_phrases:
+  - Store Card Statement
+- slug: sample_003
+  pdf_path: fixtures/classification/consumer/pdfs/sample_003.pdf
+  ocr_fixture: evals/classification/goldens/sample_003.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_003.json
+  client_id: acme
+  expected_product_type: personal_loan
+  evidence_phrases:
+  - Personal Loan Monthly Statement
+- slug: sample_004
+  pdf_path: fixtures/classification/consumer/pdfs/sample_004.pdf
+  ocr_fixture: evals/classification/goldens/sample_004.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_004.json
+  client_id: acme
+  expected_product_type: personal_loan
+  evidence_phrases:
+  - Installment Loan Statement
+- slug: sample_005
+  pdf_path: fixtures/classification/consumer/pdfs/sample_005.pdf
+  ocr_fixture: evals/classification/goldens/sample_005.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_005.json
+  client_id: acme
+  expected_product_type: auto_loan
+  evidence_phrases:
+  - Auto Finance Statement
+- slug: sample_006
+  pdf_path: fixtures/classification/consumer/pdfs/sample_006.pdf
+  ocr_fixture: evals/classification/goldens/sample_006.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_006.json
+  client_id: acme
+  expected_product_type: auto_loan
+  evidence_phrases:
+  - VIN
+  - Repossession
+- slug: sample_007
+  pdf_path: fixtures/classification/consumer/pdfs/sample_007.pdf
+  ocr_fixture: evals/classification/goldens/sample_007.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_007.json
+  client_id: acme
+  expected_product_type: student_loan
+  evidence_phrases:
+  - Student Loan
+- slug: sample_008
+  pdf_path: fixtures/classification/consumer/pdfs/sample_008.pdf
+  ocr_fixture: evals/classification/goldens/sample_008.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_008.json
+  client_id: acme
+  expected_product_type: student_loan
+  evidence_phrases:
+  - student loan
+- slug: sample_009
+  pdf_path: fixtures/classification/consumer/pdfs/sample_009.pdf
+  ocr_fixture: evals/classification/goldens/sample_009.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_009.json
+  client_id: acme
+  expected_product_type: mortgage
+  evidence_phrases:
+  - Mortgage
+- slug: sample_010
+  pdf_path: fixtures/classification/consumer/pdfs/sample_010.pdf
+  ocr_fixture: evals/classification/goldens/sample_010.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_010.json
+  client_id: acme
+  expected_product_type: heloc
+  evidence_phrases:
+  - HELOC
+  - home equity
+- slug: sample_011
+  pdf_path: fixtures/classification/consumer/pdfs/sample_011.pdf
+  ocr_fixture: evals/classification/goldens/sample_011.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_011.json
+  client_id: acme
+  expected_product_type: unknown
+  evidence_phrases:
+  - 'Account Type: Consumer checking'
+  - Loan or Credit Card? No
+  - This notice concerns a deposit account balance. It is not a credit card, student
+    loan, auto loan, or personal loan account.
+- slug: sample_012
+  pdf_path: fixtures/classification/consumer/pdfs/sample_012.pdf
+  ocr_fixture: evals/classification/goldens/sample_012.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_012.json
+  client_id: acme
+  expected_product_type: bnpl
+  evidence_phrases:
+  - Retail Installment Contract
+  - Merchant
+- slug: sample_013
+  pdf_path: fixtures/classification/consumer/pdfs/sample_013.pdf
+  ocr_fixture: evals/classification/goldens/sample_013.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_013.json
+  client_id: acme
+  expected_product_type: bnpl
+  evidence_phrases:
+  - Pay-in-4
+- slug: sample_014
+  pdf_path: fixtures/classification/consumer/pdfs/sample_014.pdf
+  ocr_fixture: evals/classification/goldens/sample_014.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_014.json
+  client_id: acme
+  expected_product_type: medical_bill
+  evidence_phrases:
+  - Patient Account Statement
+  - Patient
+- slug: sample_015
+  pdf_path: fixtures/classification/consumer/pdfs/sample_015.pdf
+  ocr_fixture: evals/classification/goldens/sample_015.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_015.json
+  client_id: acme
+  expected_product_type: unknown
+  evidence_phrases: []
+- slug: sample_016
+  pdf_path: fixtures/classification/consumer/pdfs/sample_016.pdf
+  ocr_fixture: evals/classification/goldens/sample_016.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_016.json
+  client_id: acme
+  expected_product_type: telecom
+  evidence_phrases:
+  - Wireless Account Statement
+  - data plan
+- slug: sample_017
+  pdf_path: fixtures/classification/consumer/pdfs/sample_017.pdf
+  ocr_fixture: evals/classification/goldens/sample_017.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_017.json
+  client_id: acme
+  expected_product_type: unknown
+  evidence_phrases: []
+- slug: sample_018
+  pdf_path: fixtures/classification/consumer/pdfs/sample_018.pdf
+  ocr_fixture: evals/classification/goldens/sample_018.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_018.json
+  client_id: acme
+  expected_product_type: personal_loan
+  evidence_phrases:
+  - Short-Term Loan
+  - Cash Advance
+- slug: sample_019
+  pdf_path: fixtures/classification/consumer/pdfs/sample_019.pdf
+  ocr_fixture: evals/classification/goldens/sample_019.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_019.json
+  client_id: acme
+  expected_product_type: credit_card
+  evidence_phrases:
+  - Consumer Credit Card
+- slug: sample_020
+  pdf_path: fixtures/classification/consumer/pdfs/sample_020.pdf
+  ocr_fixture: evals/classification/goldens/sample_020.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_020.json
+  client_id: acme
+  expected_product_type: personal_loan
+  evidence_phrases:
+  - Personal Installment Loan
+- slug: sample_021
+  pdf_path: fixtures/classification/consumer/pdfs/sample_021.pdf
+  ocr_fixture: evals/classification/goldens/sample_021.ocr.txt
+  classification_golden_path: evals/classification/goldens/sample_021.json
+  client_id: acme
+  expected_product_type: unknown
+  evidence_phrases: []

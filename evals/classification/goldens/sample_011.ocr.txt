@@ -1,0 +1,87 @@
+--- Page 1 ---
+HR
+Harbor Regional Bank
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Deposit Account Balance Notice
+Customer
+Avery King
+Checking Account
+ending 1044
+Notice Date
+06/22/2026
+Account Status
+Closed / Charged Off
+Amount Due
+$556.22
+Due Date: 07/22/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Last Deposit Posted
+03/18/2026
+Returned Item Fee
+$35.00
+Overdraft Fee
+$35.00
+Negative Ledger
+Balance
+$486.22
+Total Amount Due
+$556.22
+Account Type
+Consumer checking
+Loan or Credit Card?
+No
+Reason
+Insufficient funds activity
+Balance Calculation
+Item
+Amount
+Negative ledger balance
+$486.22
+Returned item fee
+$35.00
+Overdraft fee
+$35.00
+Total deposit account balance due
+$556.22
+Deposit Account Activity
+Date
+Description
+Debit
+Credit
+Balance
+03/14
+Debit Card Purchase -
+Grocery
+$74.18
+$0.00
+-$112.02
+03/15
+ACH Withdrawal - Utility
+$139.20
+$0.00
+-$251.22
+03/18
+Mobile Deposit
+$0.00
+$100.00
+-$151.22
+03/19
+Returned Item Fee
+$35.00
+$0.00
+-$186.22
+Account Description
+This notice concerns a deposit account balance. It is not a credit card, student loan, auto loan, or personal loan account.
+Payment Coupon
+Account ending: 1044
+Amount Due: $556.22
+Due: 07/22/2026
+Make checks payable to:
+Harbor Regional Bank
+Write account ending on check.
+Do not send cash.
+Mail to:
+Harbor Regional Bank, Payment Processing Center, P.O. Box 1011, Sample City, ST 00000

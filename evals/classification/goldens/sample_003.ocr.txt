@@ -1,0 +1,81 @@
+--- Page 1 ---
+GL
+GoldenEgg Lending
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Personal Loan Monthly Statement
+Borrower
+Alex Rivera
+Loan ID
+****7731
+Statement Period
+06/01/2026 - 06/30/2026
+Loan Type
+Unsecured Personal Installment Loan
+Amount Due
+$352.19
+Due Date: 07/15/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Original Loan Amount
+$12,000.00
+Origination Date
+02/14/2025
+APR
+17.84%
+Monthly Payment
+$352.19
+Remaining Principal
+$8,941.66
+Accrued Interest
+$104.32
+Late Fee Balance
+$0.00
+Next Due Date
+07/15/2026
+Loan Summary
+Original Loan Amount
+$12,000.00
+Original Term
+48 months
+Payment Number
+17 of 48
+Interest Method
+Daily simple interest
+Remaining Principal
+$8,941.66
+Accrued Interest
+$104.32
+Payment Activity
+Date
+Description
+Principal
+Interest
+Fees
+Total
+06/15
+ACH Payment Received
+$224.91
+$127.28
+$0.00
+$352.19
+06/30
+Interest Accrued
+$0.00
+$104.32
+$0.00
+$104.32
+Product Information
+This loan is not a revolving credit account. Additional advances are not available under this agreement. You may prepay the loan in full or in part at any time without a
+prepayment penalty.
+Payment Coupon
+Account ending: 7731
+Amount Due: $352.19
+Due: 07/15/2026
+Make checks payable to:
+GoldenEgg Lending
+Write account ending on check.
+Do not send cash.
+Mail to:
+GoldenEgg Lending, Payment Processing Center, P.O. Box 1003, Sample City, ST 00000

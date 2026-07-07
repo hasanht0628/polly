@@ -6,6 +6,7 @@ from enum import Enum
 class WorkflowName(str, Enum):
     court_doc_scheduling = "court_doc_scheduling"
     product_classification = "product_classification"
+    account_classification = "account_classification"
 
 
 TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
@@ -22,6 +23,14 @@ TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
         "ingest_client_manual",
         "retrieve_manual_passages",
         "extract_document",
+    ),
+    WorkflowName.account_classification: (
+        "load_document_text",
+        "load_taxonomy",
+        "retrieve_manual_passages",
+        "extract_document",
+        "map_classification",
+        "format_classification_output",
     ),
 }
 

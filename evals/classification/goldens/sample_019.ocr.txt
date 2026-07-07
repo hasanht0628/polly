@@ -1,0 +1,76 @@
+--- Page 1 ---
+SR
+Southfield Recovery Services
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Debt Collection Notice
+Consumer
+Jordan Taylor
+Reference
+SRS-4482
+Notice Date
+07/05/2026
+Original Account Type
+Consumer Credit Card
+Amount Due
+$3,904.12
+Due Date: 08/04/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Current Creditor
+Main Street Receivables Trust
+Original Creditor
+TruNorth Bank
+Original Account
+ending 4482
+Charge-Off Date
+02/28/2026
+Balance at Charge-Off
+$3,904.12
+Interest and Fees
+Since Charge-Off
+$0.00
+Current Balance
+$3,904.12
+Collection Status
+Third-party collection
+Debt Information
+Collection Agency
+Southfield Recovery Services
+Current Creditor
+Main Street Receivables Trust
+Original Creditor
+TruNorth Bank
+Original Product
+Consumer credit card
+Account Ending
+4482
+Current Balance
+$3,904.12
+Balance Itemization
+Item
+Amount
+Balance at charge-off
+$3,904.12
+Interest accrued after charge-off
+$0.00
+Fees accrued after charge-off
+$0.00
+Payments or credits since charge-off
+$0.00
+Current balance
+$3,904.12
+Validation Notice
+Unless you dispute this debt within 30 days after receiving this notice, the collector will assume the debt is valid. This fictional sample intentionally includes both
+collection-language cues and credit-card-origin cues.
+Payment Coupon
+Account ending: 4482
+Amount Due: $3,904.12
+Due: 08/04/2026
+Make checks payable to:
+Southfield Recovery Services
+Write account ending on check.
+Do not send cash.
+Mail to:
+Southfield Recovery Services, Payment Processing Center, P.O. Box 1019, Sample City, ST 00000

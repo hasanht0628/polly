@@ -1,0 +1,73 @@
+--- Page 1 ---
+MV
+Metro Vehicle Finance
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Post-Repossession Deficiency Notice
+Customer
+Jamie Carter
+Original Account
+****1184
+Notice Date
+06/18/2026
+Vehicle
+2018 Nissan Rogue
+Amount Due
+$6,726.33
+Due Date: 07/31/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+VIN
+ending 7749
+Date of Repossession
+04/02/2026
+Auction Sale
+Proceeds
+$9,800.00
+Sale Expenses
+$1,120.00
+Balance at Sale
+$15,406.33
+Deficiency Balance
+$6,726.33
+Amount Now Due
+$6,726.33
+Status
+Charged-off deficiency
+Deficiency Calculation
+Item
+Amount
+Principal balance at time of sale
+$15,406.33
+Accrued interest through sale date
+$0.00
+Repossession and sale expenses
+$1,120.00
+Less gross auction sale proceeds
+-$9,800.00
+Deficiency balance
+$6,726.33
+Vehicle Information
+Vehicle
+2018 Nissan Rogue
+VIN
+5N1AT2MV*JC777749
+Retail Installment
+Contract Date
+08/12/2022
+Collateral Status
+Vehicle sold at auction
+Notice
+This balance represents the remaining amount owed after sale of the vehicle securing your retail installment contract. This document is a fictional training sample and is
+not a real collection notice.
+Payment Coupon
+Account ending: 1184
+Amount Due: $6,726.33
+Due: 07/31/2026
+Make checks payable to:
+Metro Vehicle Finance
+Write account ending on check.
+Do not send cash.
+Mail to:
+Metro Vehicle Finance, Payment Processing Center, P.O. Box 1006, Sample City, ST 00000

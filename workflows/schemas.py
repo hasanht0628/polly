@@ -4,6 +4,7 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 
+from classification.schemas import ManualCitation, ProductClassification, ProductType
 from court.schemas import CaseExtraction
 from pydantic import BaseModel, Field
 
@@ -54,4 +55,20 @@ class ReviewPackage(BaseModel):
     source_pdf_path: Path | None = None
     email_subject: str | None = None
     email_sender: str | None = None
+    run_id: str | None = None
+
+
+class AccountClassificationPackage(BaseModel):
+    client_id: str
+    consumer_id: str | None = None
+    account_type: ProductType
+    confidence: str
+    needs_review: bool
+    review_reasons: list[str] = Field(default_factory=list)
+    evidence_quotes: list[str] = Field(default_factory=list)
+    manual_citations: list[ManualCitation] = Field(default_factory=list)
+    alternative_types: list[ProductType] = Field(default_factory=list)
+    classification: ProductClassification
+    source_pdf_path: Path
+    ocr_cache_path: Path | None = None
     run_id: str | None = None

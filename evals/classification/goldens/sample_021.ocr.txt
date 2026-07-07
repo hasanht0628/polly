@@ -1,0 +1,65 @@
+--- Page 1 ---
+AC
+Allied Consumer Recovery
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Collection Account Statement
+Consumer
+Emerson Reed
+Reference Number
+984401
+Notice Date
+07/01/2026
+Original Account
+ending 7710
+Amount Due
+$1,284.19
+Due Date: 07/31/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Creditor
+National Account Holdings
+LLC
+Date Placed
+06/14/2026
+Balance Due
+$1,284.19
+Settlement Offer
+$770.51
+Offer Expiration
+07/31/2026
+Account Description
+Not provided
+Original Creditor
+Not listed
+Collection Status
+Third-party collection
+Collection Summary
+Agency
+Allied Consumer Recovery
+Creditor
+National Account Holdings
+LLC
+Reference Number
+984401
+Original Account
+Ending
+7710
+Date Placed
+06/14/2026
+Balance Due
+$1,284.19
+Settlement Offer
+Option
+Due Date
+Amount
+Single payment settlement
+07/31/2026
+$770.51
+Monthly payment arrangement
+Call agency
+Varies
+Insufficient Account Detail
+No original account type, original creditor, loan terms, merchant, provider, vehicle, property address, or service address was included in this fictional sample. It should
+be treated as an unknown collection account unless supplemental data is available.

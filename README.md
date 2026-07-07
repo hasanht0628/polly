@@ -1,13 +1,17 @@
 # Pollack
 
-Court-document pipeline for law-firm workflows: PDF → OCR → structured extraction → scheduling output (`ReviewPackage` JSON). Also includes a secondary workflow for consumer product classification using client manuals.
+Court-document pipeline for law-firm workflows: PDF → OCR → structured extraction → scheduling output (`ReviewPackage` JSON). Also includes a consumer account classification workflow (nine account types) using client manuals and a built-in baseline taxonomy.
 
 ## Prerequisites
 
 - **Python 3.12+**
-- **[Ollama](https://ollama.com/)** running locally
+- **[Ollama](https://ollama.com/)** running locally. On Windows (PowerShell):
+
+  ```powershell
+  irm https://ollama.com/install.ps1 | iex
+  ```
 - Two models (see [`.env.example`](.env.example)):
-  - `qwen2.5:7b` — structured extraction
+  - `qwen2.5:3b` — structured extraction and classification
   - `richardyoung/olmocr2:7b-q8` — page OCR
 
 ## Quick start
@@ -19,7 +23,7 @@ source .venv/bin/activate          # Windows: .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
 cp .env.example .env
-ollama pull qwen2.5:7b
+ollama pull qwen2.5:3b
 ollama pull richardyoung/olmocr2:7b-q8
 
 python scripts/check_ollama.py

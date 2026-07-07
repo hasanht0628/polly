@@ -1,0 +1,75 @@
+--- Page 1 ---
+CE
+Crescent Education Finance
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Private Student Loan Statement
+Borrower
+Drew Patel
+Loan
+ending 5402
+Statement Date
+06/18/2026
+Loan Type
+Private Education Loan
+Amount Due
+$238.74
+Due Date: 07/05/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+School Certified
+Amount
+$18,500.00
+Disbursement Date
+08/19/2023
+Cosigner
+Listed on account
+Interest Rate
+Variable 11.24%
+Principal Balance
+$17,092.83
+Accrued Interest
+$154.09
+Repayment Status
+Principal and Interest
+Amount Due
+$238.74
+Education Loan Details
+Borrower Role
+Student borrower
+Cosigner Status
+Active cosigner on note
+School
+Lakeview College
+Repayment Option
+Immediate principal and
+interest
+Variable Rate Index
+Prime-based
+Next Rate Review
+08/01/2026
+Payment Breakdown
+Component
+Amount
+Current principal portion
+$80.12
+Current interest portion
+$158.62
+Late charges
+$0.00
+Total payment due
+$238.74
+Important Information
+This is a private education loan and is not eligible for federal student loan benefits such as federal income-driven repayment, Public Service Loan Forgiveness, or
+federal deferment programs.
+Payment Coupon
+Account ending: 5402
+Amount Due: $238.74
+Due: 07/05/2026
+Make checks payable to:
+Crescent Education Finance
+Write account ending on check.
+Do not send cash.
+Mail to:
+Crescent Education Finance, Payment Processing Center, P.O. Box 1008, Sample City, ST 00000

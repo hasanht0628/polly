@@ -1,0 +1,83 @@
+--- Page 1 ---
+OT
+Oak Terrace Apartments
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Resident Ledger Statement
+Resident
+Quinn Roberts
+Unit
+4B
+Ledger Date
+06/27/2026
+Lease Term
+08/01/2025 - 07/31/2026
+Amount Due
+$2,186.42
+Due Date: 07/05/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Monthly Rent
+$1,875.00
+Utilities Rebilling
+$86.42
+Late Rent Fee
+$125.00
+Prior Balance
+$1,100.00
+Current Charges
+$2,086.42
+Payments Received
+-$1,000.00
+Balance Due
+$2,186.42
+Property Manager
+Oak Terrace Apartments
+Resident Ledger
+Date
+Description
+Charge
+Payment
+Balance
+06/01
+Monthly rent
+$1,875.00
+$0.00
+$2,975.00
+06/05
+Resident payment
+$0.00
+-$1,000.00
+$1,975.00
+06/07
+Late rent fee
+$125.00
+$0.00
+$2,100.00
+06/16
+Utilities rebilling
+$86.42
+$0.00
+$2,186.42
+Lease Charges
+Lease Type
+Residential apartment lease
+Security Deposit
+$1,875.00
+Rent Due Day
+1st of each month
+Late Fee Assessed
+After grace period
+Property Message
+This ledger reflects unpaid rent and lease-related charges under a residential rental agreement. It is not a loan, credit card, or utility provider statement.
+Payment Coupon
+Account ending: 4B
+Amount Due: $2,186.42
+Due: 07/05/2026
+Make checks payable to:
+Oak Terrace Apartments
+Write account ending on check.
+Do not send cash.
+Mail to:
+Oak Terrace Apartments, Payment Processing Center, P.O. Box 1017, Sample City, ST 00000

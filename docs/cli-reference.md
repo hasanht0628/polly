@@ -86,25 +86,51 @@ python scripts/propose_calendar.py "fixtures/case 1.pdf" \
 
 ### `scripts/classify_document.py`
 
-Classify a consumer document using a client's ingested manual.
+Classify a consumer document (wraps the account classification workflow).
 
 ```
-python scripts/classify_document.py [-h] [--pretty] [--refresh-ocr] client_id pdf
+python scripts/classify_document.py [-h] [--pretty] [--refresh-ocr] [--consumer-id CONSUMER_ID] client_id pdf
 ```
 
 | Argument / flag | Description |
 |-----------------|-------------|
-| `client_id` | Client whose manual to use |
+| `client_id` | Client whose manual/taxonomy to use |
 | `pdf` | Consumer document PDF |
+| `--consumer-id` | Optional consumer identifier |
 | `--pretty` | Pretty-print JSON |
 | `--refresh-ocr` | Re-run OCR |
 
-**Prerequisite:** Manual must be ingested first via `ingest_client_manual.py`.
+**Output:** `AccountClassificationPackage` JSON. Works with or without an ingested manual (baseline taxonomy is always applied).
 
 **Example:**
 
 ```bash
 python scripts/classify_document.py acme fixtures/classification/consumer/credit_card_statement.pdf --pretty
+```
+
+---
+
+### `scripts/run_account_classification.py`
+
+Full consumer PDF → account classification workflow with audit logging.
+
+```
+python scripts/run_account_classification.py [-h] [--pretty] [--refresh-ocr] [--consumer-id CONSUMER_ID] [--output OUTPUT] client_id pdf
+```
+
+| Argument / flag | Description |
+|-----------------|-------------|
+| `client_id` | Client whose manual/taxonomy to use |
+| `pdf` | Consumer document PDF |
+| `--consumer-id` | Optional consumer identifier |
+| `--output` | Write JSON to file |
+| `--pretty` | Pretty-print JSON |
+| `--refresh-ocr` | Re-run OCR |
+
+**Example:**
+
+```bash
+python scripts/run_account_classification.py acme fixtures/classification/consumer/mortgage_statement.pdf --consumer-id C-12345 --pretty
 ```
 
 ---

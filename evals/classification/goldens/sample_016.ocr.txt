@@ -1,0 +1,76 @@
+--- Page 1 ---
+CM
+Coastline Mobile
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Wireless Account Statement
+Customer
+Reese Allen
+Wireless Account
+3365
+Billing Cycle
+06/01/2026 - 06/30/2026
+Lines
+3
+Amount Due
+$352.65
+Due Date: 07/12/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Unlimited Data Plan
+$135.00
+Device Payments
+$61.12
+International Add-On
+$15.00
+Taxes and Fees
+$22.61
+Past Due Balance
+$118.92
+Total Amount Due
+$352.65
+Suspension Risk
+Past due balance unpaid
+Autopay
+Not enrolled
+Line and Device Charges
+Wireless Line
+Plan / Device
+Monthly Charge
+Device Payment
+(555) 010-2211
+Unlimited data
+$45.00
+$33.34
+(555) 010-2212
+Unlimited data
+$45.00
+$27.78
+(555) 010-2213
+Unlimited data
+$45.00
+$0.00
+Other Charges
+Description
+Amount
+International calling add-on
+$15.00
+Taxes, surcharges, and regulatory fees
+$22.61
+Past due balance
+$118.92
+Total amount due
+$352.65
+Service Message
+Wireless service may be suspended if the past due balance remains unpaid. Device payment balances are separate from monthly service charges.
+Payment Coupon
+Account ending: 3365
+Amount Due: $352.65
+Due: 07/12/2026
+Make checks payable to:
+Coastline Mobile
+Write account ending on check.
+Do not send cash.
+Mail to:
+Coastline Mobile, Payment Processing Center, P.O. Box 1016, Sample City, ST 00000

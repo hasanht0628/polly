@@ -1,0 +1,82 @@
+--- Page 1 ---
+NE
+National Education Loan Servicing
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Education Loan Statement
+Borrower
+Taylor Nguyen
+Borrower Account
+****2210
+Statement Period
+06/01/2026 - 06/30/2026
+Program
+Federal Direct Loan
+Amount Due
+$96.00
+Due Date: 07/28/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Loan Groups
+Subsidized / Unsubsidized
+Repayment Plan
+SAVE Income-Driven
+Repayment
+Current Principal
+$28,440.12
+Accrued Interest
+$317.66
+Monthly Payment
+$96.00
+School
+Northeastern State University
+Status
+Repayment
+Next Due Date
+07/28/2026
+Loan Groups
+Loan Group
+Disbursement Date
+Principal
+Interest
+Status
+Direct Subsidized
+08/20/2020
+$9,420.22
+$0.00
+Repayment
+Direct Unsubsidized
+08/20/2020
+$19,019.90
+$317.66
+Repayment
+Repayment Options
+You may be eligible for deferment, forbearance, consolidation, or income-driven repayment options. Contact the servicer before your due date if you cannot make your
+scheduled payment.
+Recent Activity
+Date
+Description
+Principal
+Interest
+Total
+06/28
+Payment Received
+$61.02
+$34.98
+$96.00
+06/30
+Interest Accrued
+$0.00
+$28.64
+$28.64
+Payment Coupon
+Account ending: 2210
+Amount Due: $96.00
+Due: 07/28/2026
+Make checks payable to:
+National Education Loan Servicing
+Write account ending on check.
+Do not send cash.
+Mail to:
+National Education Loan Servicing, Payment Processing Center, P.O. Box 1007, Sample City, ST 00000

@@ -6,9 +6,15 @@ from pydantic import BaseModel, Field
 
 
 class ProductType(str, Enum):
-    student_loan = "student_loan"
     credit_card = "credit_card"
+    personal_loan = "personal_loan"
     auto_loan = "auto_loan"
+    student_loan = "student_loan"
+    mortgage = "mortgage"
+    heloc = "heloc"
+    medical_bill = "medical_bill"
+    bnpl = "bnpl"
+    telecom = "telecom"
     unknown = "unknown"
 
 

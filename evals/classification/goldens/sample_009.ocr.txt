@@ -1,0 +1,74 @@
+--- Page 1 ---
+AH
+Atlantic Home Loan Servicing
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Mortgage Loan Statement
+Borrower
+Jordan Taylor
+Loan
+****3066
+Statement Date
+06/16/2026
+Property Address
+123 Sample Lane, Orlando, FL
+Amount Due
+$2,454.55
+Due Date: 07/01/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Principal and Interest
+$1,842.11
+Escrow
+$612.44
+Total Monthly
+Payment
+$2,454.55
+Principal Balance
+$386,920.18
+Interest Rate
+6.625%
+Escrow Balance
+$3,218.92
+Past Due Amount
+$0.00
+Property Secured
+Primary residence
+Amount Due Breakdown
+Payment Component
+Amount
+Principal
+$542.19
+Interest
+$1,299.92
+Escrow - taxes and insurance
+$612.44
+Fees and charges
+$0.00
+Total monthly payment
+$2,454.55
+Escrow Information
+Escrow Balance
+$3,218.92
+Last Tax
+Disbursement
+$2,104.12
+Insurance
+Disbursement
+$1,366.00
+Next Escrow Analysis
+11/2026
+Delinquency Notice
+If your payment is received after 07/16/2026, a late charge may be assessed. If you are experiencing financial difficulty, contact the servicer for loss mitigation
+information.
+Payment Coupon
+Account ending: 3066
+Amount Due: $2,454.55
+Due: 07/01/2026
+Make checks payable to:
+Atlantic Home Loan Servicing
+Write account ending on check.
+Do not send cash.
+Mail to:
+Atlantic Home Loan Servicing, Payment Processing Center, P.O. Box 1009, Sample City, ST 00000

@@ -1,0 +1,104 @@
+--- Page 1 ---
+TB
+TruNorth Bank
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Credit Card Statement
+Cardmember
+Jordan Taylor
+Account Number
+**** **** **** 4482
+Statement Period
+05/12/2026 - 06/11/2026
+Statement Closing Date
+06/11/2026
+Amount Due
+$72.00
+Due Date: 07/08/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Previous Balance
+$2,184.77
+Payments
+-$250.00
+Purchases
+$391.24
+Interest Charged
+$34.16
+New Balance
+$2,360.17
+Credit Limit
+$5,000.00
+Available Credit
+$2,639.83
+Minimum Payment
+$72.00
+Account Summary
+Previous Balance
+$2,184.77
+Payments and Credits
+-$250.00
+Purchases and Debits
+$391.24
+Fees Charged
+$0.00
+Interest Charged
+$34.16
+New Balance
+$2,360.17
+Transactions
+Date
+Description
+Reference
+Amount
+05/18
+GROCERY MART #8842 ATLANTA GA
+246921
+$86.42
+05/22
+ONLINE SUBSCRIPTION SERVICES
+881044
+$19.99
+05/29
+RESTAURANT 4402 MIAMI FL
+772910
+$64.83
+06/03
+AIRLINE BAGGAGE FEE
+114502
+$35.00
+06/07
+PAYMENT THANK YOU - WEB
+400118
+-$250.00
+Interest Charge Calculation
+Balance Type
+Annual Percentage Rate
+Balance Subject to Interest
+Interest Charge
+Purchases
+24.99%
+$1,641.26
+$34.16
+Cash Advances
+29.99%
+$0.00
+$0.00
+Balance Transfers
+24.99%
+$0.00
+$0.00
+Important Payment Information
+Late Payment Warning: If we do not receive your minimum payment by the due date, you may have to pay a late fee up to $40.00 and your APRs may increase.
+Minimum Payment Warning: If you make only the minimum payment each period, you will pay more in interest and it will take longer to pay off your balance.
+Payment Coupon
+Account ending: 4482
+Amount Due: $72.00
+Due: 07/08/2026
+Make checks payable to:
+TruNorth Bank
+Write account ending on check.
+Do not send cash.
+Mail to:
+TruNorth Bank, Payment Processing Center, P.O. Box 1001, Sample City, ST 00000

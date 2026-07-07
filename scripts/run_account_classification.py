@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Classify a consumer document using client manual knowledge."""
+"""Run consumer PDF → account classification workflow."""
 
 from __future__ import annotations
 
@@ -20,11 +20,14 @@ from agents.supervisor import format_classification_output, run_account_classifi
 
 
 async def main() -> None:
-    parser = argparse.ArgumentParser(description="Classify consumer document by account type")
-    parser.add_argument("client_id", help="Client whose manual to use")
+    parser = argparse.ArgumentParser(
+        description="Consumer PDF → AccountClassificationPackage JSON"
+    )
+    parser.add_argument("client_id", help="Client whose manual/taxonomy to use")
     parser.add_argument("pdf", type=Path, help="Consumer document PDF")
-    parser.add_argument("--consumer-id", help="Optional consumer identifier")
+    parser.add_argument("--consumer-id", help="Optional consumer identifier for traceability")
     parser.add_argument("--pretty", action="store_true")
+    parser.add_argument("--output", type=Path, help="Write JSON to file")
     parser.add_argument("--refresh-ocr", action="store_true")
     args = parser.parse_args()
 
@@ -34,7 +37,11 @@ async def main() -> None:
         consumer_id=args.consumer_id,
         use_cache=not args.refresh_ocr,
     )
-    print(format_classification_output(package, pretty=args.pretty))
+    text = format_classification_output(package, pretty=args.pretty)
+    if args.output:
+        args.output.write_text(text + "\n", encoding="utf-8")
+    else:
+        print(text)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,84 @@
+--- Page 1 ---
+SA
+Southern Auto Finance
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Auto Finance Statement
+Customer
+Morgan Ellis
+Account
+****9055
+Statement Date
+06/25/2026
+Vehicle
+2021 Honda Accord EX
+Amount Due
+$487.63
+Due Date: 07/10/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+VIN
+ending 3921
+Original Amount
+Financed
+$24,890.00
+Principal Balance
+$16,204.77
+Interest Rate
+8.49%
+Scheduled Payment
+$487.63
+Late Charges
+$0.00
+Payoff Good Through
+07/20
+$16,338.29
+Collateral
+Vehicle listed
+Vehicle and Loan Details
+Year / Make / Model
+2021 Honda Accord EX
+VIN
+1HGCV1F3*MA003921
+Payment Number
+22 of 72
+Interest Method
+Simple interest
+Current Principal
+Balance
+$16,204.77
+Payoff Amount
+Through 07/20/2026
+$16,338.29
+Payment History
+Date
+Transaction
+Principal
+Interest
+Fees
+Total
+05/10
+Scheduled Payment
+$365.34
+$122.29
+$0.00
+$487.63
+06/10
+Scheduled Payment
+$367.93
+$119.70
+$0.00
+$487.63
+Collateral Notice
+This loan is secured by the vehicle listed above. Failure to make payments may result in collection activity and repossession where permitted by applicable law.
+Payment Coupon
+Account ending: 9055
+Amount Due: $487.63
+Due: 07/10/2026
+Make checks payable to:
+Southern Auto Finance
+Write account ending on check.
+Do not send cash.
+Mail to:
+Southern Auto Finance, Payment Processing Center, P.O. Box 1005, Sample City, ST 00000

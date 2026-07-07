@@ -93,3 +93,37 @@ class ExtractChecksPass(Evaluator[object, CaseExtraction, dict]):
                     return False
 
         return True
+
+
+@dataclass(repr=False)
+class ClassificationChecksPass(Evaluator[object, object, dict]):
+    """Product classification must match expected account type and evidence."""
+
+    evaluation_name: str | None = field(default="classification_checks")
+
+    def evaluate(self, ctx: EvaluatorContext[object, object, dict]) -> EvaluationReason:
+        checks: dict = ctx.metadata.get("classification_checks", {})
+        if not checks:
+            return EvaluationReason(value=True)
+
+        output = ctx.output
+        product_type = getattr(output, "product_type", None)
+        actual = product_type.value if hasattr(product_type, "value") else str(product_type)
+
+        expected = checks.get("expected_product_type")
+        if expected and actual != expected:
+            return EvaluationReason(
+                value=False,
+                reason=f"expected product_type {expected!r}, got {actual!r}",
+            )
+
+        quotes = getattr(output, "evidence_quotes", []) or []
+        blob = " ".join(quotes).lower()
+        for phrase in checks.get("evidence_phrases", []):
+            if phrase.lower() not in blob:
+                return EvaluationReason(
+                    value=False,
+                    reason=f"missing evidence phrase: {phrase!r}",
+                )
+
+        return EvaluationReason(value=True)

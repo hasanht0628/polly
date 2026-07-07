@@ -14,14 +14,19 @@ __pycache__/
 # Runtime / local data
 data/
 
-# OCR sidecar caches (regenerated on first run)
-fixtures/*.ocr.txt
+# Local test fixtures (may contain PII; not committed)
+fixtures/**
+!fixtures/README.md
+!fixtures/**/.gitkeep
 
 # Eval goldens (regenerated via evals/bootstrap_goldens.py)
 evals/ocr/goldens/*
 !evals/ocr/goldens/.gitkeep
 evals/extract/goldens/*
 !evals/extract/goldens/.gitkeep
+evals/classification/goldens/*
+!evals/classification/goldens/.gitkeep
+evals/classification/last_eval_run.txt
 
 # Eval regression snapshots (local only)
 evals/runs/*

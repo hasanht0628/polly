@@ -1,0 +1,131 @@
+# Ground-truth labels for synthetic consumer PDF fixtures.
+# PDFs live at fixtures/classification/consumer/pdfs/ (gitignored locally).
+cases:
+  - slug: sample_001
+    pdf: fixtures/classification/consumer/pdfs/sample_001.pdf
+    expected_product_type: credit_card
+    evidence_phrases:
+      - Credit Card Statement
+      - Cardmember
+
+  - slug: sample_002
+    pdf: fixtures/classification/consumer/pdfs/sample_002.pdf
+    expected_product_type: credit_card
+    evidence_phrases:
+      - Store Card Statement
+
+  - slug: sample_003
+    pdf: fixtures/classification/consumer/pdfs/sample_003.pdf
+    expected_product_type: personal_loan
+    evidence_phrases:
+      - Personal Loan Monthly Statement
+
+  - slug: sample_004
+    pdf: fixtures/classification/consumer/pdfs/sample_004.pdf
+    expected_product_type: personal_loan
+    evidence_phrases:
+      - Installment Loan Statement
+
+  - slug: sample_005
+    pdf: fixtures/classification/consumer/pdfs/sample_005.pdf
+    expected_product_type: auto_loan
+    evidence_phrases:
+      - Auto Finance Statement
+
+  - slug: sample_006
+    pdf: fixtures/classification/consumer/pdfs/sample_006.pdf
+    expected_product_type: auto_loan
+    evidence_phrases:
+      - VIN
+      - Repossession
+
+  - slug: sample_007
+    pdf: fixtures/classification/consumer/pdfs/sample_007.pdf
+    expected_product_type: student_loan
+    evidence_phrases:
+      - Student Loan
+
+  - slug: sample_008
+    pdf: fixtures/classification/consumer/pdfs/sample_008.pdf
+    expected_product_type: student_loan
+    evidence_phrases:
+      - student loan
+
+  - slug: sample_009
+    pdf: fixtures/classification/consumer/pdfs/sample_009.pdf
+    expected_product_type: mortgage
+    evidence_phrases:
+      - Mortgage
+
+  - slug: sample_010
+    pdf: fixtures/classification/consumer/pdfs/sample_010.pdf
+    expected_product_type: heloc
+    evidence_phrases:
+      - HELOC
+      - home equity
+
+  - slug: sample_011
+    pdf: fixtures/classification/consumer/pdfs/sample_011.pdf
+    expected_product_type: unknown
+    evidence_phrases: []
+
+  - slug: sample_012
+    pdf: fixtures/classification/consumer/pdfs/sample_012.pdf
+    expected_product_type: bnpl
+    evidence_phrases:
+      - Retail Installment Contract
+      - Merchant
+
+  - slug: sample_013
+    pdf: fixtures/classification/consumer/pdfs/sample_013.pdf
+    expected_product_type: bnpl
+    evidence_phrases:
+      - Pay-in-4
+
+  - slug: sample_014
+    pdf: fixtures/classification/consumer/pdfs/sample_014.pdf
+    expected_product_type: medical_bill
+    evidence_phrases:
+      - Patient Account Statement
+      - Patient
+
+  - slug: sample_015
+    pdf: fixtures/classification/consumer/pdfs/sample_015.pdf
+    expected_product_type: unknown
+    evidence_phrases: []
+
+  - slug: sample_016
+    pdf: fixtures/classification/consumer/pdfs/sample_016.pdf
+    expected_product_type: telecom
+    evidence_phrases:
+      - Wireless Account Statement
+      - data plan
+
+  - slug: sample_017
+    pdf: fixtures/classification/consumer/pdfs/sample_017.pdf
+    expected_product_type: unknown
+    evidence_phrases: []
+
+  - slug: sample_018
+    pdf: fixtures/classification/consumer/pdfs/sample_018.pdf
+    expected_product_type: personal_loan
+    evidence_phrases:
+      - Short-Term Loan
+      - Cash Advance
+
+  - slug: sample_019
+    pdf: fixtures/classification/consumer/pdfs/sample_019.pdf
+    expected_product_type: credit_card
+    evidence_phrases:
+      - Consumer Credit Card
+
+  - slug: sample_020
+    pdf: fixtures/classification/consumer/pdfs/sample_020.pdf
+    expected_product_type: personal_loan
+    evidence_phrases:
+      - Personal Installment Loan
+
+  - slug: sample_021
+    pdf: fixtures/classification/consumer/pdfs/sample_021.pdf
+    expected_product_type: unknown
+    evidence_phrases: []

@@ -1,0 +1,76 @@
+--- Page 1 ---
+GC
+Gulf Coast Electric
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Electric Service Statement
+Customer
+Harper Wells
+Service Account
+8762
+Billing Period
+05/19/2026 - 06/18/2026
+Service Address
+789 Demo Street, Miami, FL
+Amount Due
+$287.24
+Due Date: 07/08/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Usage
+1,092 kWh
+Energy Charges
+$142.90
+Fuel Adjustment
+$31.44
+Taxes and Fees
+$18.72
+Current Charges
+$193.06
+Past Due Amount
+$94.18
+Total Amount Due
+$287.24
+Disconnect Date
+07/08/2026
+Meter Readings
+Meter
+Previous Read
+Current Read
+Multiplier
+Usage
+EL-448100
+44192
+45284
+1
+1,092 kWh
+Charge Detail
+Description
+Amount
+Residential energy charge
+$142.90
+Fuel adjustment
+$31.44
+Storm recovery charge
+$6.81
+Gross receipts tax
+$8.37
+Local utility tax
+$3.54
+Past due amount
+$94.18
+Total amount due
+$287.24
+Disconnect Notice
+Electric service may be interrupted if the past due amount is not paid by the disconnect date listed above. Contact customer care to discuss payment arrangements.
+Payment Coupon
+Account ending: 8762
+Amount Due: $287.24
+Due: 07/08/2026
+Make checks payable to:
+Gulf Coast Electric
+Write account ending on check.
+Do not send cash.
+Mail to:
+Gulf Coast Electric, Payment Processing Center, P.O. Box 1015, Sample City, ST 00000

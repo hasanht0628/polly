@@ -1,0 +1,84 @@
+--- Page 1 ---
+HR
+HomeStyle Rewards
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Store Card Statement
+Customer
+Riley Morgan
+Store Card
+ending in 0197
+Statement Date
+06/20/2026
+Credit Plan
+Revolving Retail Account
+Amount Due
+$35.00
+Due Date: 07/17/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Previous Balance
+$642.15
+New Charges
+$118.92
+Payment Received
+-$50.00
+Interest Charge
+$16.41
+New Balance
+$727.48
+Credit Limit
+$1,200.00
+Available Credit
+$472.52
+Minimum Payment
+Due
+$35.00
+Summary of Account Activity
+Previous Balance
+$642.15
+Purchases
+$118.92
+Payments
+-$50.00
+Fees
+$0.00
+Interest
+$16.41
+New Balance
+$727.48
+Purchase Detail
+Date
+Merchant Location
+Plan
+Amount
+06/03
+HomeStyle Store #442
+Regular Revolving
+$118.92
+Promotional and Revolving Terms
+Plan
+APR
+Expiration
+Balance
+Regular Revolving
+28.49%
+N/A
+$727.48
+Deferred Interest Offer
+0.00%
+No active offer
+$0.00
+Disclosure
+This is a retail revolving credit account. Paying only the minimum payment will increase the amount of interest you pay and the time required to repay your balance.
+Payment Coupon
+Account ending: 0197
+Amount Due: $35.00
+Due: 07/17/2026
+Make checks payable to:
+HomeStyle Rewards
+Write account ending on check.
+Do not send cash.
+Mail to:
+HomeStyle Rewards, Payment Processing Center, P.O. Box 1002, Sample City, ST 00000

@@ -5,19 +5,28 @@ from typing import Any
 
 from classification.extract_models import ExtractedClientTaxonomy
 from classification.schemas import ClientTaxonomy, FieldDefinition, ProductType, ProductTypeRule
+from classification.taxonomy import ACCOUNT_TYPE_LIST
 from pydantic_ai import NativeOutput
 
-from court.extract import EXTRACT_MODEL_SETTINGS, EXTRACT_SYSTEM_PROMPT, _run_with_retries
+from court.extract import EXTRACT_MODEL_SETTINGS, _run_with_retries
 from documents.schemas import ExtractResult
 from documents.text import load_document_text
 from tutorials.config import make_agent
 
-TAXONOMY_PROMPT = """\
-Extract the client's product type taxonomy and classification rules from this client manual.
+TAXONOMY_SYSTEM_PROMPT = """\
+You extract client account-type taxonomy and classification rules from client manuals.
 
-Include each product type (student loan, credit card, auto loan, etc.) with:
+Rules:
+- Output only what is explicitly stated or clearly implied in the manual.
+- Include keywords and issuer patterns that identify each account type.
+"""
+
+TAXONOMY_PROMPT = f"""\
+Extract the client's account type taxonomy and classification rules from this client manual.
+
+Include each account type ({ACCOUNT_TYPE_LIST.replace(', or unknown if none match', '')}) with:
 - definition as written or summarized from the manual
-- keywords and issuer patterns that identify that product
+- keywords and issuer patterns that identify that account type
 - example document descriptions if present
 
 Also extract field definitions and data classification labels the client uses.
@@ -26,7 +35,7 @@ Output only what is explicitly stated or clearly implied in the manual.
 
 taxonomy_agent = make_agent(
     output_type=NativeOutput(ExtractedClientTaxonomy),
-    system_prompt=EXTRACT_SYSTEM_PROMPT,
+    system_prompt=TAXONOMY_SYSTEM_PROMPT,
     model_settings=EXTRACT_MODEL_SETTINGS,
     retries=3,
 )

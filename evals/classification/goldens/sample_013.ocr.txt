@@ -1,0 +1,69 @@
+--- Page 1 ---
+SS
+SplitPay Services
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Pay-in-4 Installment Summary
+Customer
+Jordan Blake
+Plan ID
+SP-8841
+Merchant
+Urban Apparel Co.
+Order Date
+06/02/2026
+Amount Due
+$66.20
+Due Date: 06/30/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Original Purchase
+Amount
+$264.80
+Installment Plan
+4 payments every two weeks
+Installment 1
+Paid $66.20
+Installment 2
+Paid $66.20
+Installment 3 Due
+$66.20
+Installment 4 Due
+$66.20
+Late Fee Balance
+$0.00
+Funding Source
+Debit card ending 6201
+Installment Schedule
+Installment
+Due Date
+Status
+Amount
+1 of 4
+06/02/2026
+Paid
+$66.20
+2 of 4
+06/16/2026
+Paid
+$66.20
+3 of 4
+06/30/2026
+Due
+$66.20
+4 of 4
+07/14/2026
+Scheduled
+$66.20
+Merchant Purchase Detail
+Merchant
+Urban Apparel Co.
+Order Number
+UA-2026-44102
+Checkout Type
+Buy-now-pay-later
+Finance Charge
+$0.00 if paid as scheduled
+Plan Description
+This account relates to a short-term buy-now-pay-later purchase plan and is not a revolving credit card or traditional personal loan.

@@ -1,0 +1,74 @@
+--- Page 1 ---
+LE
+Lakeside Emergency Physicians
+Fictional institution - model training document
+Synthetic PDF generated for account-type classification testing. Not a real statement, bill, demand, or offer of credit.
+Page 1
+Patient Account Statement
+Patient
+Cameron Stone
+Patient Account
+7329
+Statement Date
+06/21/2026
+Date of Service
+04/21/2026
+Amount Due
+$250.00
+Due Date: 07/21/2026
+Synthetic document: all names, institutions, balances, account numbers, dates, and addresses are fictional. Use only for classification testing and QA.
+Account Details
+Provider
+Lakeside Emergency
+Physicians
+Service Description
+Emergency department
+physician services
+Total Charges
+$1,240.00
+Insurance Payment
+-$618.44
+Contractual
+Adjustment
+-$371.56
+Patient Responsibility
+$250.00
+Prior Payments
+$0.00
+Balance Due
+$250.00
+Claim and Balance Detail
+Date of Service
+Description
+Charges
+Insurance /
+Adjustments
+Patient Balance
+04/21/2026
+Emergency department physician services
+$1,240.00
+-$990.00
+$250.00
+Insurance Information
+Primary Insurance
+Sample Health Plan
+Claim Number
+CLM-550192
+Explanation of
+Benefits
+Processed 05/30/2026
+Financial Assistance
+Application available upon
+request
+Billing Office Message
+Please contact our billing office if you need an itemized bill, financial assistance application, or payment plan. This is a patient balance for medical services.
+Payment Coupon
+Account ending: 7329
+Amount Due: $250.00
+Due: 07/21/2026
+Make checks payable to:
+Lakeside Emergency Physicians
+Write account ending on check.
+Do not send cash.
+Mail to:
+Lakeside Emergency Physicians, Payment Processing Center, P.O. Box 1014, Sample City, ST 00000
