@@ -5,7 +5,7 @@ import ollama
 import sys
 from dotenv import load_dotenv
 
-# Load .env from project root (parent of tutorials/)
+# Load .env from project root
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 MODEL = os.environ.get("OLLAMA_MODEL", "qwen2.5:3b")
 

@@ -58,7 +58,7 @@ result = await extract_document(Path("fixtures/case 1.pdf"), profile="court_cale
 ```mermaid
 flowchart LR
   pdf[PDF or .eml]
-  ocr[court/pdf_text.py]
+  ocr[documents/ocr.py]
   cache["sidecar .ocr.txt"]
   extract[court/extract.py]
   norm[court/normalize.py]
@@ -77,7 +77,7 @@ flowchart LR
 
 ### Step-by-step
 
-1. **OCR** — [`court/pdf_text.py`](../court/pdf_text.py) renders each PDF page to PNG via PyMuPDF, sends it to olmocr2 (`OLLAMA_MODEL_OCR`), and concatenates page text. Cached at `{pdf_stem}.ocr.txt` beside the PDF.
+1. **OCR** — [`documents/ocr.py`](../documents/ocr.py) renders each PDF page to PNG via PyMuPDF, sends it to olmocr2 (`OLLAMA_MODEL_OCR`), and concatenates page text. Cached at `{pdf_stem}.ocr.txt` beside the PDF.
 
 2. **Extract** — [`court/extract.py`](../court/extract.py) runs three pydantic-ai agents (qwen, `OLLAMA_MODEL`) on the OCR text:
    - Case metadata (caption, number, court)
@@ -142,11 +142,12 @@ Relative deadlines are **never auto-computed** in v1 — they appear in `flagged
 
 | Component | File | Model |
 |-----------|------|-------|
-| Agent factory | [`tutorials/config.py`](../tutorials/config.py) | Creates pydantic-ai `Agent` instances wired to Ollama |
-| OCR | [`court/pdf_text.py`](../court/pdf_text.py) | `OLLAMA_MODEL_OCR` (olmocr2) |
+| Agent factory | [`agents/config.py`](../agents/config.py) | Creates pydantic-ai `Agent` instances wired to Ollama |
+| Shared extract helpers | [`agents/extract_utils.py`](../agents/extract_utils.py) | Temperature-0 settings, retry-on-empty helper |
+| OCR | [`documents/ocr.py`](../documents/ocr.py) | `OLLAMA_MODEL_OCR` (olmocr2) |
 | Extract (3 passes) | [`court/extract.py`](../court/extract.py) | `OLLAMA_MODEL` (qwen), temperature 0, 3 retries |
 
-The `tutorials/` directory name is historical — it contains the shared LLM factory used by production code.
+The extract retry helper is shared across court and classification profiles via `agents/extract_utils.py`.
 
 ## Agents platform
 

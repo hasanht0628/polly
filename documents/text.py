@@ -1,11 +1,10 @@
-"""Shared PDF → text ingest (wraps court.pdf_text)."""
+"""Shared PDF → text ingest."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
-from court.pdf_text import DocumentText, load_document_text as _load_document_text
-
+from documents.ocr import DocumentText, load_document_text as _load_document_text
 from documents.schemas import DocumentTextResult
 
 

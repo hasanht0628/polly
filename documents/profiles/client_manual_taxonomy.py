@@ -8,10 +8,10 @@ from classification.schemas import ClientTaxonomy, FieldDefinition, ProductType,
 from classification.taxonomy import ACCOUNT_TYPE_LIST
 from pydantic_ai import NativeOutput
 
-from court.extract import EXTRACT_MODEL_SETTINGS, _run_with_retries
+from agents.config import make_agent
+from agents.extract_utils import EXTRACT_MODEL_SETTINGS, run_with_retries
 from documents.schemas import ExtractResult
 from documents.text import load_document_text
-from tutorials.config import make_agent
 
 TAXONOMY_SYSTEM_PROMPT = """\
 You extract client account-type taxonomy and classification rules from client manuals.
@@ -90,7 +90,7 @@ async def run_client_manual_taxonomy(
     client_id = str(context.get("client_id", pdf_path.stem))
     document = await load_document_text(pdf_path, use_cache=use_cache)
     snippet = document.text[:12000]
-    raw = await _run_with_retries(
+    raw = await run_with_retries(
         taxonomy_agent,
         TAXONOMY_PROMPT + f"\n\nClient manual:\n\n{snippet}",
         is_empty=lambda data: len(data.product_types) == 0 and len(data.rules) == 0,

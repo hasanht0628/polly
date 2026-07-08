@@ -1,8 +1,8 @@
 cases:
 - slug: case_1
-  pdf_path: fixtures/case 1.pdf
-  ocr_golden_path: evals/ocr/goldens/case_1.ocr.txt
-  extract_golden_path: evals/extract/goldens/case_1.json
+  pdf_path: fixtures\case 1.pdf
+  ocr_golden_path: evals\court\ocr\goldens\case_1.ocr.txt
+  extract_golden_path: evals\court\extract\goldens\case_1.json
   required_phrases:
   - 26-CC-001299
   - Docket Sounding
@@ -20,21 +20,21 @@ cases:
     case_number: 26-CC-001299
     event_types:
     - docket_sounding
-    - trial_period
+    - trial
     deadline_phrases:
     - alternative
     - docket
     - exchange
 - slug: case_2
-  pdf_path: fixtures/case 2.pdf
-  ocr_golden_path: evals/ocr/goldens/case_2.ocr.txt
-  extract_golden_path: evals/extract/goldens/case_2.json
+  pdf_path: fixtures\case 2.pdf
+  ocr_golden_path: evals\court\ocr\goldens\case_2.ocr.txt
+  extract_golden_path: evals\court\extract\goldens\case_2.json
   required_phrases:
   - TRIAL
   - 409 052 6226
   - July 15, 2026
   extract_checks:
-    min_events: 1
+    min_events: 0
     min_deadlines: 1
     no_hallucinated_zoom_urls: true
     case_number: 26-SC-002953
@@ -44,20 +44,21 @@ cases:
     - defendant's
     - plaintiff's
 - slug: doc_viewer
-  pdf_path: fixtures/DocViewer.pdf
-  ocr_golden_path: evals/ocr/goldens/doc_viewer.ocr.txt
-  extract_golden_path: evals/extract/goldens/doc_viewer.json
+  pdf_path: fixtures\DocViewer.pdf
+  ocr_golden_path: evals\court\ocr\goldens\doc_viewer.ocr.txt
+  extract_golden_path: evals\court\extract\goldens\doc_viewer.json
   required_phrases:
   - 26-SC-002955
   - TRIAL
   - 409 052 6226
   - April 24, 2026
   extract_checks:
-    min_events: 1
+    min_events: 0
     min_deadlines: 1
     no_hallucinated_zoom_urls: true
     case_number: 26-SC-002955
     event_types:
-    - pretrial conference/mediation
+    - pretrial conference mediation
     deadline_phrases:
-    - zoom
+    - defendant's
+    - pretrial

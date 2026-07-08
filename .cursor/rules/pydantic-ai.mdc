@@ -1,0 +1,21 @@
+---
+description: Pydantic AI patterns when editing agents, extraction, or LLM layers
+globs: agents/**/*.py,court/**/*.py,documents/**/*.py
+alwaysApply: false
+---
+
+# Pydantic AI in Pollack
+
+Apply skill `.cursor/skills/pydantic-ai/SKILL.md` for architecture decisions.
+
+## Repo rules
+
+- Create agents via `make_agent()` / `make_ocr_agent()` in `agents/config.py`
+- Structured extraction: `NativeOutput(PydanticModel)` + module-level agents
+- Prefer multi-pass specialized agents over one mega-agent (`court/extract.py`)
+- Orchestration stays in async Python; do not add LangGraph unless explicitly requested
+- For toolsets, capabilities, hooks, or chat history — read skill reference before inventing patterns
+
+## Build advice default
+
+Recommend the simplest design that fits: stateless pipeline > tool loop > deferred capabilities.

@@ -12,7 +12,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from court.schemas import CaseExtraction
-from evals.cases import EVAL_CASES
+from evals.court.cases import EVAL_CASES
 from evals.runner_utils import add_snapshot_args
 from evals.snapshots import SnapshotWriter
 from workflows.court_calendar.map_extraction import map_extraction_to_review_package

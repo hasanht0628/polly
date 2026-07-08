@@ -37,10 +37,10 @@ The first OCR run on a PDF is slow (olmocr2 per page). Results are cached as `fi
 
 | Directory | Purpose |
 |-----------|---------|
-| [`court/`](court/) | OCR, multi-agent extraction, normalization, schemas |
-| [`workflows/`](workflows/) | Court calendar pipeline, email intake, `ReviewPackage` mapping |
-| [`documents/`](documents/) | Shared ingest, PDF download, extract profile registry |
-| [`agents/`](agents/) | Supervisor entry point, audit log, tool registry |
+| [`court/`](court/) | Court extraction, normalization, schemas |
+| [`workflows/`](workflows/) | Court calendar pipeline, account classification, email intake |
+| [`documents/`](documents/) | Shared OCR, ingest, PDF download, extract profile registry |
+| [`agents/`](agents/) | LLM config, extract helpers, supervisor, audit log, tool registry |
 | [`knowledge/`](knowledge/) | Client manual storage and retrieval |
 | [`classification/`](classification/) | Product classification schemas |
 | [`evals/`](evals/) | Eval harness, goldens, regression snapshots |

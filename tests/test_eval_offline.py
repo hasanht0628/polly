@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from evals.cases import EVAL_CASES, load_eval_cases
+from evals.court.cases import EVAL_CASES, load_eval_cases
 
 
 def test_eval_cases_loaded() -> None:

@@ -20,10 +20,10 @@ fixtures/**
 !fixtures/**/.gitkeep
 
 # Eval goldens (regenerated via evals/bootstrap_goldens.py)
-evals/ocr/goldens/*
-!evals/ocr/goldens/.gitkeep
-evals/extract/goldens/*
-!evals/extract/goldens/.gitkeep
+evals/court/ocr/goldens/*
+!evals/court/ocr/goldens/.gitkeep
+evals/court/extract/goldens/*
+!evals/court/extract/goldens/.gitkeep
 evals/classification/goldens/*
 !evals/classification/goldens/.gitkeep
 evals/classification/last_eval_run.txt

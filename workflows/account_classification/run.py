@@ -6,7 +6,7 @@ from pathlib import Path
 from agents.audit import AuditLog, WorkflowRun
 from classification.schemas import ClientTaxonomy, ProductClassification
 from classification.taxonomy import merge_taxonomies
-from court.pdf_text import ocr_cache_path
+from documents.ocr import ocr_cache_path
 from documents.profiles.registry import extract_document
 from documents.text import load_document_text
 from knowledge.client_manuals.store import DEFAULT_ROOT, load_taxonomy, retrieve_manual_passages

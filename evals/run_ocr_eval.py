@@ -18,8 +18,8 @@ load_dotenv(PROJECT_ROOT / ".env")
 from pydantic import BaseModel
 from pydantic_evals import Case, Dataset
 
-from court.pdf_text import load_document_text
-from evals.cases import EVAL_CASES
+from documents.ocr import load_document_text
+from evals.court.cases import EVAL_CASES
 from evals.evaluators import RequiredPhrasesPresent
 from evals.runner_utils import _report_failed, add_snapshot_args
 from evals.snapshots import SnapshotWriter, assertion_summary

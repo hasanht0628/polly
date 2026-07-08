@@ -1,4 +1,4 @@
-"""Eval case registry for the three fixture PDFs."""
+"""Court calendar eval case registry."""
 
 from __future__ import annotations
 
@@ -7,10 +7,11 @@ from pathlib import Path
 
 import yaml
 
-EVALS_DIR = Path(__file__).resolve().parent
+EVALS_DIR = Path(__file__).resolve().parent.parent
+COURT_DIR = EVALS_DIR / "court"
 PROJECT_ROOT = EVALS_DIR.parent
 FIXTURES_DIR = PROJECT_ROOT / "fixtures"
-CASES_YAML = EVALS_DIR / "cases.yaml"
+CASES_YAML = COURT_DIR / "cases.yaml"
 
 
 @dataclass(frozen=True)
@@ -39,8 +40,8 @@ def _default_cases() -> tuple[EvalCase, ...]:
         EvalCase(
             slug="case_1",
             pdf_path=FIXTURES_DIR / "case 1.pdf",
-            ocr_golden_path=EVALS_DIR / "ocr" / "goldens" / "case_1.ocr.txt",
-            extract_golden_path=EVALS_DIR / "extract" / "goldens" / "case_1.json",
+            ocr_golden_path=COURT_DIR / "ocr" / "goldens" / "case_1.ocr.txt",
+            extract_golden_path=COURT_DIR / "extract" / "goldens" / "case_1.json",
             required_phrases=(
                 "26-CC-001299",
                 "Capital One",
@@ -61,16 +62,16 @@ def _default_cases() -> tuple[EvalCase, ...]:
         EvalCase(
             slug="case_2",
             pdf_path=FIXTURES_DIR / "case 2.pdf",
-            ocr_golden_path=EVALS_DIR / "ocr" / "goldens" / "case_2.ocr.txt",
-            extract_golden_path=EVALS_DIR / "extract" / "goldens" / "case_2.json",
+            ocr_golden_path=COURT_DIR / "ocr" / "goldens" / "case_2.ocr.txt",
+            extract_golden_path=COURT_DIR / "extract" / "goldens" / "case_2.json",
             required_phrases=(),
             extract_checks={},
         ),
         EvalCase(
             slug="doc_viewer",
             pdf_path=FIXTURES_DIR / "DocViewer.pdf",
-            ocr_golden_path=EVALS_DIR / "ocr" / "goldens" / "doc_viewer.ocr.txt",
-            extract_golden_path=EVALS_DIR / "extract" / "goldens" / "doc_viewer.json",
+            ocr_golden_path=COURT_DIR / "ocr" / "goldens" / "doc_viewer.ocr.txt",
+            extract_golden_path=COURT_DIR / "extract" / "goldens" / "doc_viewer.json",
             required_phrases=(),
             extract_checks={},
         ),

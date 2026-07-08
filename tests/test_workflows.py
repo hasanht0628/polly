@@ -10,7 +10,7 @@ from workflows.court_calendar.map_extraction import map_extraction_to_review_pac
 from workflows.intake.email_parser import parse_email_text
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-GOLDEN = PROJECT_ROOT / "evals/extract/goldens/case_1.json"
+GOLDEN = PROJECT_ROOT / "evals/court/extract/goldens/case_1.json"
 
 
 def test_map_extraction_produces_schedulable_events() -> None:

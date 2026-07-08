@@ -20,7 +20,7 @@ from pydantic_evals import Case, Dataset
 
 from court.extract import extract_from_ocr_file
 from court.schemas import CaseExtraction
-from evals.cases import EVAL_CASES
+from evals.court.cases import EVAL_CASES
 from evals.evaluators import ExtractChecksPass
 from evals.runner_utils import _report_failed, add_snapshot_args
 from evals.snapshots import SnapshotWriter, assertion_summary

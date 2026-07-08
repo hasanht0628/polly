@@ -79,40 +79,14 @@ python scripts/propose_calendar.py [-h] [--pretty] [--from-golden FROM_GOLDEN]
 
 ```bash
 python scripts/propose_calendar.py "fixtures/case 1.pdf" \
-  --from-golden evals/extract/goldens/case_1.json --pretty
-```
-
----
-
-### `scripts/classify_document.py`
-
-Classify a consumer document (wraps the account classification workflow).
-
-```
-python scripts/classify_document.py [-h] [--pretty] [--refresh-ocr] [--consumer-id CONSUMER_ID] client_id pdf
-```
-
-| Argument / flag | Description |
-|-----------------|-------------|
-| `client_id` | Client whose manual/taxonomy to use |
-| `pdf` | Consumer document PDF |
-| `--consumer-id` | Optional consumer identifier |
-| `--pretty` | Pretty-print JSON |
-| `--refresh-ocr` | Re-run OCR |
-
-**Output:** `AccountClassificationPackage` JSON. Works with or without an ingested manual (baseline taxonomy is always applied).
-
-**Example:**
-
-```bash
-python scripts/classify_document.py acme fixtures/classification/consumer/credit_card_statement.pdf --pretty
+  --from-golden evals/court/extract/goldens/case_1.json --pretty
 ```
 
 ---
 
 ### `scripts/run_account_classification.py`
 
-Full consumer PDF → account classification workflow with audit logging.
+Consumer PDF → account classification workflow with audit logging.
 
 ```
 python scripts/run_account_classification.py [-h] [--pretty] [--refresh-ocr] [--consumer-id CONSUMER_ID] [--output OUTPUT] client_id pdf
@@ -211,7 +185,7 @@ python evals/run_extract_eval.py [-h] [--snapshot | --no-snapshot]
                                  [--snapshot-label SNAPSHOT_LABEL]
 ```
 
-Requires Ollama with `OLLAMA_MODEL`. Uses `evals/ocr/goldens/*.ocr.txt` as input.
+Requires Ollama with `OLLAMA_MODEL`. Uses `evals/court/ocr/goldens/*.ocr.txt` as input.
 
 ---
 
@@ -224,7 +198,7 @@ python evals/run_proposal_eval.py [-h] [--snapshot | --no-snapshot]
                                   [--snapshot-label SNAPSHOT_LABEL]
 ```
 
-Maps `evals/extract/goldens/*.json` → `ReviewPackage` and checks output is non-empty.
+Maps `evals/court/extract/goldens/*.json` → `ReviewPackage` and checks output is non-empty.
 
 ---
 

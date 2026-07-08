@@ -20,12 +20,12 @@ from dotenv import load_dotenv
 load_dotenv(PROJECT_ROOT / ".env")
 
 from court.extract import extract_from_ocr_file
-from court.pdf_text import load_document_text
-from evals.cases import EVAL_CASES, EvalCase, FIXTURES_DIR
+from documents.ocr import load_document_text
+from evals.court.cases import EVAL_CASES, EvalCase, FIXTURES_DIR
 
-CASES_YAML = Path(__file__).resolve().parent / "cases.yaml"
-OCR_GOLDENS = Path(__file__).resolve().parent / "ocr" / "goldens"
-EXTRACT_GOLDENS = Path(__file__).resolve().parent / "extract" / "goldens"
+CASES_YAML = Path(__file__).resolve().parent / "court" / "cases.yaml"
+OCR_GOLDENS = Path(__file__).resolve().parent / "court" / "ocr" / "goldens"
+EXTRACT_GOLDENS = Path(__file__).resolve().parent / "court" / "extract" / "goldens"
 
 _CASE_NUMBER = re.compile(r"Case No\.?:?\s*([^\s,]+)", re.IGNORECASE)
 _RELATIVE_DEADLINE = re.compile(r"\(\d+\)\s*days?\s+prior", re.IGNORECASE)

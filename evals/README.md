@@ -1,4 +1,8 @@
-# Court document eval sets
+# Eval sets
+
+Two parallel suites under `evals/court/` and `evals/classification/`.
+
+## Court calendar (`evals/court/`)
 
 Three fixture PDFs, three eval stages:
 
@@ -6,42 +10,43 @@ Three fixture PDFs, three eval stages:
 |-------|--------|-------|--------|
 | OCR | `evals/run_ocr_eval.py` | PDF path | Required phrases in OCR text |
 | Extract | `evals/run_extract_eval.py` | Golden OCR text | Structured field checks |
-| Classification | `evals/run_classification_eval.py` | Golden OCR text fixtures | Account type + evidence phrases |
+| Proposal | `evals/run_proposal_eval.py` | Golden extract JSON | Non-empty `ReviewPackage` |
 
-## Cases
+Cases: `evals/court/cases.yaml` — `case_1`, `case_2`, `doc_viewer`.
 
-- `case_1` — `fixtures/case 1.pdf`
-- `case_2` — `fixtures/case 2.pdf`
-- `doc_viewer` — `fixtures/DocViewer.pdf`
-
-Classification cases are defined in `evals/classification/cases.yaml` (21 consumer PDF fixtures).
-
-Bootstrap classification goldens:
-
-```bash
-python evals/bootstrap_classification_goldens.py
-python evals/bootstrap_classification_goldens.py --ocr   # live olmocr2 (slow)
-```
-
-## Bootstrap goldens (first time or after OCR model change)
+Bootstrap court goldens:
 
 ```bash
 python evals/bootstrap_goldens.py
 ```
 
-This writes:
+Writes:
 
-- `evals/ocr/goldens/*.ocr.txt` — OCR reference text
-- `evals/extract/goldens/*.json` — reference extractions
-- `evals/cases.yaml` — required phrases and extract checks per case
+- `evals/court/ocr/goldens/*.ocr.txt`
+- `evals/court/extract/goldens/*.json`
+- `evals/court/cases.yaml`
 
-Review and edit `cases.yaml` after bootstrapping — especially `required_phrases` and `extract_checks`.
+## Classification (`evals/classification/`)
+
+| Stage | Script | Input | Checks |
+|-------|--------|-------|--------|
+| Classification | `evals/run_classification_eval.py` | Golden OCR text | Account type + evidence phrases |
+
+Cases: `evals/classification/cases.yaml` (21 consumer PDF fixtures).
+
+Bootstrap classification goldens:
+
+```bash
+python evals/bootstrap_classification_goldens.py
+python evals/bootstrap_classification_goldens.py --ocr --skip-classify   # live olmocr2 (slow)
+```
 
 ## Run evals
 
 ```bash
 python evals/run_ocr_eval.py
 python evals/run_extract_eval.py
+python evals/run_proposal_eval.py
 python evals/run_classification_eval.py
 ```
 

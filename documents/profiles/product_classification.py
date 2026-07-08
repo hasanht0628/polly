@@ -13,10 +13,10 @@ from classification.schemas import (
 from classification.taxonomy import ACCOUNT_TYPE_LIST, merge_taxonomies
 from pydantic_ai import NativeOutput
 
-from court.extract import EXTRACT_MODEL_SETTINGS, _run_with_retries
+from agents.config import make_agent
+from agents.extract_utils import EXTRACT_MODEL_SETTINGS, run_with_retries
 from documents.schemas import ExtractResult
 from documents.text import load_document_text
-from tutorials.config import make_agent
 
 CLASSIFICATION_SYSTEM_PROMPT = """\
 You classify consumer account documents into exactly one account type for a collections workflow.
@@ -137,7 +137,7 @@ async def _classify_document_text(
         + f"\n\n{_format_taxonomy_context(merged)}\n\nManual passages:\n{_format_passages(passages or [])}"
         + f"\n\nConsumer document:\n\n{snippet}"
     )
-    raw = await _run_with_retries(
+    raw = await run_with_retries(
         classification_agent,
         prompt,
         is_empty=lambda data: data.product_type == "unknown" and not data.evidence_quotes,

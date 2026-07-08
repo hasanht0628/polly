@@ -38,7 +38,7 @@ cp .env.example .env
 | `OLLAMA_MODEL` | Structured extraction (qwen) | `qwen2.5:7b` |
 | `OLLAMA_MODEL_OCR` | Page OCR (olmocr2) | `richardyoung/olmocr2:7b-q8` |
 
-Loaded via `python-dotenv` in scripts, evals, and [`tutorials/config.py`](../tutorials/config.py).
+Loaded via `python-dotenv` in scripts, evals, and [`agents/config.py`](../agents/config.py).
 
 ### 4. Smoke test
 
@@ -59,7 +59,7 @@ python evals/run_proposal_eval.py
 
 Offline tests cover normalization, workflow mapping, email parsing, eval case loading, snapshot writer, platform registry, and classification fixtures.
 
-**Note:** `test_ocr_goldens_exist_and_contain_phrases` requires bootstrap goldens to exist under `evals/ocr/goldens/`. On a fresh machine, run bootstrap first (see below).
+**Note:** `test_ocr_goldens_exist_and_contain_phrases` requires bootstrap goldens to exist under `evals/court/ocr/goldens/`. On a fresh machine, run bootstrap first (see below).
 
 ## Running with LLM
 
@@ -107,11 +107,11 @@ python evals/bootstrap_goldens.py
 ```
 
 Writes:
-- `evals/ocr/goldens/*.ocr.txt`
-- `evals/extract/goldens/*.json`
-- `evals/cases.yaml` (derived phrases and extract checks)
+- `evals/court/ocr/goldens/*.ocr.txt`
+- `evals/court/extract/goldens/*.json`
+- `evals/court/cases.yaml` (derived phrases and extract checks)
 
-Review `cases.yaml` after bootstrapping — especially `required_phrases` and `extract_checks`.
+Review `evals/court/cases.yaml` after bootstrapping — especially `required_phrases` and `extract_checks`.
 
 Use `--extract-only` to skip OCR and regenerate extract goldens from existing OCR goldens.
 
@@ -129,9 +129,9 @@ Disable with `--no-snapshot`.
 ## Adding a new eval case
 
 1. Add a redacted PDF to [`fixtures/`](../fixtures/)
-2. Register it in [`evals/cases.py`](../evals/cases.py) or run bootstrap (which updates `cases.yaml`)
+2. Register it in [`evals/court/cases.py`](../evals/court/cases.py) or run bootstrap (which updates `cases.yaml`)
 3. Run `python evals/bootstrap_goldens.py`
-4. Review and edit `evals/cases.yaml` if derived checks need tuning
+4. Review and edit `evals/court/cases.yaml` if derived checks need tuning
 5. Run all three eval stages
 
 See [`fixtures/README.md`](../fixtures/README.md) for naming conventions.
@@ -172,9 +172,9 @@ Deletes reliance on sidecar cache for that run (overwrites `.ocr.txt`).
 
 When moving the project to a new machine without Mac caches:
 
-**Include:** source code, fixture PDFs, `requirements.txt`, `.env.example`, `evals/cases.yaml`
+**Include:** source code, fixture PDFs, `requirements.txt`, `.env.example`, `evals/court/cases.yaml`
 
-**Exclude:** `.venv/`, `fixtures/*.ocr.txt`, `evals/ocr/goldens/*`, `evals/extract/goldens/*`, `evals/runs/*`
+**Exclude:** `.venv/`, `fixtures/*.ocr.txt`, `evals/court/ocr/goldens/*`, `evals/court/extract/goldens/*`, `evals/runs/*`
 
 On the new machine:
 
