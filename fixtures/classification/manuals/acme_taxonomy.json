@@ -9,6 +9,13 @@
       "example_descriptions": []
     },
     {
+      "product_type": "personal_loan",
+      "definition": "Unsecured installment personal loans",
+      "keywords": ["personal loan", "installment loan", "unsecured"],
+      "issuer_patterns": ["LendingClub"],
+      "example_descriptions": []
+    },
+    {
       "product_type": "student_loan",
       "definition": "Federal and private education debt",
       "keywords": ["student loan", "Navient", "deferment"],
@@ -20,6 +27,41 @@
       "definition": "Vehicle-secured installment loans",
       "keywords": ["auto loan", "VIN", "vehicle"],
       "issuer_patterns": [],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "mortgage",
+      "definition": "First-lien home mortgage loans",
+      "keywords": ["mortgage", "principal balance", "escrow", "deed of trust"],
+      "issuer_patterns": ["Wells Fargo Home Mortgage"],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "heloc",
+      "definition": "Home equity line of credit",
+      "keywords": ["HELOC", "home equity line", "draw period"],
+      "issuer_patterns": [],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "medical_bill",
+      "definition": "Healthcare provider billing",
+      "keywords": ["medical bill", "hospital", "patient", "provider"],
+      "issuer_patterns": [],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "bnpl",
+      "definition": "Buy now pay later installment plans",
+      "keywords": ["Affirm", "Klarna", "pay in 4", "buy now pay later"],
+      "issuer_patterns": ["Affirm"],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "telecom",
+      "definition": "Wireless and telecom service accounts",
+      "keywords": ["wireless", "data plan", "carrier", "mobile"],
+      "issuer_patterns": ["Verizon"],
       "example_descriptions": []
     }
   ],
