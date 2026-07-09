@@ -42,7 +42,7 @@ Registered in [`documents/profiles/registry.py`](../documents/profiles/registry.
 |---------|--------|---------|
 | `court_calendar` | `CaseExtraction` | Court scheduling workflow |
 | `client_manual_taxonomy` | `ClientTaxonomy` | Manual ingest |
-| `product_classification` | `ProductClassification` | Consumer doc classification (nine account types) |
+| `product_classification` | `ProductClassification` | Consumer doc classification (seven firm archetypes) |
 
 Call programmatically:
 
@@ -162,7 +162,7 @@ Not a LangGraph loop. The "supervisor" is a **deterministic async router**:
 
 ## Classification workflow
 
-Secondary workflow for consumer account classification (nine account types + `unknown`):
+Secondary workflow for consumer account classification (seven firm archetypes + `unknown` internal fallback):
 
 ```mermaid
 flowchart LR
@@ -184,7 +184,19 @@ flowchart LR
 1. Optional: ingest manual → extract taxonomy + chunk index ([`knowledge/client_manuals/store.py`](../knowledge/client_manuals/store.py))
 2. Classify consumer PDF → OCR → merge baseline + client taxonomy → retrieve manual passages → LLM classification via `product_classification` profile → `AccountClassificationPackage`
 
-Account types: `credit_card`, `personal_loan`, `auto_loan`, `student_loan`, `mortgage`, `heloc`, `medical_bill`, `bnpl`, `telecom`, `unknown`.
+Account archetypes: `credit_card`, `retail_installments`, `fintech`, `student_loan`, `lending_point`, `auto_deficiency`, `other` (plus internal `unknown` mapped to `other` + review).
+
+### Portfolio `.dat` workflow
+
+Batch path for firm portfolios:
+
+1. Parse fixed-width `.dat` → cases ([`portfolio/dat_parser.py`](../portfolio/dat_parser.py))
+2. Resolve officer code via [`knowledge/client_codes/`](../knowledge/client_codes/) ([`classification/client_codes.py`](../classification/client_codes.py))
+3. Unique archetype → emit immediately (`source=client_code`)
+4. Ambiguous/missing → tool-using agent ([`portfolio/ambiguous_agent.py`](../portfolio/ambiguous_agent.py)) with `find_account_folder` / `read_pdf_text` / `classify_archetype`
+5. Assemble [`PortfolioClassificationBatch`](../workflows/schemas.py)
+
+CLI: `scripts/run_portfolio_classification.py`, `scripts/inspect_dat.py`, `scripts/find_account_pdfs.py`.
 
 ### `AccountClassificationPackage` ([`workflows/schemas.py`](../workflows/schemas.py))
 

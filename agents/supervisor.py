@@ -13,7 +13,15 @@ from workflows.court_calendar.run import (
     run_court_workflow_from_email,
     run_court_workflow_from_pdf,
 )
-from workflows.schemas import AccountClassificationPackage, ReviewPackage
+from workflows.portfolio_classification.run import (
+    format_portfolio_output,
+    run_portfolio_classification,
+)
+from workflows.schemas import (
+    AccountClassificationPackage,
+    PortfolioClassificationBatch,
+    ReviewPackage,
+)
 
 
 async def run_court_workflow(
@@ -44,12 +52,32 @@ async def run_account_classification_workflow(
     )
 
 
+async def run_portfolio_classification_workflow(
+    dat_path: Path,
+    *,
+    docs_root: Path | None = None,
+    codes_path: Path | None = None,
+    client_id: str = "portfolio",
+    use_cache: bool = True,
+) -> PortfolioClassificationBatch:
+    return await run_portfolio_classification(
+        dat_path,
+        docs_root=docs_root,
+        codes_path=codes_path,
+        client_id=client_id,
+        use_cache=use_cache,
+    )
+
+
 __all__ = [
     "format_classification_output",
+    "format_portfolio_output",
     "format_scheduling_output",
     "run_account_classification_from_pdf",
     "run_account_classification_workflow",
     "run_court_workflow",
     "run_court_workflow_from_email",
     "run_court_workflow_from_pdf",
+    "run_portfolio_classification",
+    "run_portfolio_classification_workflow",
 ]

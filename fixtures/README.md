@@ -43,6 +43,29 @@ fixtures/classification/manuals/
 
 Register labeled cases in `evals/classification/cases.yaml`.
 
+## Portfolio `.dat` + docs (local)
+
+Synthetic layout for the portfolio classification workflow (gitignored locally):
+
+```
+fixtures/portfolio/sample.dat
+fixtures/portfolio/docs/<date>/PLMTDOCS_YYMMDD/<account_id>/*.pdf
+```
+
+Account folders are typically one character longer than the `.dat` case id.
+
+```bash
+python scripts/inspect_dat.py fixtures/portfolio/sample.dat
+python scripts/find_account_pdfs.py fixtures/portfolio/docs 493458439 --pretty
+python scripts/run_portfolio_classification.py \
+  --dat fixtures/portfolio/sample.dat \
+  --docs-root fixtures/portfolio/docs \
+  --codes knowledge/client_codes/default.yaml \
+  --pretty
+```
+
+Officer-code → archetype mappings live in `knowledge/client_codes/` (not under fixtures).
+
 ## Prerequisites
 
 Requires Ollama with models from `.env`:

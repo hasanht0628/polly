@@ -16,25 +16,25 @@ cases:
 
   - slug: sample_003
     pdf: fixtures/classification/consumer/pdfs/sample_003.pdf
-    expected_product_type: personal_loan
+    expected_product_type: fintech
     evidence_phrases:
       - Personal Loan Monthly Statement
 
   - slug: sample_004
     pdf: fixtures/classification/consumer/pdfs/sample_004.pdf
-    expected_product_type: personal_loan
+    expected_product_type: fintech
     evidence_phrases:
       - Installment Loan Statement
 
   - slug: sample_005
     pdf: fixtures/classification/consumer/pdfs/sample_005.pdf
-    expected_product_type: auto_loan
+    expected_product_type: auto_deficiency
     evidence_phrases:
       - Auto Finance Statement
 
   - slug: sample_006
     pdf: fixtures/classification/consumer/pdfs/sample_006.pdf
-    expected_product_type: auto_loan
+    expected_product_type: auto_deficiency
     evidence_phrases:
       - VIN
       - Repossession
@@ -53,62 +53,62 @@ cases:
 
   - slug: sample_009
     pdf: fixtures/classification/consumer/pdfs/sample_009.pdf
-    expected_product_type: mortgage
+    expected_product_type: other
     evidence_phrases:
       - Mortgage
 
   - slug: sample_010
     pdf: fixtures/classification/consumer/pdfs/sample_010.pdf
-    expected_product_type: heloc
+    expected_product_type: other
     evidence_phrases:
       - HELOC
       - home equity
 
   - slug: sample_011
     pdf: fixtures/classification/consumer/pdfs/sample_011.pdf
-    expected_product_type: unknown
+    expected_product_type: other
     evidence_phrases: []
 
   - slug: sample_012
     pdf: fixtures/classification/consumer/pdfs/sample_012.pdf
-    expected_product_type: bnpl
+    expected_product_type: retail_installments
     evidence_phrases:
       - Retail Installment Contract
       - Merchant
 
   - slug: sample_013
     pdf: fixtures/classification/consumer/pdfs/sample_013.pdf
-    expected_product_type: bnpl
+    expected_product_type: retail_installments
     evidence_phrases:
       - Pay-in-4
 
   - slug: sample_014
     pdf: fixtures/classification/consumer/pdfs/sample_014.pdf
-    expected_product_type: medical_bill
+    expected_product_type: other
     evidence_phrases:
       - Patient Account Statement
       - Patient
 
   - slug: sample_015
     pdf: fixtures/classification/consumer/pdfs/sample_015.pdf
-    expected_product_type: unknown
+    expected_product_type: other
     evidence_phrases: []
 
   - slug: sample_016
     pdf: fixtures/classification/consumer/pdfs/sample_016.pdf
-    expected_product_type: telecom
+    expected_product_type: other
     evidence_phrases:
       - Wireless Account Statement
       - data plan
 
   - slug: sample_017
     pdf: fixtures/classification/consumer/pdfs/sample_017.pdf
-    expected_product_type: unknown
+    expected_product_type: other
     evidence_phrases: []
 
   - slug: sample_018
     pdf: fixtures/classification/consumer/pdfs/sample_018.pdf
-    expected_product_type: personal_loan
+    expected_product_type: fintech
     evidence_phrases:
       - Short-Term Loan
       - Cash Advance
@@ -121,11 +121,11 @@ cases:
 
   - slug: sample_020
     pdf: fixtures/classification/consumer/pdfs/sample_020.pdf
-    expected_product_type: personal_loan
+    expected_product_type: fintech
     evidence_phrases:
       - Personal Installment Loan
 
   - slug: sample_021
     pdf: fixtures/classification/consumer/pdfs/sample_021.pdf
-    expected_product_type: unknown
+    expected_product_type: other
     evidence_phrases: []

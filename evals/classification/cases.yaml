@@ -21,7 +21,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_003.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_003.json
   client_id: acme
-  expected_product_type: personal_loan
+  expected_product_type: fintech
   evidence_phrases:
   - Personal Loan Monthly Statement
 - slug: sample_004
@@ -29,7 +29,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_004.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_004.json
   client_id: acme
-  expected_product_type: personal_loan
+  expected_product_type: fintech
   evidence_phrases:
   - Installment Loan Statement
 - slug: sample_005
@@ -37,7 +37,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_005.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_005.json
   client_id: acme
-  expected_product_type: auto_loan
+  expected_product_type: auto_deficiency
   evidence_phrases:
   - Auto Finance Statement
 - slug: sample_006
@@ -45,7 +45,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_006.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_006.json
   client_id: acme
-  expected_product_type: auto_loan
+  expected_product_type: auto_deficiency
   evidence_phrases:
   - VIN
   - Repossession
@@ -70,7 +70,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_009.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_009.json
   client_id: acme
-  expected_product_type: mortgage
+  expected_product_type: other
   evidence_phrases:
   - Mortgage
 - slug: sample_010
@@ -78,7 +78,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_010.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_010.json
   client_id: acme
-  expected_product_type: heloc
+  expected_product_type: other
   evidence_phrases:
   - HELOC
   - home equity
@@ -87,7 +87,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_011.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_011.json
   client_id: acme
-  expected_product_type: unknown
+  expected_product_type: other
   evidence_phrases:
   - 'Account Type: Consumer checking'
   - Loan or Credit Card? No
@@ -98,7 +98,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_012.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_012.json
   client_id: acme
-  expected_product_type: bnpl
+  expected_product_type: retail_installments
   evidence_phrases:
   - Retail Installment Contract
   - Merchant
@@ -107,7 +107,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_013.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_013.json
   client_id: acme
-  expected_product_type: bnpl
+  expected_product_type: retail_installments
   evidence_phrases:
   - Pay-in-4
 - slug: sample_014
@@ -115,7 +115,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_014.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_014.json
   client_id: acme
-  expected_product_type: medical_bill
+  expected_product_type: other
   evidence_phrases:
   - Patient Account Statement
   - Patient
@@ -124,14 +124,14 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_015.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_015.json
   client_id: acme
-  expected_product_type: unknown
+  expected_product_type: other
   evidence_phrases: []
 - slug: sample_016
   pdf_path: fixtures/classification/consumer/pdfs/sample_016.pdf
   ocr_fixture: evals/classification/goldens/sample_016.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_016.json
   client_id: acme
-  expected_product_type: telecom
+  expected_product_type: other
   evidence_phrases:
   - Wireless Account Statement
   - data plan
@@ -140,14 +140,14 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_017.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_017.json
   client_id: acme
-  expected_product_type: unknown
+  expected_product_type: other
   evidence_phrases: []
 - slug: sample_018
   pdf_path: fixtures/classification/consumer/pdfs/sample_018.pdf
   ocr_fixture: evals/classification/goldens/sample_018.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_018.json
   client_id: acme
-  expected_product_type: personal_loan
+  expected_product_type: fintech
   evidence_phrases:
   - Short-Term Loan
   - Cash Advance
@@ -164,7 +164,7 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_020.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_020.json
   client_id: acme
-  expected_product_type: personal_loan
+  expected_product_type: fintech
   evidence_phrases:
   - Personal Installment Loan
 - slug: sample_021
@@ -172,5 +172,5 @@ cases:
   ocr_fixture: evals/classification/goldens/sample_021.ocr.txt
   classification_golden_path: evals/classification/goldens/sample_021.json
   client_id: acme
-  expected_product_type: unknown
+  expected_product_type: other
   evidence_phrases: []

@@ -51,23 +51,32 @@ class ExtractChecksPass(Evaluator[object, CaseExtraction, dict]):
 
     evaluation_name: str | None = field(default="extract_checks")
 
-    def evaluate(self, ctx: EvaluatorContext[object, CaseExtraction, dict]) -> bool:
+    def evaluate(self, ctx: EvaluatorContext[object, CaseExtraction, dict]) -> EvaluationReason:
         checks: dict = ctx.metadata.get("extract_checks", {})
         if not checks:
-            return True
+            return EvaluationReason(value=True)
         output: CaseExtraction = ctx.output
 
         if expected_number := checks.get("case_number"):
             if output.case_number != expected_number:
-                return False
+                return EvaluationReason(
+                    value=False,
+                    reason=f"expected case_number {expected_number!r}, got {output.case_number!r}",
+                )
 
         if min_events := checks.get("min_events"):
             if len(output.events) < int(min_events):
-                return False
+                return EvaluationReason(
+                    value=False,
+                    reason=f"expected at least {min_events} events, got {len(output.events)}",
+                )
 
         if min_deadlines := checks.get("min_deadlines"):
             if len(output.deadlines) < int(min_deadlines):
-                return False
+                return EvaluationReason(
+                    value=False,
+                    reason=f"expected at least {min_deadlines} deadlines, got {len(output.deadlines)}",
+                )
 
         if expected_types := checks.get("event_types"):
             actual = {event.event_type.lower().replace(" ", "_") for event in output.events}
@@ -77,22 +86,34 @@ class ExtractChecksPass(Evaluator[object, CaseExtraction, dict]):
                     normalized in actual_type or actual_type in normalized
                     for actual_type in actual
                 ):
-                    return False
+                    return EvaluationReason(
+                        value=False,
+                        reason=f"expected event_type {event_type!r}, got {sorted(actual)}",
+                    )
 
         if deadline_phrases := checks.get("deadline_phrases"):
             blob = " ".join(d.description.lower() for d in output.deadlines)
             for phrase in deadline_phrases:
                 if phrase.lower() not in blob:
-                    return False
+                    return EvaluationReason(
+                        value=False,
+                        reason=f"missing deadline phrase: {phrase!r}",
+                    )
 
         if checks.get("no_hallucinated_zoom_urls"):
             for event in output.events:
                 if event.virtual_meeting_id and event.virtual_meeting_id.startswith(
                     ("http://", "https://")
                 ):
-                    return False
+                    return EvaluationReason(
+                        value=False,
+                        reason=(
+                            "virtual_meeting_id looks like a URL, not an ID: "
+                            f"{event.virtual_meeting_id!r}"
+                        ),
+                    )
 
-        return True
+        return EvaluationReason(value=True)
 
 
 @dataclass(repr=False)

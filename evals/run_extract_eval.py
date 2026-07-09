@@ -22,7 +22,7 @@ from court.extract import extract_from_ocr_file
 from court.schemas import CaseExtraction
 from evals.court.cases import EVAL_CASES
 from evals.evaluators import ExtractChecksPass
-from evals.runner_utils import _report_failed, add_snapshot_args
+from evals.runner_utils import _report_failed, add_snapshot_args, print_failure_summary
 from evals.snapshots import SnapshotWriter, assertion_summary
 
 
@@ -89,7 +89,13 @@ async def main() -> None:
 
     dataset = build_extract_dataset()
     report = await dataset.evaluate(extract_task)
-    report.print(include_input=False, include_output=False, include_durations=True)
+    report.print(
+        include_input=False,
+        include_output=False,
+        include_durations=True,
+        include_reasons=True,
+    )
+    print_failure_summary(report)
     if args.snapshot:
         writer = SnapshotWriter.create("extract", label=args.snapshot_label)
         _save_extract_snapshots(report, writer=writer)

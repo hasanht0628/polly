@@ -9,9 +9,9 @@
       "example_descriptions": []
     },
     {
-      "product_type": "personal_loan",
-      "definition": "Unsecured installment personal loans",
-      "keywords": ["personal loan", "installment loan", "unsecured"],
+      "product_type": "fintech",
+      "definition": "Online / marketplace personal loans and other fintech-originated unsecured credit",
+      "keywords": ["personal loan", "installment loan", "unsecured", "fintech"],
       "issuer_patterns": ["LendingClub"],
       "example_descriptions": []
     },
@@ -23,45 +23,31 @@
       "example_descriptions": []
     },
     {
-      "product_type": "auto_loan",
-      "definition": "Vehicle-secured installment loans",
-      "keywords": ["auto loan", "VIN", "vehicle"],
+      "product_type": "auto_deficiency",
+      "definition": "Auto loan deficiency balances after repossession or sale of collateral",
+      "keywords": ["auto loan", "VIN", "vehicle", "repossession", "deficiency"],
       "issuer_patterns": [],
       "example_descriptions": []
     },
     {
-      "product_type": "mortgage",
-      "definition": "First-lien home mortgage loans",
-      "keywords": ["mortgage", "principal balance", "escrow", "deed of trust"],
-      "issuer_patterns": ["Wells Fargo Home Mortgage"],
-      "example_descriptions": []
-    },
-    {
-      "product_type": "heloc",
-      "definition": "Home equity line of credit",
-      "keywords": ["HELOC", "home equity line", "draw period"],
-      "issuer_patterns": [],
-      "example_descriptions": []
-    },
-    {
-      "product_type": "medical_bill",
-      "definition": "Healthcare provider billing",
-      "keywords": ["medical bill", "hospital", "patient", "provider"],
-      "issuer_patterns": [],
-      "example_descriptions": []
-    },
-    {
-      "product_type": "bnpl",
-      "definition": "Buy now pay later installment plans",
-      "keywords": ["Affirm", "Klarna", "pay in 4", "buy now pay later"],
+      "product_type": "retail_installments",
+      "definition": "Retail or merchant installment plans including BNPL",
+      "keywords": ["Affirm", "Klarna", "pay in 4", "buy now pay later", "retail installment"],
       "issuer_patterns": ["Affirm"],
       "example_descriptions": []
     },
     {
-      "product_type": "telecom",
-      "definition": "Wireless and telecom service accounts",
-      "keywords": ["wireless", "data plan", "carrier", "mobile"],
-      "issuer_patterns": ["Verizon"],
+      "product_type": "lending_point",
+      "definition": "Accounts originated or branded as LendingPoint",
+      "keywords": ["LendingPoint"],
+      "issuer_patterns": ["LendingPoint"],
+      "example_descriptions": []
+    },
+    {
+      "product_type": "other",
+      "definition": "Accounts that do not fit the named firm archetypes",
+      "keywords": ["mortgage", "HELOC", "medical bill", "wireless", "telecom"],
+      "issuer_patterns": ["Verizon", "Wells Fargo Home Mortgage"],
       "example_descriptions": []
     }
   ],
@@ -75,6 +61,6 @@
   "rules": [
     "Classify using issuer name and product keywords from the manual"
   ],
-  "version": "1",
+  "version": "2",
   "source_manual_path": "fixtures/classification/manuals/acme_manual.txt"
 }

@@ -8,7 +8,9 @@ from workflows.schemas import AccountClassificationPackage
 
 def _review_reasons(classification: ProductClassification) -> list[str]:
     reasons: list[str] = []
-    if classification.product_type == ProductType.unknown:
+    if classification.product_type in {ProductType.unknown, ProductType.other} and not classification.evidence_quotes:
+        reasons.append("Account type could not be determined from the document")
+    elif classification.product_type == ProductType.unknown:
         reasons.append("Account type could not be determined from the document")
     if classification.confidence != "high":
         reasons.append(f"Classification confidence is {classification.confidence}")

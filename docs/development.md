@@ -37,8 +37,14 @@ cp .env.example .env
 | `OLLAMA_BASE_URL` | Ollama OpenAI-compatible API | `http://localhost:11434/v1` |
 | `OLLAMA_MODEL` | Structured extraction (qwen) | `qwen2.5:7b` |
 | `OLLAMA_MODEL_OCR` | Page OCR (olmocr2) | `richardyoung/olmocr2:7b-q8` |
+| `USE_OPENAI` | Temporary switch: all agents use OpenAI | `false` |
+| `OPENAI_API_KEY` | Required when `USE_OPENAI=true` | — |
+| `OPENAI_MODEL` | OpenAI extract / classify model | `gpt-4o-mini` |
+| `OPENAI_MODEL_OCR` | OpenAI vision OCR model | `gpt-4o-mini` |
 
 Loaded via `python-dotenv` in scripts, evals, and [`agents/config.py`](../agents/config.py).
+
+To speed up local testing, set `USE_OPENAI=true` in `.env`. Flip it back to `false` to return to Ollama.
 
 ### 4. Smoke test
 

@@ -14,40 +14,41 @@ from classification.taxonomy import ACCOUNT_TYPE_LIST, merge_taxonomies
 from pydantic_ai import NativeOutput
 
 from agents.config import make_agent
-from agents.extract_utils import EXTRACT_MODEL_SETTINGS, run_with_retries
+from agents.extract_utils import EXTRACT_MODEL_SETTINGS, RunMetrics, run_with_retries
 from documents.schemas import ExtractResult
 from documents.text import load_document_text
 
 CLASSIFICATION_SYSTEM_PROMPT = """\
-You classify consumer account documents into exactly one account type for a collections workflow.
+You classify consumer account documents into exactly one firm account archetype.
 
 You MUST return structured output. Put your decision in the structured fields, not in prose:
 - product_type: EXACTLY one value from the allowed list. Choose the best match; only use "unknown"
-  when no account type has any supporting evidence in the document.
+  when no archetype has any supporting evidence in the document.
 - evidence_quotes: 1-3 verbatim snippets copied from the consumer document that justify product_type.
   If you can identify a type, evidence_quotes MUST NOT be empty.
 - confidence: "high" only when the evidence is clear and unambiguous; otherwise "medium" or "low".
 - extraction_notes: optional caveats ONLY. Never put your main answer or reasoning here instead of
   product_type / evidence_quotes.
 - Set needs_review=true when confidence is not high, the type is unknown, or alternatives exist.
-- List alternative_types when the document could plausibly match more than one account type.
+- List alternative_types when the document could plausibly match more than one archetype.
 """
 
 CLASSIFICATION_PROMPT = f"""\
-Classify this consumer document into exactly one account type using the taxonomy and manual passages.
+Classify this consumer document into exactly one account archetype using the taxonomy and manual passages.
 
 Account types: {ACCOUNT_TYPE_LIST}
 
 Disambiguation hints:
-- personal_loan vs auto_loan: auto loans mention VIN, vehicle collateral, or motor vehicle.
-- mortgage vs heloc: mortgages are first-lien home loans with escrow/principal; HELOCs are revolving lines secured by home equity with draw periods.
-- medical_bill vs credit_card: medical bills reference providers, hospitals, patients, or CPT codes.
-- bnpl vs credit_card: BNPL mentions merchant checkout installments (Affirm, Klarna, pay in 4).
-- telecom vs credit_card: telecom bills reference wireless plans, carriers, data, or minutes.
+- lending_point vs fintech: use lending_point when LendingPoint is named as issuer/originator.
+- auto_deficiency vs other: prefer auto_deficiency when repossession, deficiency balance, or post-sale auto debt appears.
+- retail_installments vs credit_card: retail/BNPL checkout plans and store financing → retail_installments; revolving card accounts → credit_card.
+- fintech vs retail_installments: online/marketplace personal loans → fintech; merchant installment contracts → retail_installments.
+- student_loan: education debt, deferment, forbearance, federal/private student servicers.
+- other: use when the document is clearly debt but fits none of the named archetypes.
 
 How to answer:
-1. Scan the document for keywords from each account type in the taxonomy.
-2. Pick the single account type with the strongest keyword/context support and set product_type to it.
+1. Scan the document for keywords from each archetype in the taxonomy.
+2. Pick the single archetype with the strongest keyword/context support and set product_type to it.
 3. Copy 1-3 exact phrases from the document into evidence_quotes.
 
 Example: a document containing "Credit Card Statement", "Minimum Payment", and "APR" should return
@@ -57,7 +58,7 @@ Rules:
 - Use only evidence from the consumer document for evidence_quotes.
 - Cite which manual rules/sections support the classification in manual_citations.
 - Set needs_review=true when confidence is not high or alternatives exist.
-- List alternative_types when the document could plausibly match more than one account type.
+- List alternative_types when the document could plausibly match more than one archetype.
 """
 
 classification_agent = make_agent(
@@ -80,27 +81,47 @@ def _format_taxonomy_context(taxonomy: ClientTaxonomy) -> str:
     return "\n".join(lines)
 
 
+def _normalize_product_type(raw: str) -> ProductType:
+    cleaned = raw.lower().replace(" ", "_").replace("-", "_")
+    aliases = {
+        "personal_loan": ProductType.fintech,
+        "auto_loan": ProductType.auto_deficiency,
+        "bnpl": ProductType.retail_installments,
+        "telecom": ProductType.other,
+        "mortgage": ProductType.other,
+        "heloc": ProductType.other,
+        "medical_bill": ProductType.other,
+    }
+    if cleaned in aliases:
+        return aliases[cleaned]
+    try:
+        return ProductType(cleaned)
+    except ValueError:
+        return ProductType.unknown
+
+
 def _normalize_classification(
     client_id: str,
     raw: ExtractedProductClassification,
 ) -> ProductClassification:
-    try:
-        product_type = ProductType(raw.product_type.lower().replace(" ", "_"))
-    except ValueError:
-        product_type = ProductType.unknown
+    product_type = _normalize_product_type(raw.product_type)
 
     alternatives: list[ProductType] = []
     for alt in raw.alternative_types:
-        try:
-            alternatives.append(ProductType(alt.lower().replace(" ", "_")))
-        except ValueError:
-            continue
+        normalized = _normalize_product_type(alt)
+        if normalized != ProductType.unknown and normalized not in alternatives:
+            alternatives.append(normalized)
 
     confidence = raw.confidence.lower()
     if confidence not in {"high", "medium", "low"}:
         confidence = "low"
 
-    needs_review = raw.needs_review or confidence != "high" or product_type == ProductType.unknown
+    # Map unresolved unknown → other + review for firm-facing packages.
+    if product_type == ProductType.unknown:
+        product_type = ProductType.other
+        needs_review = True
+    else:
+        needs_review = raw.needs_review or confidence != "high"
 
     return ProductClassification(
         client_id=client_id,
@@ -128,6 +149,8 @@ async def _classify_document_text(
     client_id: str,
     taxonomy: ClientTaxonomy | None = None,
     passages: list[str] | None = None,
+    extra_context: str = "",
+    metrics: RunMetrics | None = None,
 ) -> tuple[ProductClassification, list[str]]:
     merged = merge_taxonomies(taxonomy)
     merged.client_id = client_id
@@ -135,12 +158,16 @@ async def _classify_document_text(
     prompt = (
         CLASSIFICATION_PROMPT
         + f"\n\n{_format_taxonomy_context(merged)}\n\nManual passages:\n{_format_passages(passages or [])}"
-        + f"\n\nConsumer document:\n\n{snippet}"
     )
+    if extra_context:
+        prompt += f"\n\nAdditional case context:\n{extra_context}"
+    prompt += f"\n\nConsumer document:\n\n{snippet}"
     raw = await run_with_retries(
         classification_agent,
         prompt,
-        is_empty=lambda data: data.product_type == "unknown" and not data.evidence_quotes,
+        is_empty=lambda data: data.product_type in {"unknown", "other"}
+        and not data.evidence_quotes,
+        metrics=metrics,
     )
     return _normalize_classification(client_id, raw), list(raw.extraction_notes)
 
@@ -151,6 +178,7 @@ async def classify_from_ocr_file(
     client_id: str = "baseline",
     taxonomy: ClientTaxonomy | None = None,
     passages: list[str] | None = None,
+    metrics: RunMetrics | None = None,
 ) -> ProductClassification:
     text = ocr_path.read_text(encoding="utf-8")
     classification, _ = await _classify_document_text(
@@ -158,6 +186,27 @@ async def classify_from_ocr_file(
         client_id=client_id,
         taxonomy=taxonomy,
         passages=passages,
+        metrics=metrics,
+    )
+    return classification
+
+
+async def classify_document_text(
+    doc_text: str,
+    *,
+    client_id: str = "baseline",
+    taxonomy: ClientTaxonomy | None = None,
+    passages: list[str] | None = None,
+    extra_context: str = "",
+    metrics: RunMetrics | None = None,
+) -> ProductClassification:
+    classification, _ = await _classify_document_text(
+        doc_text,
+        client_id=client_id,
+        taxonomy=taxonomy,
+        passages=passages,
+        extra_context=extra_context,
+        metrics=metrics,
     )
     return classification
 
@@ -172,6 +221,7 @@ async def run_product_classification(
     client_id = str(context.get("client_id", "unknown"))
     raw_taxonomy: ClientTaxonomy | None = context.get("taxonomy")
     passages: list[str] = list(context.get("manual_passages") or [])
+    extra_context = str(context.get("extra_context") or "")
 
     taxonomy = merge_taxonomies(raw_taxonomy)
     if raw_taxonomy is None:
@@ -183,6 +233,7 @@ async def run_product_classification(
         client_id=client_id,
         taxonomy=raw_taxonomy,
         passages=passages,
+        extra_context=extra_context,
     )
     return ExtractResult(
         profile_id="product_classification",

@@ -21,10 +21,11 @@ from pydantic_evals import Case, Dataset
 
 from classification.schemas import ClientTaxonomy, ProductClassification
 from classification.taxonomy import merge_taxonomies
+from agents.extract_utils import RunMetrics
 from documents.profiles.product_classification import classify_from_ocr_file
 from evals.classification.cases import CLASSIFICATION_CASES
 from evals.evaluators import ClassificationChecksPass
-from evals.runner_utils import _report_failed, add_snapshot_args
+from evals.runner_utils import _report_failed, add_snapshot_args, print_failure_summary
 from evals.snapshots import SnapshotWriter, assertion_summary
 from knowledge.client_manuals.store import retrieve_manual_passages
 
@@ -32,6 +33,20 @@ from knowledge.client_manuals.store import retrieve_manual_passages
 class ClassificationInput(BaseModel):
     ocr_fixture_path: Path
     client_id: str
+
+
+CASE_METRICS: dict[str, dict[str, int | float]] = {}
+
+
+def _usage_summary(metrics: RunMetrics) -> dict[str, int | float]:
+    usage = metrics.usage
+    return {
+        "attempts": metrics.attempts,
+        "requests": usage.requests,
+        "input_tokens": usage.input_tokens,
+        "output_tokens": usage.output_tokens,
+        "total_tokens": usage.input_tokens + usage.output_tokens,
+    }
 
 
 def _load_taxonomy(client_id: str) -> ClientTaxonomy | None:
@@ -50,12 +65,17 @@ async def classification_task(inputs: ClassificationInput) -> ProductClassificat
         text[:4000],
         root=PROJECT_ROOT / "knowledge/client_manuals",
     )
-    return await classify_from_ocr_file(
+    metrics = RunMetrics()
+    classification = await classify_from_ocr_file(
         inputs.ocr_fixture_path,
         client_id=inputs.client_id,
         taxonomy=taxonomy,
         passages=passages,
+        metrics=metrics,
     )
+    case_name = inputs.ocr_fixture_path.name.removesuffix(".ocr.txt")
+    CASE_METRICS[case_name] = _usage_summary(metrics)
+    return classification
 
 
 def build_classification_dataset() -> Dataset[ClassificationInput, ProductClassification, dict]:
@@ -93,6 +113,7 @@ def _save_classification_snapshots(report, *, writer: SnapshotWriter) -> None:
                 else {},
                 "assertions": assertion_summary(case.assertions),
                 "task_duration_s": case.task_duration,
+                "llm_usage": CASE_METRICS.get(case.name, {}),
             },
         )
         writer.record_case(
@@ -109,6 +130,56 @@ def _save_classification_snapshots(report, *, writer: SnapshotWriter) -> None:
         )
 
 
+def _print_usage_summary(report) -> None:
+    if not report.cases:
+        return
+
+    print("\nUsage summary:")
+    print(
+        f"{'case':<14} {'status':<6} {'time_s':>7} {'in_tok':>8} {'out_tok':>8} {'total':>8} {'req':>4}"
+    )
+    print("-" * 66)
+
+    totals = {
+        "duration_s": 0.0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+        "requests": 0,
+    }
+    for case in report.cases:
+        passed = all(a.value for a in case.assertions.values()) if case.assertions else True
+        status = "PASS" if passed else "FAIL"
+        usage = CASE_METRICS.get(case.name, {})
+        duration = case.task_duration
+        input_tokens = int(usage.get("input_tokens", 0))
+        output_tokens = int(usage.get("output_tokens", 0))
+        total_tokens = int(usage.get("total_tokens", input_tokens + output_tokens))
+        requests = int(usage.get("requests", 0))
+        print(
+            f"{case.name:<14} {status:<6} {duration:>7.1f} "
+            f"{input_tokens:>8} {output_tokens:>8} {total_tokens:>8} {requests:>4}"
+        )
+        totals["duration_s"] += duration
+        totals["input_tokens"] += input_tokens
+        totals["output_tokens"] += output_tokens
+        totals["total_tokens"] += total_tokens
+        totals["requests"] += requests
+
+    print("-" * 66)
+    print(
+        f"{'TOTAL':<14} {'':<6} {totals['duration_s']:>7.1f} "
+        f"{totals['input_tokens']:>8} {totals['output_tokens']:>8} "
+        f"{totals['total_tokens']:>8} {totals['requests']:>4}"
+    )
+    case_count = len(report.cases)
+    if case_count:
+        print(
+            f"Averages: {totals['duration_s'] / case_count:.1f}s/case, "
+            f"{totals['total_tokens'] / case_count:.0f} tokens/case"
+        )
+
+
 async def main() -> None:
     import argparse
 
@@ -121,7 +192,12 @@ async def main() -> None:
     dataset = build_classification_dataset()
     report = await dataset.evaluate(classification_task)
     try:
-        report.print(include_input=False, include_output=False, include_durations=True)
+        report.print(
+            include_input=False,
+            include_output=False,
+            include_durations=True,
+            include_reasons=True,
+        )
     except UnicodeEncodeError:
         print("Evaluation complete (summary table skipped on this console encoding).")
         for case in report.cases:
@@ -130,6 +206,8 @@ async def main() -> None:
             print(f"  {case.name}: {status} ({case.task_duration:.1f}s)")
         for failure in report.failures:
             print(f"  {failure.name}: ERROR {failure.error_message}")
+    print_failure_summary(report)
+    _print_usage_summary(report)
     if args.snapshot:
         writer = SnapshotWriter.create("classification", label=args.snapshot_label)
         _save_classification_snapshots(report, writer=writer)

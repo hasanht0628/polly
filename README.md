@@ -1,6 +1,6 @@
 # Pollack
 
-Court-document pipeline for law-firm workflows: PDF → OCR → structured extraction → scheduling output (`ReviewPackage` JSON). Also includes a consumer account classification workflow (nine account types) using client manuals and a built-in baseline taxonomy.
+Court-document pipeline for law-firm workflows: PDF → OCR → structured extraction → scheduling output (`ReviewPackage` JSON). Also includes consumer account classification (seven firm archetypes) and a portfolio `.dat` workflow that resolves officer codes then falls back to PDF/LLM when mappings are ambiguous.
 
 ## Prerequisites
 

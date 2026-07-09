@@ -6,16 +6,20 @@ from pydantic import BaseModel, Field
 
 
 class ProductType(str, Enum):
+    """Firm account archetypes used for portfolio classification."""
+
     credit_card = "credit_card"
-    personal_loan = "personal_loan"
-    auto_loan = "auto_loan"
+    retail_installments = "retail_installments"
+    fintech = "fintech"
     student_loan = "student_loan"
-    mortgage = "mortgage"
-    heloc = "heloc"
-    medical_bill = "medical_bill"
-    bnpl = "bnpl"
-    telecom = "telecom"
+    lending_point = "lending_point"
+    auto_deficiency = "auto_deficiency"
+    other = "other"
     unknown = "unknown"
+
+
+# Alias for callers that prefer the firm vocabulary.
+AccountArchetype = ProductType
 
 
 class ProductTypeRule(BaseModel):

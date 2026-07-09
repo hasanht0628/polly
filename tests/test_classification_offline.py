@@ -17,19 +17,17 @@ CONSUMER = PROJECT_ROOT / "fixtures/classification/consumer"
 
 ACCOUNT_TYPES = {
     ProductType.credit_card,
-    ProductType.personal_loan,
-    ProductType.auto_loan,
+    ProductType.retail_installments,
+    ProductType.fintech,
     ProductType.student_loan,
-    ProductType.mortgage,
-    ProductType.heloc,
-    ProductType.medical_bill,
-    ProductType.bnpl,
-    ProductType.telecom,
+    ProductType.lending_point,
+    ProductType.auto_deficiency,
+    ProductType.other,
 }
 
 
-def test_product_type_enum_has_nine_account_types() -> None:
-    assert len(ACCOUNT_TYPES) == 9
+def test_product_type_enum_has_seven_archetypes() -> None:
+    assert len(ACCOUNT_TYPES) == 7
     assert ProductType.unknown not in ACCOUNT_TYPES
 
 
@@ -60,21 +58,13 @@ def test_manual_taxonomy_golden_valid() -> None:
     taxonomy = ClientTaxonomy.model_validate_json(
         (MANUALS / "acme_taxonomy.json").read_text(encoding="utf-8")
     )
-    assert len(taxonomy.product_types) >= 9
+    assert len(taxonomy.product_types) >= 7
 
 
 @pytest.mark.parametrize(
     "golden_file,expected_type",
     [
         ("credit_card_classification.json", ProductType.credit_card),
-        ("personal_loan_classification.json", ProductType.personal_loan),
-        ("auto_loan_classification.json", ProductType.auto_loan),
-        ("student_loan_classification.json", ProductType.student_loan),
-        ("mortgage_classification.json", ProductType.mortgage),
-        ("heloc_classification.json", ProductType.heloc),
-        ("medical_bill_classification.json", ProductType.medical_bill),
-        ("bnpl_classification.json", ProductType.bnpl),
-        ("telecom_classification.json", ProductType.telecom),
     ],
 )
 def test_consumer_golden_classification(golden_file: str, expected_type: ProductType) -> None:

@@ -5,31 +5,48 @@ from __future__ import annotations
 from classification.schemas import ClientTaxonomy, ProductType, ProductTypeRule
 
 ACCOUNT_TYPE_LIST = (
-    "credit_card, personal_loan, auto_loan, student_loan, mortgage, heloc, "
-    "medical_bill, bnpl, telecom, or unknown if none match"
+    "credit_card, retail_installments, fintech, student_loan, lending_point, "
+    "auto_deficiency, other, or unknown if none match"
 )
 
 DEFAULT_ACCOUNT_TYPES: list[ProductTypeRule] = [
     ProductTypeRule(
         product_type=ProductType.credit_card,
         definition="Revolving consumer credit card accounts",
-        keywords=["credit card", "APR", "minimum payment", "cardmember", "credit limit"],
+        keywords=["credit card", "APR", "minimum payment", "cardmember", "credit limit", "store card"],
         issuer_patterns=[],
         example_descriptions=["Monthly credit card statement"],
     ),
     ProductTypeRule(
-        product_type=ProductType.personal_loan,
-        definition="Unsecured or general-purpose installment loans",
-        keywords=["personal loan", "installment loan", "unsecured loan", "signature loan"],
+        product_type=ProductType.retail_installments,
+        definition="Retail or merchant installment plans, including store financing and BNPL-style checkout plans",
+        keywords=[
+            "retail installment",
+            "installment plan",
+            "buy now pay later",
+            "BNPL",
+            "Affirm",
+            "Klarna",
+            "Afterpay",
+            "pay in 4",
+            "store financing",
+        ],
         issuer_patterns=[],
-        example_descriptions=["Personal loan billing statement"],
+        example_descriptions=["Retail installment contract", "BNPL payment schedule"],
     ),
     ProductTypeRule(
-        product_type=ProductType.auto_loan,
-        definition="Vehicle-secured installment loans",
-        keywords=["auto loan", "vehicle loan", "VIN", "motor vehicle", "car loan"],
-        issuer_patterns=[],
-        example_descriptions=["Auto finance statement"],
+        product_type=ProductType.fintech,
+        definition="Online / marketplace personal loans and other fintech-originated unsecured credit (excluding LendingPoint)",
+        keywords=[
+            "personal loan",
+            "fintech",
+            "online loan",
+            "marketplace lending",
+            "unsecured loan",
+            "signature loan",
+        ],
+        issuer_patterns=["LendingClub", "Prosper", "Upstart"],
+        example_descriptions=["Fintech personal loan statement"],
     ),
     ProductTypeRule(
         product_type=ProductType.student_loan,
@@ -39,76 +56,34 @@ DEFAULT_ACCOUNT_TYPES: list[ProductTypeRule] = [
         example_descriptions=["Student loan servicer notice"],
     ),
     ProductTypeRule(
-        product_type=ProductType.mortgage,
-        definition="First-lien home mortgage loans",
-        keywords=[
-            "mortgage",
-            "principal balance",
-            "escrow",
-            "deed of trust",
-            "home loan",
-            "property address",
-        ],
-        issuer_patterns=[],
-        example_descriptions=["Mortgage loan statement"],
+        product_type=ProductType.lending_point,
+        definition="Accounts originated or branded as LendingPoint",
+        keywords=["LendingPoint", "Lending Point"],
+        issuer_patterns=["LendingPoint"],
+        example_descriptions=["LendingPoint account statement"],
     ),
     ProductTypeRule(
-        product_type=ProductType.heloc,
-        definition="Home equity line of credit",
+        product_type=ProductType.auto_deficiency,
+        definition="Auto loan deficiency balances after repossession or sale of collateral",
         keywords=[
-            "HELOC",
-            "home equity line",
-            "line of credit",
-            "draw period",
-            "revolving line",
+            "auto deficiency",
+            "deficiency balance",
+            "repossession",
+            "repo",
+            "vehicle deficiency",
+            "auto loan",
+            "VIN",
+            "motor vehicle",
         ],
         issuer_patterns=[],
-        example_descriptions=["HELOC statement"],
+        example_descriptions=["Auto deficiency notice", "Post-repossession balance letter"],
     ),
     ProductTypeRule(
-        product_type=ProductType.medical_bill,
-        definition="Healthcare provider or hospital billing",
-        keywords=[
-            "medical bill",
-            "hospital",
-            "patient",
-            "provider",
-            "CPT",
-            "diagnosis",
-            "physician",
-        ],
+        product_type=ProductType.other,
+        definition="Accounts that do not fit the named firm archetypes",
+        keywords=[],
         issuer_patterns=[],
-        example_descriptions=["Hospital or clinic billing statement"],
-    ),
-    ProductTypeRule(
-        product_type=ProductType.bnpl,
-        definition="Buy now, pay later installment plans",
-        keywords=[
-            "buy now pay later",
-            "BNPL",
-            "Affirm",
-            "Klarna",
-            "Afterpay",
-            "pay in 4",
-            "installment plan",
-        ],
-        issuer_patterns=[],
-        example_descriptions=["BNPL payment schedule"],
-    ),
-    ProductTypeRule(
-        product_type=ProductType.telecom,
-        definition="Wireless, cable, or telecom service accounts",
-        keywords=[
-            "wireless",
-            "mobile",
-            "data plan",
-            "carrier",
-            "telecom",
-            "phone bill",
-            "minutes",
-        ],
-        issuer_patterns=[],
-        example_descriptions=["Wireless or cable bill"],
+        example_descriptions=["Miscellaneous consumer debt"],
     ),
 ]
 
@@ -117,7 +92,11 @@ def baseline_taxonomy(client_id: str = "baseline") -> ClientTaxonomy:
     return ClientTaxonomy(
         client_id=client_id,
         product_types=list(DEFAULT_ACCOUNT_TYPES),
-        rules=["Use document evidence to match one account type from the taxonomy."],
+        rules=[
+            "Use document evidence to match one account archetype from the taxonomy.",
+            "Prefer lending_point when LendingPoint is named as issuer/originator.",
+            "Prefer auto_deficiency over generic auto language when repossession or deficiency is present.",
+        ],
         version="baseline",
     )
 
@@ -132,7 +111,7 @@ def merge_taxonomies(client: ClientTaxonomy | None) -> ClientTaxonomy:
         rule.product_type: rule.model_copy(deep=True) for rule in base.product_types
     }
     for rule in client.product_types:
-        if rule.product_type == ProductType.unknown:
+        if rule.product_type in {ProductType.unknown}:
             continue
         existing = by_type.get(rule.product_type)
         if existing is None:

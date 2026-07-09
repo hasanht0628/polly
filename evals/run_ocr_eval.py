@@ -21,7 +21,7 @@ from pydantic_evals import Case, Dataset
 from documents.ocr import load_document_text
 from evals.court.cases import EVAL_CASES
 from evals.evaluators import RequiredPhrasesPresent
-from evals.runner_utils import _report_failed, add_snapshot_args
+from evals.runner_utils import _report_failed, add_snapshot_args, print_failure_summary
 from evals.snapshots import SnapshotWriter, assertion_summary
 
 
@@ -130,6 +130,7 @@ async def main() -> None:
         include_durations=True,
         include_reasons=True,
     )
+    print_failure_summary(report)
     if args.snapshot:
         writer = SnapshotWriter.create(
             "ocr",

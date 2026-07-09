@@ -109,6 +109,58 @@ python scripts/run_account_classification.py acme fixtures/classification/consum
 
 ---
 
+### `scripts/run_portfolio_classification.py`
+
+Batch classify accounts from a portfolio `.dat` file. Unique officer-code mappings short-circuit; ambiguous/missing cases use a tool-using PDF agent when `--docs-root` is provided.
+
+```
+python scripts/run_portfolio_classification.py --dat DAT [--docs-root DOCS]
+                                              [--codes CODES] [--client-id ID]
+                                              [--no-cache] [--pretty]
+```
+
+| Argument / flag | Description |
+|-----------------|-------------|
+| `--dat` | Portfolio `.dat` path |
+| `--docs-root` | Root with `PLMTDOCS_*/<account_id>/` PDF folders |
+| `--codes` | YAML officer→product→archetype table (default `knowledge/client_codes/default.yaml`) |
+| `--client-id` | Client id for LLM taxonomy context |
+| `--no-cache` | Ignore OCR sidecars |
+| `--pretty` | Pretty-print JSON |
+
+**Output:** `PortfolioClassificationBatch` JSON.
+
+**Example:**
+
+```bash
+python scripts/run_portfolio_classification.py \
+  --dat fixtures/portfolio/sample.dat \
+  --docs-root fixtures/portfolio/docs \
+  --pretty
+```
+
+---
+
+### `scripts/inspect_dat.py`
+
+Dump record-type counts, officer-code lengths, and sample parsed cases from a `.dat` file (for locking fixed-width offsets).
+
+```
+python scripts/inspect_dat.py DAT [--limit N] [--json]
+```
+
+---
+
+### `scripts/find_account_pdfs.py`
+
+Locate account folders/PDFs for a `.dat` case id under a docs root.
+
+```
+python scripts/find_account_pdfs.py DOCS_ROOT CASE_ID [--pretty]
+```
+
+---
+
 ### `scripts/ingest_client_manual.py`
 
 Ingest a client manual PDF → taxonomy + chunk index.

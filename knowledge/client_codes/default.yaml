@@ -1,0 +1,59 @@
+# Sample officer-code → product-code → archetype mappings.
+# Replace/extend with real client manuals. Archetype must be set explicitly;
+# undetermined / missing archetype rows force the ambiguous (LLM) path.
+
+- officer_code: VIN02
+  portfolio: "Vinci Law Firm/ JDMT"
+  legal_name: ""
+  product_code: "??"
+  product_description: Undetermined
+  archetype: null
+
+- officer_code: VIN02
+  portfolio: "Vinci Law Firm/ JDMT"
+  legal_name: ""
+  product_code: JUDG
+  product_description: Judgement
+  archetype: other
+
+- officer_code: VIN02
+  portfolio: "Vinci Law Firm/ JDMT"
+  legal_name: ""
+  product_code: LOAN
+  product_description: Personal Loans
+  archetype: fintech
+
+- officer_code: VIN02
+  portfolio: "Vinci Law Firm/ PREJDMT"
+  legal_name: ""
+  product_code: AUTO
+  product_description: Automobile
+  archetype: auto_deficiency
+
+- officer_code: LP001
+  portfolio: "LendingPoint Portfolio"
+  legal_name: LendingPoint
+  product_code: LOAN
+  product_description: LendingPoint Personal Loans
+  archetype: lending_point
+
+- officer_code: CC100
+  portfolio: "Credit Card Book"
+  legal_name: ""
+  product_code: CARD
+  product_description: Credit Cards
+  archetype: credit_card
+
+- officer_code: STU01
+  portfolio: "Student Loan Book"
+  legal_name: ""
+  product_code: STUL
+  product_description: Student Loans
+  archetype: student_loan
+
+- officer_code: RET01
+  portfolio: "Retail Installments"
+  legal_name: ""
+  product_code: RINST
+  product_description: Retail Installment Contracts
+  archetype: retail_installments

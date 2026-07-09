@@ -7,6 +7,7 @@ class WorkflowName(str, Enum):
     court_doc_scheduling = "court_doc_scheduling"
     product_classification = "product_classification"
     account_classification = "account_classification"
+    portfolio_classification = "portfolio_classification"
 
 
 TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
@@ -31,6 +32,14 @@ TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
         "extract_document",
         "map_classification",
         "format_classification_output",
+    ),
+    WorkflowName.portfolio_classification: (
+        "parse_dat",
+        "resolve_codes",
+        "locate_pdfs",
+        "ambiguous_classify",
+        "assemble_batch",
+        "format_portfolio_output",
     ),
 }
 

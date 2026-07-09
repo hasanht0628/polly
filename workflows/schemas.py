@@ -72,3 +72,35 @@ class AccountClassificationPackage(BaseModel):
     source_pdf_path: Path
     ocr_cache_path: Path | None = None
     run_id: str | None = None
+
+
+class ClassificationSource(str, Enum):
+    client_code = "client_code"
+    llm = "llm"
+    unresolved = "unresolved"
+
+
+class PortfolioAccountResult(BaseModel):
+    case_id: str
+    account_folder: Path | None = None
+    archetype: ProductType = ProductType.unknown
+    source: ClassificationSource = ClassificationSource.unresolved
+    officer_code: str = ""
+    product_codes_considered: list[str] = Field(default_factory=list)
+    confidence: str = "low"
+    needs_review: bool = True
+    evidence: list[str] = Field(default_factory=list)
+    pdf_paths: list[Path] = Field(default_factory=list)
+    tool_trace: list[str] = Field(default_factory=list)
+    plaintiff: str = ""
+    debt_amount: str = ""
+    notes: list[str] = Field(default_factory=list)
+
+
+class PortfolioClassificationBatch(BaseModel):
+    dat_path: Path
+    docs_root: Path | None = None
+    codes_path: Path | None = None
+    accounts: list[PortfolioAccountResult] = Field(default_factory=list)
+    summary: dict[str, int] = Field(default_factory=dict)
+    run_id: str | None = None
