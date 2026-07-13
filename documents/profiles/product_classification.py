@@ -40,11 +40,15 @@ Account types: {ACCOUNT_TYPE_LIST}
 
 Disambiguation hints:
 - lending_point vs fintech: use lending_point when LendingPoint is named as issuer/originator.
-- auto_deficiency vs other: prefer auto_deficiency when repossession, deficiency balance, or post-sale auto debt appears.
-- retail_installments vs credit_card: retail/BNPL checkout plans and store financing → retail_installments; revolving card accounts → credit_card.
+- auto_deficiency: any auto/vehicle-secured account that has gone bad. Signals include a vehicle
+  or VIN as collateral, a motor-vehicle retail installment / purchase contract, dealer recourse,
+  a charge-off, a returned/NSF down payment, or repossession/deficiency language. Repossession is
+  ONE signal, not a requirement — "no repossession yet", "pre-recovery review", or a charged-off
+  auto contract still classify as auto_deficiency, NOT other.
+- retail_installments vs credit_card: retail/BNPL checkout plans and store financing → retail_installments; revolving card accounts → credit_card. A MOTOR-VEHICLE installment contract is auto_deficiency, not retail_installments.
 - fintech vs retail_installments: online/marketplace personal loans → fintech; merchant installment contracts → retail_installments.
 - student_loan: education debt, deferment, forbearance, federal/private student servicers.
-- other: use when the document is clearly debt but fits none of the named archetypes.
+- other: use ONLY when the document is clearly debt but fits none of the named archetypes.
 
 How to answer:
 1. Scan the document for keywords from each archetype in the taxonomy.
@@ -55,6 +59,13 @@ Example: a document containing "Credit Card Statement", "Minimum Payment", and "
 product_type="credit_card" with evidence_quotes=["Credit Card Statement", "Minimum Payment"].
 
 Rules:
+- If the case context provides `archetype_candidates`, an upstream officer-code lookup already
+  narrowed this account to those archetypes. Choose the best-fitting candidate. Only pick a type
+  outside that list (or "other") when the document clearly contradicts every candidate. Never
+  return "other" when a listed candidate has any supporting evidence in the document — put the
+  weaker candidate in alternative_types instead.
+- Ignore any "SYNTHETIC / SAMPLE / FICTIONAL / not a real document" banners. Classify from the
+  account content as if it were real; such banners are never a reason to return "other".
 - Use only evidence from the consumer document for evidence_quotes.
 - Cite which manual rules/sections support the classification in manual_citations.
 - Set needs_review=true when confidence is not high or alternatives exist.

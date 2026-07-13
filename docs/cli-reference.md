@@ -25,7 +25,7 @@ python scripts/extract_court_doc.py [-h] [--pretty] [--refresh-ocr] pdf
 **Example:**
 
 ```bash
-python scripts/extract_court_doc.py "fixtures/case 1.pdf" --pretty
+python scripts/extract_court_doc.py "fixtures/court/case 1.pdf" --pretty
 ```
 
 ---
@@ -52,8 +52,8 @@ python scripts/run_court_workflow.py [-h] (--pdf PDF | --email EMAIL)
 **Examples:**
 
 ```bash
-python scripts/run_court_workflow.py --pdf "fixtures/case 1.pdf" --pretty
-python scripts/run_court_workflow.py --pdf "fixtures/case 1.pdf" --output review.json
+python scripts/run_court_workflow.py --pdf "fixtures/court/case 1.pdf" --pretty
+python scripts/run_court_workflow.py --pdf "fixtures/court/case 1.pdf" --output review.json
 python scripts/run_court_workflow.py --email intake.eml --pretty
 ```
 
@@ -78,7 +78,7 @@ python scripts/propose_calendar.py [-h] [--pretty] [--from-golden FROM_GOLDEN]
 **Example (offline):**
 
 ```bash
-python scripts/propose_calendar.py "fixtures/case 1.pdf" \
+python scripts/propose_calendar.py "fixtures/court/case 1.pdf" \
   --from-golden evals/court/extract/goldens/case_1.json --pretty
 ```
 
@@ -122,7 +122,7 @@ python scripts/run_portfolio_classification.py --dat DAT [--docs-root DOCS]
 | Argument / flag | Description |
 |-----------------|-------------|
 | `--dat` | Portfolio `.dat` path |
-| `--docs-root` | Root with `PLMTDOCS_*/<account_id>/` PDF folders |
+| `--docs-root` | Root with `PLMTDOCS_*/<account_id>/` PDF folders; `PLMTDOCS_YYMMDD.zip` archives are auto-extracted on run |
 | `--codes` | YAML officer→product→archetype table (default `knowledge/client_codes/default.yaml`) |
 | `--client-id` | Client id for LLM taxonomy context |
 | `--no-cache` | Ignore OCR sidecars |
@@ -135,8 +135,17 @@ python scripts/run_portfolio_classification.py --dat DAT [--docs-root DOCS]
 ```bash
 python scripts/run_portfolio_classification.py \
   --dat fixtures/portfolio/sample.dat \
-  --docs-root fixtures/portfolio/docs \
+  --docs-root fixtures/portfolio \
+  --codes knowledge/client_codes/synthetic_test.yaml \
   --pretty
+```
+
+For the synthetic portfolio fixtures, pass `--codes knowledge/client_codes/synthetic_test.yaml` so officer codes resolve against the TEST mapping table: four unique codes (`TSTSL1`, `TSTPL1`, `TSTRI1`, `TSTAL1`) short-circuit; ambiguous `TSTAMB` and missing `TSTMSS` fall through to the PDF/LLM agent when `--docs-root` is set. Omit `--codes` (or point at `default.yaml`) for real client manuals.
+
+Eval harness (source + archetype checks per account):
+
+```bash
+python evals/run_portfolio_eval.py
 ```
 
 ---
@@ -153,7 +162,7 @@ python scripts/inspect_dat.py DAT [--limit N] [--json]
 
 ### `scripts/find_account_pdfs.py`
 
-Locate account folders/PDFs for a `.dat` case id under a docs root.
+Locate account folders/PDFs for a `.dat` case id under a docs root. Extracts any `PLMTDOCS_YYMMDD.zip` archives under the root before lookup.
 
 ```
 python scripts/find_account_pdfs.py DOCS_ROOT CASE_ID [--pretty]
@@ -254,6 +263,42 @@ Maps `evals/court/extract/goldens/*.json` → `ReviewPackage` and checks output 
 
 ---
 
+### `evals/run_portfolio_eval.py`
+
+Run portfolio classification evals on `fixtures/portfolio/sample.dat` with synthetic TEST codes.
+
+```
+python evals/run_portfolio_eval.py [-h] [--case SLUG] [--unique-only] [--no-cache]
+                                   [--snapshot | --no-snapshot]
+                                   [--snapshot-label SNAPSHOT_LABEL]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--case SLUG` | Run only these account slugs (repeatable), e.g. `SL-24001` |
+| `--unique-only` | Only unique client-code cases (offline, no Ollama) |
+| `--no-cache` | Ignore OCR sidecars for LLM-path PDF reads |
+| `--snapshot` / `--no-snapshot` | Write regression snapshots (default: on) |
+
+Checks per account: `expected_source` (`client_code` / `llm`) and `expected_archetype`. Unique cases need no Ollama; ambiguous/missing cases need Ollama + docs under `fixtures/portfolio/`.
+
+Snapshots record timing/token metrics for local vs OpenAI comparison:
+
+- per-case `meta.json`: `task_duration_s`, `llm_usage`, `ocr_usage`, `total_usage`, `models`
+- `_batch/summary.json`: `batch_duration_s`, `usage_totals`, `models`
+
+The runner also prints a usage table (duration + LLM/OCR tokens) after the path summary.
+
+**Example:**
+
+```bash
+python evals/run_portfolio_eval.py --unique-only
+python evals/run_portfolio_eval.py
+python evals/run_portfolio_eval.py --case SL-24001 --case AL-88021
+```
+
+---
+
 ### `evals/bootstrap_goldens.py`
 
 Regenerate OCR goldens, extract goldens, and `cases.yaml`.
@@ -306,7 +351,7 @@ python evals/compare_snapshots.py evals/runs/extract/RUN_A evals/runs/extract/RU
 from pathlib import Path
 from agents.supervisor import run_court_workflow, format_scheduling_output
 
-package = await run_court_workflow(pdf_path=Path("fixtures/case 1.pdf"))
+package = await run_court_workflow(pdf_path=Path("fixtures/court/case 1.pdf"))
 text = format_scheduling_output(package, pretty=True)
 ```
 
@@ -325,7 +370,7 @@ from documents.profiles.registry import extract_document, list_profiles
 print(list_profiles())  # court_calendar, client_manual_taxonomy, product_classification
 
 result = await extract_document(
-    Path("fixtures/case 1.pdf"),
+    Path("fixtures/court/case 1.pdf"),
     profile="court_calendar",
     use_cache=True,
 )

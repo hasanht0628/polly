@@ -148,3 +148,40 @@ class ClassificationChecksPass(Evaluator[object, object, dict]):
                 )
 
         return EvaluationReason(value=True)
+
+
+@dataclass(repr=False)
+class PortfolioChecksPass(Evaluator[object, object, dict]):
+    """Portfolio account result must match expected source and archetype."""
+
+    evaluation_name: str | None = field(default="portfolio_checks")
+
+    def evaluate(self, ctx: EvaluatorContext[object, object, dict]) -> EvaluationReason:
+        checks: dict = ctx.metadata.get("portfolio_checks", {})
+        if not checks:
+            return EvaluationReason(value=True)
+
+        output = ctx.output
+        source = getattr(output, "source", None)
+        actual_source = source.value if hasattr(source, "value") else str(source)
+        expected_source = checks.get("expected_source")
+        if expected_source and actual_source != expected_source:
+            return EvaluationReason(
+                value=False,
+                reason=f"expected source {expected_source!r}, got {actual_source!r}",
+            )
+
+        archetype = getattr(output, "archetype", None)
+        actual_archetype = (
+            archetype.value if hasattr(archetype, "value") else str(archetype)
+        )
+        expected_archetype = checks.get("expected_archetype")
+        if expected_archetype and actual_archetype != expected_archetype:
+            return EvaluationReason(
+                value=False,
+                reason=(
+                    f"expected archetype {expected_archetype!r}, got {actual_archetype!r}"
+                ),
+            )
+
+        return EvaluationReason(value=True)

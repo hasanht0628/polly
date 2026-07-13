@@ -1,0 +1,98 @@
+# Portfolio classification eval cases derived from fixtures/portfolio/case_id_map.yaml.
+# expected_archetype uses firm ProductType values (not raw manifest account_type).
+#
+# Paths:
+#   unique     → client_code short-circuit (no LLM)
+#   ambiguous  → LLM fallback (officer code maps to multiple archetypes)
+#   missing    → LLM fallback (officer code absent from codes table)
+
+dat_path: fixtures/portfolio/sample.dat
+docs_root: fixtures/portfolio
+codes_path: knowledge/client_codes/synthetic_test.yaml
+case_map_path: fixtures/portfolio/case_id_map.yaml
+client_id: portfolio
+
+cases:
+  - slug: SL-24001
+    case_id: "000240001"
+    account_id: SL-24001
+    resolve_path: unique
+    expected_source: client_code
+    expected_archetype: student_loan
+
+  - slug: SL-24002
+    case_id: "000240002"
+    account_id: SL-24002
+    resolve_path: ambiguous
+    expected_source: llm
+    expected_archetype: student_loan
+
+  - slug: PL-55013
+    case_id: "000550013"
+    account_id: PL-55013
+    resolve_path: unique
+    expected_source: client_code
+    expected_archetype: fintech
+
+  - slug: CL-55014
+    case_id: "000550014"
+    account_id: CL-55014
+    resolve_path: ambiguous
+    expected_source: llm
+    expected_archetype: fintech
+
+  - slug: RI-73010
+    case_id: "000730010"
+    account_id: RI-73010
+    resolve_path: unique
+    expected_source: client_code
+    expected_archetype: retail_installments
+
+  - slug: RI-73011
+    case_id: "000730011"
+    account_id: RI-73011
+    resolve_path: ambiguous
+    expected_source: llm
+    expected_archetype: retail_installments
+
+  - slug: AL-88021
+    case_id: "000880021"
+    account_id: AL-88021
+    resolve_path: ambiguous
+    expected_source: llm
+    expected_archetype: auto_deficiency
+
+  - slug: AL-88022
+    case_id: "000880022"
+    account_id: AL-88022
+    resolve_path: unique
+    expected_source: client_code
+    expected_archetype: auto_deficiency
+
+  - slug: SL-24003
+    case_id: "000240003"
+    account_id: SL-24003
+    resolve_path: ambiguous
+    expected_source: llm
+    expected_archetype: student_loan
+
+  - slug: PL-55015
+    case_id: "000550015"
+    account_id: PL-55015
+    resolve_path: missing
+    expected_source: llm
+    expected_archetype: fintech
+
+  - slug: RI-73012
+    case_id: "000730012"
+    account_id: RI-73012
+    resolve_path: missing
+    expected_source: llm
+    expected_archetype: retail_installments
+
+  - slug: AL-88023
+    case_id: "000880023"
+    account_id: AL-88023
+    resolve_path: missing
+    expected_source: llm
+    expected_archetype: auto_deficiency

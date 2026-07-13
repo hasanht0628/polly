@@ -27,11 +27,11 @@ ollama pull qwen2.5:3b
 ollama pull richardyoung/olmocr2:7b-q8
 
 python scripts/check_ollama.py
-python scripts/extract_court_doc.py "fixtures/case 1.pdf" --pretty
-python scripts/run_court_workflow.py --pdf "fixtures/case 1.pdf" --pretty
+python scripts/extract_court_doc.py "fixtures/court/case 1.pdf" --pretty
+python scripts/run_court_workflow.py --pdf "fixtures/court/case 1.pdf" --pretty
 ```
 
-The first OCR run on a PDF is slow (olmocr2 per page). Results are cached as `fixtures/case 1.ocr.txt` next to the PDF.
+The first OCR run on a PDF is slow (olmocr2 per page). Results are cached as `fixtures/court/case 1.ocr.txt` next to the PDF.
 
 ## Project layout
 

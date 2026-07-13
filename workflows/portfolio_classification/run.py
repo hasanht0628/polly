@@ -14,8 +14,11 @@ from classification.client_codes import (
     resolve_officer_code,
 )
 from classification.schemas import ProductType
-from portfolio.ambiguous_agent import run_ambiguous_classification
+from agents.extract_utils import empty_usage
+from portfolio.ambiguous_agent import AmbiguousRunMetrics, run_ambiguous_classification
+from portfolio.case_aliases import load_folder_aliases
 from portfolio.dat_parser import DatCase, parse_dat_file
+from portfolio.docs_root import prepare_docs_root
 from portfolio.pdf_locator import find_account_pdfs
 from workflows.schemas import (
     ClassificationSource,
@@ -56,6 +59,9 @@ def _from_unique(
         plaintiff=case.plaintiff,
         debt_amount=case.debt_amount,
         notes=list(case.notes),
+        duration_s=0.0,
+        llm_usage=empty_usage(),
+        ocr_usage=empty_usage(),
     )
 
 
@@ -67,6 +73,7 @@ async def _from_ambiguous(
     resolve,
     client_id: str,
     use_cache: bool,
+    folder_aliases: list[str] | None = None,
 ) -> PortfolioAccountResult:
     if docs_root is None:
         return PortfolioAccountResult(
@@ -82,16 +89,45 @@ async def _from_ambiguous(
             plaintiff=case.plaintiff,
             debt_amount=case.debt_amount,
             notes=list(case.notes),
+            duration_s=0.0,
+            llm_usage=empty_usage(),
+            ocr_usage=empty_usage(),
         )
 
-    output, tool_trace, last_classification, last_locate = await run_ambiguous_classification(
-        case=case,
-        docs_root=docs_root,
-        code_rows=code_rows,
-        resolve=resolve,
-        client_id=client_id,
-        use_cache=use_cache,
-    )
+    try:
+        (
+            output,
+            tool_trace,
+            last_classification,
+            last_locate,
+            run_metrics,
+        ) = await run_ambiguous_classification(
+            case=case,
+            docs_root=docs_root,
+            code_rows=code_rows,
+            resolve=resolve,
+            client_id=client_id,
+            use_cache=use_cache,
+            folder_aliases=folder_aliases,
+        )
+    except Exception as exc:  # noqa: BLE001 - isolate one account's failure from the batch
+        return PortfolioAccountResult(
+            case_id=case.case_id,
+            archetype=ProductType.other,
+            source=ClassificationSource.unresolved,
+            officer_code=case.officer_code,
+            product_codes_considered=list(resolve.product_codes),
+            confidence="low",
+            needs_review=True,
+            evidence=list(resolve.evidence)
+            + [f"LLM fallback failed: {type(exc).__name__}: {exc}"],
+            plaintiff=case.plaintiff,
+            debt_amount=case.debt_amount,
+            notes=list(case.notes),
+            duration_s=0.0,
+            llm_usage=empty_usage(),
+            ocr_usage=empty_usage(),
+        )
 
     try:
         archetype = ProductType(output.archetype)
@@ -110,6 +146,7 @@ async def _from_ambiguous(
     if last_classification is not None:
         evidence = list(last_classification.evidence_quotes) or evidence
 
+    metrics = run_metrics or AmbiguousRunMetrics()
     return PortfolioAccountResult(
         case_id=case.case_id,
         account_folder=account_folder,
@@ -125,6 +162,9 @@ async def _from_ambiguous(
         plaintiff=case.plaintiff,
         debt_amount=case.debt_amount,
         notes=list(case.notes),
+        duration_s=metrics.duration_s,
+        llm_usage=metrics.llm_usage(),
+        ocr_usage=dict(metrics.ocr_usage),
     )
 
 
@@ -156,12 +196,20 @@ async def run_portfolio_classification(
     codes_path: Path | None = None,
     client_id: str = "portfolio",
     use_cache: bool = True,
+    folder_aliases: dict[str, list[str]] | None = None,
+    case_map_path: Path | None = None,
+    case_ids: set[str] | None = None,
     audit: AuditLog | None = None,
     run: WorkflowRun | None = None,
 ) -> PortfolioClassificationBatch:
     dat_path = Path(dat_path)
     codes_path = Path(codes_path) if codes_path else DEFAULT_CODES_PATH
     docs_root = Path(docs_root) if docs_root else None
+    if docs_root is not None and docs_root.is_dir():
+        docs_root = prepare_docs_root(docs_root)
+
+    if folder_aliases is None:
+        folder_aliases = load_folder_aliases(case_map_path)
 
     audit = audit or AuditLog()
     owns_run = run is None
@@ -178,6 +226,9 @@ async def run_portfolio_classification(
     try:
         audit.log_tool(run, "parse_dat", {"dat_path": str(dat_path)})
         cases = parse_dat(dat_path)
+        if case_ids is not None:
+            wanted = {cid.strip() for cid in case_ids}
+            cases = [case for case in cases if case.case_id in wanted]
 
         audit.log_tool(run, "resolve_codes", {"codes_path": str(codes_path), "cases": len(cases)})
         code_rows, resolved = resolve_codes(cases, codes_path=codes_path)
@@ -195,9 +246,14 @@ async def run_portfolio_classification(
                 )
                 continue
 
+            aliases = list(folder_aliases.get(case.case_id) or [])
             # Optional: still attempt locate for audit even when docs missing handled inside.
             if docs_root is not None:
-                locate = find_account_pdfs(docs_root, case.case_id)
+                locate = find_account_pdfs(
+                    docs_root,
+                    case.case_id,
+                    extra_names=aliases,
+                )
                 audit.log_tool(
                     run,
                     "locate_pdfs",
@@ -225,6 +281,7 @@ async def run_portfolio_classification(
                     resolve=resolve,
                     client_id=client_id,
                     use_cache=use_cache,
+                    folder_aliases=aliases,
                 )
             )
 

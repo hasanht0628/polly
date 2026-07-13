@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import TypeVar
+from typing import Any, TypeVar
 
 from pydantic import BaseModel
 from pydantic_ai.usage import RunUsage
@@ -17,6 +17,43 @@ OutputT = TypeVar("OutputT", bound=BaseModel)
 class RunMetrics:
     usage: RunUsage = field(default_factory=RunUsage)
     attempts: int = 0
+
+    def incr_usage(self, other: RunUsage) -> None:
+        self.usage.incr(other)
+
+    def as_dict(self) -> dict[str, int | float]:
+        return usage_summary(self)
+
+
+def usage_summary(metrics: RunMetrics) -> dict[str, int | float]:
+    usage = metrics.usage
+    return {
+        "attempts": metrics.attempts,
+        "requests": usage.requests,
+        "input_tokens": usage.input_tokens,
+        "output_tokens": usage.output_tokens,
+        "total_tokens": usage.input_tokens + usage.output_tokens,
+    }
+
+
+def empty_usage() -> dict[str, int | float]:
+    return {
+        "attempts": 0,
+        "requests": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "total_tokens": 0,
+    }
+
+
+def merge_usage(*parts: dict[str, Any]) -> dict[str, int | float]:
+    merged = empty_usage()
+    for part in parts:
+        if not part:
+            continue
+        for key in ("attempts", "requests", "input_tokens", "output_tokens", "total_tokens"):
+            merged[key] = int(merged[key]) + int(part.get(key, 0))
+    return merged
 
 
 async def run_with_retries(

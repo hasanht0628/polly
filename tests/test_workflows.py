@@ -17,7 +17,7 @@ def test_map_extraction_produces_schedulable_events() -> None:
     extraction = CaseExtraction.model_validate_json(GOLDEN.read_text(encoding="utf-8"))
     package = map_extraction_to_review_package(
         extraction,
-        pdf_path=PROJECT_ROOT / "fixtures/case 1.pdf",
+        pdf_path=PROJECT_ROOT / "fixtures/court/case 1.pdf",
     )
     assert package.case_number == "26-CC-001299"
     assert len(package.schedulable_events) >= 2

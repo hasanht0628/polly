@@ -1,6 +1,6 @@
 cases:
 - slug: case_1
-  pdf_path: fixtures\case 1.pdf
+  pdf_path: fixtures\court\case 1.pdf
   ocr_golden_path: evals\court\ocr\goldens\case_1.ocr.txt
   extract_golden_path: evals\court\extract\goldens\case_1.json
   required_phrases:
@@ -26,7 +26,7 @@ cases:
     - docket
     - exchange
 - slug: case_2
-  pdf_path: fixtures\case 2.pdf
+  pdf_path: fixtures\court\case 2.pdf
   ocr_golden_path: evals\court\ocr\goldens\case_2.ocr.txt
   extract_golden_path: evals\court\extract\goldens\case_2.json
   required_phrases:
@@ -44,7 +44,7 @@ cases:
     - defendant's
     - plaintiff's
 - slug: doc_viewer
-  pdf_path: fixtures\DocViewer.pdf
+  pdf_path: fixtures\court\DocViewer.pdf
   ocr_golden_path: evals\court\ocr\goldens\doc_viewer.ocr.txt
   extract_golden_path: evals\court\extract\goldens\doc_viewer.json
   required_phrases:

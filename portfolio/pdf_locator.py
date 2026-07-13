@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from pathlib import Path
 
 from pydantic import BaseModel, Field
@@ -30,10 +31,33 @@ def _collect_pdfs(folder: Path) -> list[Path]:
     return sorted(p for p in folder.rglob("*.pdf") if p.is_file())
 
 
-def find_account_folders(docs_root: Path, case_id: str) -> list[Path]:
-    """Return directories under docs_root whose names match the case/account id rule."""
+def _wanted_folder_names(
+    case_id: str,
+    *,
+    extra_names: Sequence[str] | None = None,
+) -> list[str]:
+    names = list(account_folder_candidates(case_id))
+    if extra_names:
+        for name in extra_names:
+            cleaned = str(name).strip()
+            if cleaned and cleaned not in names:
+                names.append(cleaned)
+    return names
+
+
+def find_account_folders(
+    docs_root: Path,
+    case_id: str,
+    *,
+    extra_names: Sequence[str] | None = None,
+) -> list[Path]:
+    """Return directories under docs_root whose names match the case/account id rule.
+
+    ``extra_names`` allows synthetic fixtures that store PDFs under manifest
+    account ids (e.g. ``SL-24001``) while the ``.dat`` case_id is numeric.
+    """
     docs_root = docs_root.resolve()
-    wanted = set(account_folder_candidates(case_id))
+    wanted = set(_wanted_folder_names(case_id, extra_names=extra_names))
     matches: list[Path] = []
 
     for path in docs_root.rglob("*"):
@@ -50,11 +74,17 @@ def find_account_folders(docs_root: Path, case_id: str) -> list[Path]:
     return sorted(matches)
 
 
-def find_account_pdfs(docs_root: Path, case_id: str) -> PdfLocateResult:
+def find_account_pdfs(
+    docs_root: Path,
+    case_id: str,
+    *,
+    extra_names: Sequence[str] | None = None,
+) -> PdfLocateResult:
     docs_root = Path(docs_root)
     case_id = case_id.strip()
-    pattern = f"folder in {account_folder_candidates(case_id)!r} under {docs_root}"
-    folders = find_account_folders(docs_root, case_id)
+    wanted = _wanted_folder_names(case_id, extra_names=extra_names)
+    pattern = f"folder in {wanted!r} under {docs_root}"
+    folders = find_account_folders(docs_root, case_id, extra_names=extra_names)
 
     if not folders:
         return PdfLocateResult(

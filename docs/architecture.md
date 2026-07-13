@@ -50,7 +50,7 @@ Call programmatically:
 from pathlib import Path
 from documents.profiles.registry import extract_document
 
-result = await extract_document(Path("fixtures/case 1.pdf"), profile="court_calendar")
+result = await extract_document(Path("fixtures/court/case 1.pdf"), profile="court_calendar")
 ```
 
 ## Court pipeline data flow

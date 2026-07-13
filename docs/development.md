@@ -72,16 +72,16 @@ Offline tests cover normalization, workflow mapping, email parsing, eval case lo
 ### Extract one PDF
 
 ```bash
-python scripts/extract_court_doc.py "fixtures/case 1.pdf" --pretty
+python scripts/extract_court_doc.py "fixtures/court/case 1.pdf" --pretty
 ```
 
-First run OCRs every page (~minutes). Subsequent runs use `fixtures/case 1.ocr.txt` unless you pass `--refresh-ocr`.
+First run OCRs every page (~minutes). Subsequent runs use `fixtures/court/case 1.ocr.txt` unless you pass `--refresh-ocr`.
 
 ### Full workflow
 
 ```bash
-python scripts/run_court_workflow.py --pdf "fixtures/case 1.pdf" --pretty
-python scripts/run_court_workflow.py --pdf "fixtures/case 1.pdf" --output review.json
+python scripts/run_court_workflow.py --pdf "fixtures/court/case 1.pdf" --pretty
+python scripts/run_court_workflow.py --pdf "fixtures/court/case 1.pdf" --output review.json
 ```
 
 ### Email intake
@@ -152,7 +152,7 @@ Restart Ollama (`ollama serve` or restart from the system tray). Common when olm
 
 1. Open `ReviewPackage.flagged_items` — each item has a `reason` explaining why it was not auto-scheduled
 2. Trace `source_quote` on events/deadlines back to OCR text in `{pdf}.ocr.txt`
-3. Compare extract output: `python scripts/extract_court_doc.py "fixtures/case 1.pdf" --pretty`
+3. Compare extract output: `python scripts/extract_court_doc.py "fixtures/court/case 1.pdf" --pretty`
 
 ### Mapper decisions
 
@@ -169,7 +169,7 @@ Supports suite names (resolves via `evals/runs/{suite}/latest.txt`) or full dire
 ### Re-run OCR from scratch
 
 ```bash
-python scripts/extract_court_doc.py "fixtures/case 1.pdf" --refresh-ocr --pretty
+python scripts/extract_court_doc.py "fixtures/court/case 1.pdf" --refresh-ocr --pretty
 ```
 
 Deletes reliance on sidecar cache for that run (overwrites `.ocr.txt`).
@@ -180,7 +180,7 @@ When moving the project to a new machine without Mac caches:
 
 **Include:** source code, fixture PDFs, `requirements.txt`, `.env.example`, `evals/court/cases.yaml`
 
-**Exclude:** `.venv/`, `fixtures/*.ocr.txt`, `evals/court/ocr/goldens/*`, `evals/court/extract/goldens/*`, `evals/runs/*`
+**Exclude:** `.venv/`, `fixtures/**/*.ocr.txt`, `evals/court/ocr/goldens/*`, `evals/court/extract/goldens/*`, `evals/runs/*`
 
 On the new machine:
 

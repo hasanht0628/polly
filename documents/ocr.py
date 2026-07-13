@@ -9,6 +9,7 @@ import fitz
 from pydantic_ai.messages import BinaryContent
 
 from agents.config import make_ocr_agent
+from agents.extract_utils import EXTRACT_MODEL_SETTINGS, RunMetrics
 
 OCR_PROMPT = "Return all text on this page in reading order. Output plain text only."
 
@@ -29,24 +30,27 @@ def _render_page_png(doc: fitz.Document, page_index: int) -> bytes:
     return pixmap.tobytes("png")
 
 
-async def _ocr_page(png_bytes: bytes) -> str:
-    ocr_agent = make_ocr_agent()
+async def _ocr_page(png_bytes: bytes, *, metrics: RunMetrics | None = None) -> str:
+    ocr_agent = make_ocr_agent(model_settings=EXTRACT_MODEL_SETTINGS)
     result = await ocr_agent.run(
         [
             OCR_PROMPT,
             BinaryContent(data=png_bytes, media_type="image/png"),
         ]
     )
+    if metrics is not None:
+        metrics.incr_usage(result.usage)
+        metrics.attempts += 1
     return str(result.output).strip()
 
 
-async def _ocr_pdf(path: Path) -> DocumentText:
+async def _ocr_pdf(path: Path, *, metrics: RunMetrics | None = None) -> DocumentText:
     page_texts: list[str] = []
     with fitz.open(path) as doc:
         page_count = doc.page_count
         for page_index in range(page_count):
             png_bytes = _render_page_png(doc, page_index)
-            page_text = await _ocr_page(png_bytes)
+            page_text = await _ocr_page(png_bytes, metrics=metrics)
             page_texts.append(page_text)
 
     combined = "\n\n".join(
@@ -67,7 +71,12 @@ def _save_cached_text(cache_path: Path, document: DocumentText) -> None:
     cache_path.write_text(document.text, encoding="utf-8")
 
 
-async def load_document_text(path: Path, *, use_cache: bool = True) -> DocumentText:
+async def load_document_text(
+    path: Path,
+    *,
+    use_cache: bool = True,
+    metrics: RunMetrics | None = None,
+) -> DocumentText:
     """Render every PDF page and OCR it with olmocr2. No native text extraction."""
     path = path.resolve()
     if not path.is_file():
@@ -79,7 +88,7 @@ async def load_document_text(path: Path, *, use_cache: bool = True) -> DocumentT
         if cached is not None:
             return cached
 
-    document = await _ocr_pdf(path)
+    document = await _ocr_pdf(path, metrics=metrics)
     if use_cache:
         _save_cached_text(cache_path, document)
     return document

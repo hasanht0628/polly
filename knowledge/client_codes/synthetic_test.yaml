@@ -1,0 +1,64 @@
+# TEST / synthetic only — officer codes for fixtures/portfolio/sample.dat.
+# Do not use in production. Prefer --codes knowledge/client_codes/synthetic_test.yaml.
+#
+# Manifest account_type → ProductType archetype:
+#   student_loan      → student_loan
+#   personal_loan     → fintech (unique) or ambiguous
+#   retail_installment → retail_installments
+#   auto_loan         → auto_deficiency
+#
+# Exactly 4 unique codes short-circuit (client-code path), one per archetype.
+# Remaining accounts use TSTAMB (ambiguous → LLM) or TSTMSS (missing → LLM).
+
+# --- unique short-circuits (4) ---
+- officer_code: TSTSL1
+  portfolio: "TEST Student Loan / SL-24001"
+  legal_name: ""
+  product_code: STUL
+  product_description: TEST_STUDENT_01 Blue Harbor
+  archetype: student_loan
+
+- officer_code: TSTPL1
+  portfolio: "TEST Personal Loan / PL-55013"
+  legal_name: ""
+  product_code: LOAN
+  product_description: TEST_FINTECH_01 Helios Consumer
+  archetype: fintech
+
+- officer_code: TSTRI1
+  portfolio: "TEST Retail Installment / RI-73010"
+  legal_name: ""
+  product_code: RINS
+  product_description: TEST_RETAIL_01 Brookfield Home Gallery
+  archetype: retail_installments
+
+- officer_code: TSTAL1
+  portfolio: "TEST Auto Deficiency / AL-88022"
+  legal_name: ""
+  product_code: AUTO
+  product_description: TEST_AUTO_01 Metroline Motors
+  archetype: auto_deficiency
+
+# TSTMSS is intentionally absent (missing → LLM path when docs_root is set).
+
+# --- ambiguous (shared by several accounts): forces LLM fallback ---
+- officer_code: TSTAMB
+  portfolio: "TEST Ambiguous Book"
+  legal_name: ""
+  product_code: "??"
+  product_description: TEST_AMBIGUOUS undetermined
+  archetype: null
+
+- officer_code: TSTAMB
+  portfolio: "TEST Ambiguous Book"
+  legal_name: ""
+  product_code: LOAN
+  product_description: TEST_AMBIGUOUS personal / fintech
+  archetype: fintech
+
+- officer_code: TSTAMB
+  portfolio: "TEST Ambiguous Book"
+  legal_name: ""
+  product_code: AUTO
+  product_description: TEST_AMBIGUOUS auto deficiency
+  archetype: auto_deficiency

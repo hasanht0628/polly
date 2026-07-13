@@ -21,7 +21,8 @@ from pydantic_evals import Case, Dataset
 
 from classification.schemas import ClientTaxonomy, ProductClassification
 from classification.taxonomy import merge_taxonomies
-from agents.extract_utils import RunMetrics
+from agents.config import active_model_names
+from agents.extract_utils import RunMetrics, usage_summary
 from documents.profiles.product_classification import classify_from_ocr_file
 from evals.classification.cases import CLASSIFICATION_CASES
 from evals.evaluators import ClassificationChecksPass
@@ -36,17 +37,6 @@ class ClassificationInput(BaseModel):
 
 
 CASE_METRICS: dict[str, dict[str, int | float]] = {}
-
-
-def _usage_summary(metrics: RunMetrics) -> dict[str, int | float]:
-    usage = metrics.usage
-    return {
-        "attempts": metrics.attempts,
-        "requests": usage.requests,
-        "input_tokens": usage.input_tokens,
-        "output_tokens": usage.output_tokens,
-        "total_tokens": usage.input_tokens + usage.output_tokens,
-    }
 
 
 def _load_taxonomy(client_id: str) -> ClientTaxonomy | None:
@@ -74,7 +64,7 @@ async def classification_task(inputs: ClassificationInput) -> ProductClassificat
         metrics=metrics,
     )
     case_name = inputs.ocr_fixture_path.name.removesuffix(".ocr.txt")
-    CASE_METRICS[case_name] = _usage_summary(metrics)
+    CASE_METRICS[case_name] = usage_summary(metrics)
     return classification
 
 
@@ -114,6 +104,7 @@ def _save_classification_snapshots(report, *, writer: SnapshotWriter) -> None:
                 "assertions": assertion_summary(case.assertions),
                 "task_duration_s": case.task_duration,
                 "llm_usage": CASE_METRICS.get(case.name, {}),
+                "models": active_model_names(),
             },
         )
         writer.record_case(
@@ -134,7 +125,12 @@ def _print_usage_summary(report) -> None:
     if not report.cases:
         return
 
+    models = active_model_names()
     print("\nUsage summary:")
+    print(
+        f"provider={models['provider']}  chat={models['chat_model']}  "
+        f"ocr={models['ocr_model']}"
+    )
     print(
         f"{'case':<14} {'status':<6} {'time_s':>7} {'in_tok':>8} {'out_tok':>8} {'total':>8} {'req':>4}"
     )

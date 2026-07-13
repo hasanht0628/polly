@@ -95,6 +95,9 @@ class PortfolioAccountResult(BaseModel):
     plaintiff: str = ""
     debt_amount: str = ""
     notes: list[str] = Field(default_factory=list)
+    duration_s: float = 0.0
+    llm_usage: dict[str, int | float] = Field(default_factory=dict)
+    ocr_usage: dict[str, int | float] = Field(default_factory=dict)
 
 
 class PortfolioClassificationBatch(BaseModel):
