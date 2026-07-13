@@ -26,7 +26,11 @@ def main() -> None:
         "--docs-root",
         type=Path,
         default=None,
-        help="Root directory containing PLMTDOCS_*/account folders",
+        help=(
+            "Root directory containing PLMTDOCS_*/account folders. "
+            "Pass the directory, not a zip; any PLMTDOCS_YYMMDD.zip inside is "
+            "auto-extracted and account folders are found recursively."
+        ),
     )
     parser.add_argument(
         "--codes",

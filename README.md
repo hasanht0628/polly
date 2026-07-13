@@ -38,11 +38,12 @@ The first OCR run on a PDF is slow (olmocr2 per page). Results are cached as `fi
 | Directory | Purpose |
 |-----------|---------|
 | [`court/`](court/) | Court extraction, normalization, schemas |
-| [`workflows/`](workflows/) | Court calendar pipeline, account classification, email intake |
+| [`workflows/`](workflows/) | Court calendar pipeline, account classification, portfolio classification, email intake |
 | [`documents/`](documents/) | Shared OCR, ingest, PDF download, extract profile registry |
 | [`agents/`](agents/) | LLM config, extract helpers, supervisor, audit log, tool registry |
-| [`knowledge/`](knowledge/) | Client manual storage and retrieval |
-| [`classification/`](classification/) | Product classification schemas |
+| [`knowledge/`](knowledge/) | Client manual and officer-code storage and retrieval |
+| [`classification/`](classification/) | Classification schemas, baseline taxonomy, officer-code resolution |
+| [`portfolio/`](portfolio/) | Portfolio `.dat` parsing, PDF location, ambiguous-case agent |
 | [`evals/`](evals/) | Eval harness, goldens, regression snapshots |
 | [`scripts/`](scripts/) | CLI entry points |
 | [`tests/`](tests/) | Pytest suite (mostly offline) |

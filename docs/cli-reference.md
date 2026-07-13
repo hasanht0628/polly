@@ -122,7 +122,7 @@ python scripts/run_portfolio_classification.py --dat DAT [--docs-root DOCS]
 | Argument / flag | Description |
 |-----------------|-------------|
 | `--dat` | Portfolio `.dat` path |
-| `--docs-root` | Root with `PLMTDOCS_*/<account_id>/` PDF folders; `PLMTDOCS_YYMMDD.zip` archives are auto-extracted on run |
+| `--docs-root` | Root **directory** with `PLMTDOCS_*/<account_id>/` PDF folders (pass the directory, not a zip). Any `PLMTDOCS_YYMMDD.zip` inside is auto-extracted on run, and account folders are located recursively |
 | `--codes` | YAML officer→product→archetype table (default `knowledge/client_codes/default.yaml`) |
 | `--client-id` | Client id for LLM taxonomy context |
 | `--no-cache` | Ignore OCR sidecars |
@@ -358,6 +358,19 @@ python evals/run_portfolio_eval.py --case SL-24001 --case AL-88021
 
 ---
 
+### `evals/run_classification_eval.py`
+
+Run account classification evals on golden OCR text (isolates classifier quality from OCR).
+
+```
+python evals/run_classification_eval.py [-h] [--snapshot | --no-snapshot]
+                                        [--snapshot-label SNAPSHOT_LABEL]
+```
+
+Requires Ollama with `OLLAMA_MODEL` (qwen). Uses `evals/classification/` golden OCR fixtures. Checks each case against its expected archetype and review signals.
+
+---
+
 ### `evals/bootstrap_goldens.py`
 
 Regenerate OCR goldens, extract goldens, and `cases.yaml`.
@@ -376,6 +389,21 @@ python evals/bootstrap_goldens.py [-h] [--extract-only]
 python evals/bootstrap_goldens.py
 python evals/bootstrap_goldens.py --extract-only
 ```
+
+---
+
+### `evals/bootstrap_classification_goldens.py`
+
+Regenerate classification OCR goldens, classification goldens, and `cases.yaml` from the classification manifest.
+
+```
+python evals/bootstrap_classification_goldens.py [-h] [--ocr] [--skip-classify]
+```
+
+| Flag | Description |
+|------|-------------|
+| `--ocr` | Run live olmocr2 OCR instead of embedded PDF text (slow) |
+| `--skip-classify` | Only write OCR goldens; do not run the classification LLM |
 
 ---
 

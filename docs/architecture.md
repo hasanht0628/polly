@@ -20,6 +20,8 @@ flowchart TB
     courtRun[workflows/court_calendar/run.py]
     emailParse[workflows/intake/email_parser.py]
     mapper[workflows/court_calendar/map_extraction.py]
+    acctRun[workflows/account_classification/run.py]
+    portRun[workflows/portfolio_classification/run.py]
   end
   layer1 --> layer2
   layer2 --> layer3
@@ -32,7 +34,7 @@ flowchart TB
 |-------|-----------|------|
 | Ingest | [`documents/text.py`](../documents/text.py), [`documents/download.py`](../documents/download.py) | Load PDF text (OCR or native), download PDFs from URLs into `data/downloads/` |
 | Extract profiles | [`documents/profiles/registry.py`](../documents/profiles/registry.py) | Route a PDF to the right extraction logic by profile name |
-| Workflows | [`workflows/court_calendar/`](../workflows/court_calendar/), [`workflows/intake/email_parser.py`](../workflows/intake/email_parser.py) | Orchestrate ingest → extract → map → output |
+| Workflows | [`workflows/court_calendar/`](../workflows/court_calendar/), [`workflows/account_classification/`](../workflows/account_classification/), [`workflows/portfolio_classification/`](../workflows/portfolio_classification/), [`workflows/intake/email_parser.py`](../workflows/intake/email_parser.py) | Orchestrate ingest → extract → map → output |
 
 ### Extract profiles
 

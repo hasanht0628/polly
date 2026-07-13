@@ -100,6 +100,8 @@ Full details in [`evals/README.md`](../evals/README.md). Summary:
 | Proposal | `evals/run_proposal_eval.py` | No | Golden extract JSON |
 | Extract | `evals/run_extract_eval.py` | Yes (qwen) | Golden OCR text |
 | OCR | `evals/run_ocr_eval.py` | Yes (olmocr2) | Live PDF |
+| Classification | `evals/run_classification_eval.py` | Yes (qwen) | Golden OCR text |
+| Portfolio | `evals/run_portfolio_eval.py` | Only ambiguous/missing cases | `.dat` + synthetic codes |
 
 ### Checklist vs golden equality
 
@@ -210,5 +212,7 @@ On the new machine:
 | [`tests/test_eval_snapshots.py`](../tests/test_eval_snapshots.py) | Snapshot writer and compare |
 | [`tests/test_platform.py`](../tests/test_platform.py) | Profile registry, audit log, manual store |
 | [`tests/test_classification_offline.py`](../tests/test_classification_offline.py) | Classification fixtures |
+| [`tests/test_account_classification_workflow.py`](../tests/test_account_classification_workflow.py) | Account classification workflow (mocked LLM) |
+| [`tests/test_portfolio_offline.py`](../tests/test_portfolio_offline.py) | Portfolio `.dat` parsing, officer-code resolution |
 
 Run from project root: `pytest tests/ -q`
