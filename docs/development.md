@@ -37,6 +37,7 @@ cp .env.example .env
 | `OLLAMA_BASE_URL` | Ollama OpenAI-compatible API | `http://localhost:11434/v1` |
 | `OLLAMA_MODEL` | Structured extraction (qwen) | `qwen2.5:7b` |
 | `OLLAMA_MODEL_OCR` | Page OCR (olmocr2) | `richardyoung/olmocr2:7b-q8` |
+| `OLLAMA_TIMEOUT_S` | Max seconds per local model call (raise for slow CPU / bigger models) | `1200` |
 | `USE_OPENAI` | Temporary switch: all agents use OpenAI | `false` |
 | `OPENAI_API_KEY` | Required when `USE_OPENAI=true` | — |
 | `OPENAI_MODEL` | OpenAI extract / classify model | `gpt-4o-mini` |
@@ -157,6 +158,15 @@ Restart Ollama (`ollama serve` or restart from the system tray). Common when olm
 ### Mapper decisions
 
 Read [`workflows/court_calendar/map_extraction.py`](../workflows/court_calendar/map_extraction.py). Events need both `date` and `time` to become `SchedulableEvent`. Relative deadlines always go to `flagged_items`.
+
+### Portfolio / classification accuracy (offline)
+
+Two scripts give a fast feedback loop for the local-LLM portfolio path without the full eval:
+
+- **Wrong archetype?** — [`scripts/debug_classify.py`](../scripts/debug_classify.py) feeds one document straight to the classifier (seconds, not the ~11 min agent loop). Point it at a cached `.ocr.txt` (`--ocr`) or a PDF (`--pdf`), and bias with `--candidates auto_deficiency,fintech`. Tune the prompt in [`documents/profiles/product_classification.py`](../documents/profiles/product_classification.py).
+- **Not calling tools / reading the wrong PDF?** — [`scripts/debug_ambiguous_agent.py`](../scripts/debug_ambiguous_agent.py) runs one case of the tool-using agent and prints each tool call, what it returned, timings, and the final classification. Tune the prompt/tools in [`portfolio/ambiguous_agent.py`](../portfolio/ambiguous_agent.py). Run with `python -u` for live output.
+
+If a single account's LLM call fails or times out, the batch no longer aborts: that account is returned `needs_review` with the error in its evidence (see `_from_ambiguous` in [`workflows/portfolio_classification/run.py`](../workflows/portfolio_classification/run.py)).
 
 ### Regression comparison
 

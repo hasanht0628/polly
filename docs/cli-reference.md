@@ -170,6 +170,65 @@ python scripts/find_account_pdfs.py DOCS_ROOT CASE_ID [--pretty]
 
 ---
 
+### `scripts/debug_classify.py`
+
+Isolated single-call test of the archetype classifier (offline, local Ollama). The fast way to debug *accuracy* without the full agentic loop: feeds one document's text straight to `classify_document_text` and prints the result + token usage.
+
+```
+python scripts/debug_classify.py (--ocr OCR | --pdf PDF) [--client-id ID]
+                                 [--candidates LIST] [--officer-code CODE]
+                                 [--plaintiff P] [--notes N] [--no-cache]
+```
+
+| Argument / flag | Description |
+|-----------------|-------------|
+| `--ocr` | Path to a `.ocr.txt` / plain-text document (mutually exclusive with `--pdf`) |
+| `--pdf` | Path to a PDF (OCR'd, honoring the `.ocr.txt` cache) |
+| `--client-id` | Client id for taxonomy context (default `portfolio`) |
+| `--candidates` | Comma-separated `archetype_candidates` to bias the classifier, e.g. `auto_deficiency,fintech` |
+| `--officer-code` / `--plaintiff` / `--notes` | Optional case context added to the prompt |
+| `--no-cache` | Force live OCR for `--pdf` |
+
+**Example:**
+
+```bash
+python -u scripts/debug_classify.py \
+  --ocr data/docs_root/ACME/ACME_statement.ocr.txt \
+  --candidates auto_deficiency,fintech
+```
+
+---
+
+### `scripts/debug_ambiguous_agent.py`
+
+Instrumented single-case run of the ambiguous portfolio agent (offline, local Ollama). Shows step by step whether the model calls tools, what each tool returned, where time is spent, and the final classification. Use it to debug the agentic PDF path on real portfolio data.
+
+```
+python scripts/debug_ambiguous_agent.py [--case-id ID] [--dat DAT] [--docs DOCS]
+                                        [--codes CODES] [--case-map MAP]
+                                        [--client-id ID] [--no-cache] [--clip N]
+```
+
+| Argument / flag | Description |
+|-----------------|-------------|
+| `--case-id` | 9-char case id from the `.dat` file (default `000880021`) |
+| `--dat` | Portfolio `.dat` path (default synthetic fixture) |
+| `--docs` | Docs root with account folders (default `fixtures/portfolio`) |
+| `--codes` | Officer-code YAML (default `knowledge/client_codes/synthetic_test.yaml`) |
+| `--case-map` | Optional `case_id` → account-folder alias map |
+| `--no-cache` | Force live OCR (ignore `.ocr.txt` sidecars) |
+| `--clip` | Max chars printed per tool result (default 300) |
+
+**Example (real data):**
+
+```bash
+python -u scripts/debug_ambiguous_agent.py \
+  --dat data/portfolio.dat --docs data/docs_root \
+  --codes knowledge/client_codes/default.yaml --case-id 000123456
+```
+
+---
+
 ### `scripts/ingest_client_manual.py`
 
 Ingest a client manual PDF → taxonomy + chunk index.
