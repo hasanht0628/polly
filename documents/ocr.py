@@ -30,6 +30,15 @@ def _render_page_png(doc: fitz.Document, page_index: int) -> bytes:
     return pixmap.tobytes("png")
 
 
+def render_page_png(path: Path, page_index: int) -> bytes:
+    """Render a 0-based PDF page to PNG bytes (shared by OCR and redaction locate)."""
+    path = path.resolve()
+    with fitz.open(path) as doc:
+        if page_index < 0 or page_index >= doc.page_count:
+            raise IndexError(f"page_index {page_index} out of range for {path}")
+        return _render_page_png(doc, page_index)
+
+
 async def _ocr_page(png_bytes: bytes, *, metrics: RunMetrics | None = None) -> str:
     ocr_agent = make_ocr_agent(model_settings=EXTRACT_MODEL_SETTINGS)
     result = await ocr_agent.run(

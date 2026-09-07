@@ -1,0 +1,12 @@
+cases:
+  - slug: synthetic_consumer
+    pdf_path: evals/redaction/fixtures/synthetic_consumer.pdf
+    forbidden_phrases:
+      - Jane Q. Public
+      - "123-45-6789"
+      - 742 Evergreen
+    min_entities: 3
+    expected_entity_types:
+      - name
+      - ssn
+      - address

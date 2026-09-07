@@ -15,6 +15,11 @@ COURT_FIXTURES_DIR = FIXTURES_DIR / "court"
 CASES_YAML = COURT_DIR / "cases.yaml"
 
 
+def repo_path(rel: str | Path) -> Path:
+    """Resolve a repo-relative path; normalize Windows separators from YAML."""
+    return PROJECT_ROOT / Path(str(rel).replace("\\", "/"))
+
+
 @dataclass(frozen=True)
 class EvalCase:
     slug: str
@@ -28,9 +33,9 @@ class EvalCase:
 def _case_from_dict(entry: dict) -> EvalCase:
     return EvalCase(
         slug=entry["slug"],
-        pdf_path=PROJECT_ROOT / entry["pdf_path"],
-        ocr_golden_path=PROJECT_ROOT / entry["ocr_golden_path"],
-        extract_golden_path=PROJECT_ROOT / entry["extract_golden_path"],
+        pdf_path=repo_path(entry["pdf_path"]),
+        ocr_golden_path=repo_path(entry["ocr_golden_path"]),
+        extract_golden_path=repo_path(entry["extract_golden_path"]),
         required_phrases=tuple(entry.get("required_phrases", [])),
         extract_checks=entry.get("extract_checks", {}),
     )

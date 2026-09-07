@@ -7,7 +7,11 @@ from pathlib import Path
 from classification.schemas import ManualCitation, ProductClassification, ProductType
 from court.schemas import CaseExtraction
 from pydantic import BaseModel, Field
-
+from redaction.schemas import (
+    RedactionBatch,
+    RedactionDocumentResult,
+    RedactionEntitySummary,
+)
 
 class EventKind(str, Enum):
     hearing = "hearing"
@@ -107,3 +111,21 @@ class PortfolioClassificationBatch(BaseModel):
     accounts: list[PortfolioAccountResult] = Field(default_factory=list)
     summary: dict[str, int] = Field(default_factory=dict)
     run_id: str | None = None
+
+
+__all__ = [
+    "AccountClassificationPackage",
+    "ClassificationSource",
+    "EventKind",
+    "FlaggedItem",
+    "IntakeEmail",
+    "PortfolioAccountResult",
+    "PortfolioClassificationBatch",
+    "ProductClassification",
+    "ProductType",
+    "RedactionBatch",
+    "RedactionDocumentResult",
+    "RedactionEntitySummary",
+    "ReviewPackage",
+    "SchedulableEvent",
+]

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from pydantic_evals.evaluators import Evaluator, EvaluatorContext, EvaluationReason
 
@@ -183,5 +184,80 @@ class PortfolioChecksPass(Evaluator[object, object, dict]):
                     f"expected archetype {expected_archetype!r}, got {actual_archetype!r}"
                 ),
             )
+
+        return EvaluationReason(value=True)
+
+
+@dataclass(repr=False)
+class RedactionChecksPass(Evaluator[object, object, dict]):
+    """Redacted PDF must exist, drop forbidden phrases, and meet entity checks."""
+
+    evaluation_name: str | None = field(default="redaction_checks")
+
+    def evaluate(self, ctx: EvaluatorContext[object, object, dict]) -> EvaluationReason:
+        import fitz
+
+        checks: dict = ctx.metadata.get("redaction_checks", {})
+        if not checks:
+            return EvaluationReason(value=True)
+
+        output = ctx.output
+        error = getattr(output, "error", None)
+        if error:
+            return EvaluationReason(value=False, reason=f"redaction failed: {error}")
+
+        output_pdf = getattr(output, "output_pdf_path", None)
+        if output_pdf is None or not Path(output_pdf).is_file():
+            return EvaluationReason(value=False, reason="missing output_pdf_path")
+
+        source_pdf = getattr(output, "source_pdf_path", None)
+        if source_pdf is not None:
+            with fitz.open(source_pdf) as src, fitz.open(output_pdf) as out:
+                if src.page_count != out.page_count:
+                    return EvaluationReason(
+                        value=False,
+                        reason=(
+                            f"page_count mismatch: source={src.page_count} "
+                            f"output={out.page_count}"
+                        ),
+                    )
+                redacted_text = "\n".join(
+                    out.load_page(i).get_text() for i in range(out.page_count)
+                )
+        else:
+            with fitz.open(output_pdf) as out:
+                redacted_text = "\n".join(
+                    out.load_page(i).get_text() for i in range(out.page_count)
+                )
+
+        for phrase in checks.get("forbidden_phrases", []):
+            if _phrase_present(phrase, redacted_text):
+                return EvaluationReason(
+                    value=False,
+                    reason=f"forbidden phrase still present: {phrase!r}",
+                )
+
+        entities = getattr(output, "entities", []) or []
+        min_entities = checks.get("min_entities")
+        if min_entities is not None and len(entities) < int(min_entities):
+            return EvaluationReason(
+                value=False,
+                reason=f"expected at least {min_entities} entities, got {len(entities)}",
+            )
+
+        expected_types = checks.get("expected_entity_types") or []
+        if expected_types:
+            actual_types = {
+                e.entity_type.value
+                if hasattr(e.entity_type, "value")
+                else str(e.entity_type)
+                for e in entities
+            }
+            missing = [t for t in expected_types if t not in actual_types]
+            if missing:
+                return EvaluationReason(
+                    value=False,
+                    reason=f"missing entity types: {missing}; got {sorted(actual_types)}",
+                )
 
         return EvaluationReason(value=True)

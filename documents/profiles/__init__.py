@@ -1,3 +1,8 @@
-from documents.profiles.registry import extract_document, register_profile
+"""Extract profile package.
 
-__all__ = ["extract_document", "register_profile"]
+Import ``documents.profiles.registry`` directly when you need ``extract_document``.
+"""
+
+from __future__ import annotations
+
+__all__: list[str] = []

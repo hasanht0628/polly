@@ -8,6 +8,7 @@ class WorkflowName(str, Enum):
     product_classification = "product_classification"
     account_classification = "account_classification"
     portfolio_classification = "portfolio_classification"
+    redaction = "redaction"
 
 
 TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
@@ -40,6 +41,14 @@ TOOL_SETS: dict[WorkflowName, tuple[str, ...]] = {
         "ambiguous_classify",
         "assemble_batch",
         "format_portfolio_output",
+    ),
+    WorkflowName.redaction: (
+        "load_document_text",
+        "detect_pii",
+        "locate_rects",
+        "apply_redactions",
+        "assemble_batch",
+        "format_redaction_output",
     ),
 }
 

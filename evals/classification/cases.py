@@ -25,16 +25,21 @@ class ClassificationEvalCase:
     classification_golden_path: Path | None = None
 
 
+def _repo_path(rel: str | Path) -> Path:
+    """Resolve a repo-relative path; normalize Windows separators from YAML."""
+    return PROJECT_ROOT / Path(str(rel).replace("\\", "/"))
+
+
 def _case_from_item(item: dict) -> ClassificationEvalCase:
     ocr_key = "ocr_fixture" if "ocr_fixture" in item else "ocr_golden_path"
-    ocr_fixture = PROJECT_ROOT / str(item[ocr_key])
+    ocr_fixture = _repo_path(item[ocr_key])
     pdf_path = (
-        PROJECT_ROOT / str(item["pdf_path"])
+        _repo_path(item["pdf_path"])
         if item.get("pdf_path")
-        else (PROJECT_ROOT / str(item["pdf"]) if item.get("pdf") else None)
+        else (_repo_path(item["pdf"]) if item.get("pdf") else None)
     )
     golden_path = (
-        PROJECT_ROOT / str(item["classification_golden_path"])
+        _repo_path(item["classification_golden_path"])
         if item.get("classification_golden_path")
         else None
     )

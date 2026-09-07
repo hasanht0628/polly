@@ -28,6 +28,10 @@ evals/classification/goldens/*
 !evals/classification/goldens/.gitkeep
 evals/classification/last_eval_run.txt
 
+# Legacy golden locations (pre court/ layout) — do not reintroduce
+evals/ocr/
+evals/extract/
+
 # Eval regression snapshots (local only)
 evals/runs/*
 !evals/runs/.gitignore

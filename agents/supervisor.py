@@ -17,9 +17,11 @@ from workflows.portfolio_classification.run import (
     format_portfolio_output,
     run_portfolio_classification,
 )
+from workflows.redaction.run import format_redaction_output, run_redaction
 from workflows.schemas import (
     AccountClassificationPackage,
     PortfolioClassificationBatch,
+    RedactionBatch,
     ReviewPackage,
 )
 
@@ -69,9 +71,23 @@ async def run_portfolio_classification_workflow(
     )
 
 
+async def run_redaction_workflow(
+    path: Path | list[Path],
+    *,
+    use_cache: bool = True,
+    out_dir: Path | None = None,
+) -> RedactionBatch:
+    return await run_redaction(
+        path,
+        use_cache=use_cache,
+        out_dir=out_dir,
+    )
+
+
 __all__ = [
     "format_classification_output",
     "format_portfolio_output",
+    "format_redaction_output",
     "format_scheduling_output",
     "run_account_classification_from_pdf",
     "run_account_classification_workflow",
@@ -80,4 +96,6 @@ __all__ = [
     "run_court_workflow_from_pdf",
     "run_portfolio_classification",
     "run_portfolio_classification_workflow",
+    "run_redaction",
+    "run_redaction_workflow",
 ]

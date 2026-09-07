@@ -119,9 +119,11 @@ async def bootstrap_case(eval_case: EvalCase, *, skip_ocr: bool = False) -> dict
     checks = _derive_extract_checks(extraction_dict)
     return {
         "slug": eval_case.slug,
-        "pdf_path": str(eval_case.pdf_path.relative_to(PROJECT_ROOT)),
-        "ocr_golden_path": str(eval_case.ocr_golden_path.relative_to(PROJECT_ROOT)),
-        "extract_golden_path": str(eval_case.extract_golden_path.relative_to(PROJECT_ROOT)),
+        "pdf_path": eval_case.pdf_path.relative_to(PROJECT_ROOT).as_posix(),
+        "ocr_golden_path": eval_case.ocr_golden_path.relative_to(PROJECT_ROOT).as_posix(),
+        "extract_golden_path": eval_case.extract_golden_path.relative_to(
+            PROJECT_ROOT
+        ).as_posix(),
         "required_phrases": list(phrases),
         "extract_checks": checks,
     }
